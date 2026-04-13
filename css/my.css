@@ -1,0 +1,251 @@
+/* Here is your custom css styles. */
+
+/* Code blocks: macOS-style dark editor window. */
+#articleContent .code-area {
+  position: relative !important;
+  margin: 1.5rem 0;
+  padding-top: 38px;
+  overflow: hidden;
+  border-radius: 6px;
+  background: #282c34;
+  box-shadow: 0 10px 28px rgba(0, 0, 0, .16);
+}
+
+#articleContent .code-area::after {
+  content: "";
+  position: absolute;
+  top: 14px;
+  left: 18px;
+  width: 12px;
+  height: 12px;
+  margin: 0;
+  border-radius: 50%;
+  background: #ff5f57;
+  box-shadow: 20px 0 0 #ffbd2e, 40px 0 0 #28c840;
+  z-index: 2;
+}
+
+#articleContent .code-area .code_lang {
+  display: none;
+}
+
+#articleContent .code-area .code_copy,
+#articleContent .code-area .code-expand {
+  position: absolute;
+  top: 11px;
+  z-index: 3 !important;
+  padding: 0;
+  color: rgba(255, 255, 255, .42);
+  filter: none;
+  font-size: 15px;
+  line-height: 18px;
+  cursor: pointer;
+  transition: color .2s ease, transform .2s ease;
+}
+
+#articleContent .code-area .code_copy {
+  right: 36px;
+}
+
+#articleContent .code-area .code-expand {
+  right: 14px;
+  transform: rotate(0deg);
+}
+
+#articleContent .code-area .code_copy:hover,
+#articleContent .code-area .code-expand:hover {
+  color: rgba(255, 255, 255, .74);
+}
+
+#articleContent .code-area.code-closed .code-expand {
+  transform: rotate(-180deg) !important;
+}
+
+#articleContent .code-area.code-closed {
+  min-height: 38px;
+}
+
+#articleContent .codecopy_notice {
+  position: absolute;
+  top: 8px;
+  right: 64px;
+  z-index: 3;
+  padding: 2px 7px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, .35);
+  color: rgba(255, 255, 255, .78);
+  filter: none;
+  font-size: 12px;
+  line-height: 18px;
+  opacity: 0;
+}
+
+#articleContent figure.highlight {
+  margin: 0;
+  overflow-x: auto;
+  border: 0;
+  background: #282c34;
+  color: #abb2bf;
+}
+
+#articleContent figure.highlight table,
+#articleContent figure.highlight tbody,
+#articleContent figure.highlight tr,
+#articleContent figure.highlight td {
+  margin: 0;
+  border: 0;
+  background: transparent;
+}
+
+#articleContent figure.highlight table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+#articleContent figure.highlight td.gutter {
+  display: none;
+}
+
+#articleContent figure.highlight td.code {
+  width: 100%;
+  padding: 0;
+}
+
+#articleContent figure.highlight pre,
+#articleContent .code-area > pre {
+  margin: 0;
+  border: 0;
+  background: #282c34 !important;
+  color: #abb2bf;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+  font-size: 15px;
+  line-height: 1.65;
+  tab-size: 4;
+  white-space: pre;
+}
+
+#articleContent figure.highlight td.code pre,
+#articleContent .code-area > pre {
+  padding: 0 1.8rem 1.35rem !important;
+}
+
+#articleContent figure.highlight .line {
+  min-height: 1.65em;
+}
+
+#articleContent figure.highlight span {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  line-height: inherit;
+  letter-spacing: 0;
+}
+
+#articleContent figure.highlight .title,
+#articleContent figure.highlight .class_,
+#articleContent figure.highlight .function_,
+#articleContent figure.highlight .params {
+  display: inline;
+  font-size: inherit;
+  font-weight: inherit;
+  margin: 0;
+}
+
+#articleContent figure.highlight .comment,
+#articleContent figure.highlight .quote {
+  color: #7f848e;
+}
+
+#articleContent figure.highlight .keyword,
+#articleContent figure.highlight .selector-tag,
+#articleContent figure.highlight .subst {
+  color: #c678dd;
+}
+
+#articleContent figure.highlight .number,
+#articleContent figure.highlight .literal,
+#articleContent figure.highlight .variable,
+#articleContent figure.highlight .template-variable,
+#articleContent figure.highlight .tag .attr {
+  color: #d19a66;
+}
+
+#articleContent figure.highlight .string,
+#articleContent figure.highlight .doctag,
+#articleContent figure.highlight .regexp {
+  color: #98c379;
+}
+
+#articleContent figure.highlight .title,
+#articleContent figure.highlight .section,
+#articleContent figure.highlight .selector-id,
+#articleContent figure.highlight .class .title,
+#articleContent figure.highlight .function .title {
+  color: #e5c07b;
+}
+
+#articleContent figure.highlight .type,
+#articleContent figure.highlight .class,
+#articleContent figure.highlight .built_in,
+#articleContent figure.highlight .builtin-name {
+  color: #e5c07b;
+}
+
+#articleContent figure.highlight .attribute,
+#articleContent figure.highlight .attr,
+#articleContent figure.highlight .name,
+#articleContent figure.highlight .meta,
+#articleContent figure.highlight .symbol,
+#articleContent figure.highlight .bullet,
+#articleContent figure.highlight .link {
+  color: #e06c75;
+}
+
+#articleContent figure.highlight .params,
+#articleContent figure.highlight .operator,
+#articleContent figure.highlight .punctuation {
+  color: #abb2bf;
+}
+
+#articleContent figure.highlight.xml .tag,
+#articleContent figure.highlight.html .tag {
+  color: #abb2bf;
+}
+
+#articleContent figure.highlight.xml .name,
+#articleContent figure.highlight.html .name {
+  color: #e06c75;
+}
+
+#articleContent figure.highlight.xml .attr,
+#articleContent figure.highlight.xml .attribute,
+#articleContent figure.highlight.html .attr,
+#articleContent figure.highlight.html .attribute {
+  color: #d19a66;
+}
+
+#articleContent p code,
+#articleContent li code,
+#articleContent td code {
+  color: #c7254e;
+  background: rgba(199, 37, 78, .08);
+}
+
+@media only screen and (max-width: 600px) {
+  #articleContent .code-area {
+    margin: 1.2rem -2px;
+  }
+
+  #articleContent figure.highlight pre,
+  #articleContent .code-area > pre {
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  #articleContent figure.highlight td.code pre,
+  #articleContent .code-area > pre {
+    padding: 0 1rem 1.1rem !important;
+  }
+}

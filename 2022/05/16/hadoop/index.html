@@ -1,0 +1,1589 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="hadoop 大数据集群的搭建以及使用, 成大事">
+    <meta name="description" content="1.hadoop集群搭建及使用(1).集群规划；
+(2).虚拟机准备；1、创建虚拟机（具体步骤不再展示）；
+2 、配置网络；ping外网：ping baidu.com
+如果ping不通修改如下文件：
+1vi /etc/sysconfig/n">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>hadoop 大数据集群的搭建以及使用 | 成大事</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="成大事" type="application/atom+xml">
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">成大事</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">成大事</div>
+        <div class="logo-desc">
+            
+            成大事
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/chengdashia" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/chengdashia" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/23.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">hadoop 大数据集群的搭建以及使用</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/hadoop/">
+                                <span class="chip bg-color">hadoop</span>
+                            </a>
+                        
+                            <a href="/tags/zookeeper/">
+                                <span class="chip bg-color">zookeeper</span>
+                            </a>
+                        
+                            <a href="/tags/kafka/">
+                                <span class="chip bg-color">kafka</span>
+                            </a>
+                        
+                            <a href="/tags/hbase/">
+                                <span class="chip bg-color">hbase</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/hadoop/" class="post-category">
+                                hadoop
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2022-05-16
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.4k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    21 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <h1 id="1-hadoop集群搭建及使用"><a href="#1-hadoop集群搭建及使用" class="headerlink" title="1.hadoop集群搭建及使用"></a>1.hadoop集群搭建及使用</h1><h2 id="1-集群规划；"><a href="#1-集群规划；" class="headerlink" title="(1).集群规划；"></a>(1).集群规划；</h2><p><img src="/2022/05/16/hadoop/image-20220516121650308.png" alt="image-20220516121650308"></p>
+<h2 id="2-虚拟机准备；"><a href="#2-虚拟机准备；" class="headerlink" title="(2).虚拟机准备；"></a>(2).虚拟机准备；</h2><h3 id="1、创建虚拟机（具体步骤不再展示）；"><a href="#1、创建虚拟机（具体步骤不再展示）；" class="headerlink" title="1、创建虚拟机（具体步骤不再展示）；"></a>1、创建虚拟机（具体步骤不再展示）；</h3><p><img src="/2022/05/16/hadoop/image-20220516121741768.png" alt="image-20220516121741768"></p>
+<h3 id="2-、配置网络；"><a href="#2-、配置网络；" class="headerlink" title="2 、配置网络；"></a>2 、配置网络；</h3><h4 id="ping外网：ping-baidu-com"><a href="#ping外网：ping-baidu-com" class="headerlink" title="ping外网：ping baidu.com"></a>ping外网：ping baidu.com</h4><p><img src="/2022/05/16/hadoop/image-20220516121747924.png" alt="image-20220516121747924"></p>
+<h4 id="如果ping不通"><a href="#如果ping不通" class="headerlink" title="如果ping不通"></a>如果ping不通</h4><p>修改如下文件：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121754932.png" alt="image-20220516121754932"></p>
+<h4 id="重启网络服务："><a href="#重启网络服务：" class="headerlink" title="重启网络服务："></a>重启网络服务：</h4><p>service network restart</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121802380.png" alt="image-20220516121802380"></p>
+<h4 id="配置静态IP："><a href="#配置静态IP：" class="headerlink" title="配置静态IP："></a>配置静态IP：</h4><p>打开VMware-&gt;编辑-&gt;虚拟机网络编辑器</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121810372.png" alt="image-20220516121810372"> <img src="/2022/05/16/hadoop/image-20220516121816889.png" alt="image-20220516121816889"> <img src="/2022/05/16/hadoop/image-20220516121824390.png" alt="image-20220516121824390"></p>
+<p>查看IP：ip addr</p>
+<p><img src="/2022/05/16/hadoop/image-20220516140004855.png" alt="image-20220516140004855"></p>
+<h4 id="修改网卡的配置文件"><a href="#修改网卡的配置文件" class="headerlink" title="修改网卡的配置文件"></a>修改网卡的配置文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line"><span class="comment">#修改并添加：（IP为静态）</span></span><br><span class="line">BOOTPROTO=static</span><br><span class="line">IPADDR=192.168.246.132</span><br><span class="line">GATEWAY=192.168.246.2</span><br><span class="line">DNS1=192.168.246.2</span><br></pre></td></tr></table></figure>
+
+<p>如图所示</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121832458.png" alt="image-20220516121832458"></p>
+<p>重启网络服务：service network restart</p>
+<p>ping外网（查看是否可以ping通）：ping baidu.com</p>
+<h3 id="3-克隆两台上述已配置的虚拟机；"><a href="#3-克隆两台上述已配置的虚拟机；" class="headerlink" title="3).克隆两台上述已配置的虚拟机；"></a>3).克隆两台上述已配置的虚拟机；</h3><p>关闭虚拟机：</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121836984.png" alt="image-20220516121836984"></p>
+<p>点击下一页，</p>
+<p>选择克隆类型时，创建完整克隆：</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121842574.png" alt="image-20220516121842574"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打开第二、三台虚拟机，进入：</span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens-33</span><br><span class="line"></span><br><span class="line"><span class="comment">#更改</span></span><br><span class="line">IPADDR=192.168.246.133  </span><br><span class="line">IPADDR=192.168.246.134</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121847510.png" alt="image-20220516121847510"></p>
+<p>重启网络服务并查看是否可以ping通外网。</p>
+<h2 id="3-修改主机名；"><a href="#3-修改主机名；" class="headerlink" title="(3).修改主机名；"></a>(3).修改主机名；</h2><p>查看主机名：hostname</p>
+<p>修改第一台主机名：sudo hostnamectl set-hostname hadoop1</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121854101.png" alt="image-20220516121854101"></p>
+<p>修改第二台主机名：sudo hostnamectl set-hostname hadoop2</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121858625.png" alt="image-20220516121858625"></p>
+<p>修改第三台主机名：sudo hostnamectl set-hostname hadoop3</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121903823.png" alt="image-20220516121903823"></p>
+<p>三台都要修改ip与主机名的映射：sudo vi &#x2F;etc&#x2F;hosts</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加：</span></span><br><span class="line">192.168.246.132 hadoop1</span><br><span class="line"></span><br><span class="line">192.168.246.134 hadoop2</span><br><span class="line"></span><br><span class="line">192.168.246.133 hadoop3</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121908682.png" alt="image-20220516121908682"></p>
+<p>重启虚拟机生效：reboot</p>
+<h2 id="4-配置免密登录"><a href="#4-配置免密登录" class="headerlink" title="(4).配置免密登录"></a>(4).配置免密登录</h2><p>在hadoop1机器上操作：ssh-keygen -t rsa</p>
+<p>执行命令后，连续敲击三次回车键，生成公钥</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#拷贝公钥：</span></span><br><span class="line">ssh-copy-id hadoop1</span><br><span class="line"></span><br><span class="line">ssh-copy-id hadoop2</span><br><span class="line"></span><br><span class="line">ssh-copy-id hadoop3</span><br></pre></td></tr></table></figure>
+
+<p>由于我已拷贝过，所以显示已存在</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121913155.png" alt="image-20220516121913155"></p>
+<p>进入hadoop2、hadoop3同样操作，实现可以使用ssh hadoop2、ssh hadoop3，不需要密码就能进入hadoop2、hadoop3</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121917445.png" alt="image-20220516121917445"></p>
+<h2 id="5-编写分发脚本；"><a href="#5-编写分发脚本；" class="headerlink" title="(5).编写分发脚本；"></a>(5).编写分发脚本；</h2><p>输入：rsync —help</p>
+<p><img src="/2022/05/16/hadoop/image-20220516121922280.png" alt="image-20220516121922280"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#三台虚拟机安装rsync命令：</span></span><br><span class="line"><span class="built_in">sudo</span> yum install rsync -y</span><br><span class="line"></span><br><span class="line"><span class="comment">#rsync与scp区别：用rsync做文件的复制比scp快，rsync只对差异文件作更新</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在主目录创建bin目录：</span></span><br><span class="line"><span class="built_in">mkdir</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建分发脚本脚本：</span></span><br><span class="line">vim ~/bin/xsync</span><br></pre></td></tr></table></figure>
+
+<p>脚本内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line"><span class="comment">#1. 判断参数个数</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -lt 1 ]</span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> Not Enough Arguement!</span><br><span class="line">    <span class="built_in">exit</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#2. 遍历集群所有机器</span></span><br><span class="line"><span class="comment">#注意，如果你的主机名命名和我不一样，下面这三个更换成你的主机名</span></span><br><span class="line"><span class="keyword">for</span> host <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line"><span class="keyword">do</span> </span><br><span class="line">    <span class="built_in">echo</span> =================  <span class="variable">$host</span>  =================    </span><br><span class="line">    <span class="comment">#3. 遍历所有目录，挨个发送</span></span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> <span class="variable">$@</span></span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        <span class="comment">#4 判断文件是否存在</span></span><br><span class="line">        <span class="keyword">if</span> [ -e <span class="variable">$file</span> ]</span><br><span class="line">            <span class="keyword">then</span></span><br><span class="line">                <span class="comment">#5. 获取父目录</span></span><br><span class="line">                pdir=$(<span class="built_in">cd</span> -P $(<span class="built_in">dirname</span> <span class="variable">$file</span>); <span class="built_in">pwd</span>)</span><br><span class="line">                fname=$(<span class="built_in">basename</span> <span class="variable">$file</span>)</span><br><span class="line">                ssh <span class="variable">$host</span> <span class="string">&quot;mkdir -p <span class="variable">$pdir</span>&quot;</span></span><br><span class="line">                rsync -av <span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="variable">$host</span>:<span class="variable">$pdir</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="variable">$file</span> does not exists!                </span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">done</span>    </span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121927761.png" alt="image-20220516121927761"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改权限：</span></span><br><span class="line"><span class="built_in">chmod</span> +x ~/bin/xsync</span><br><span class="line"></span><br><span class="line"><span class="comment">#测试：把xsync命令发送到hadoop2、hadoop3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#进入目录：</span></span><br><span class="line"><span class="built_in">cd</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#将xsync脚本发送到hadoop2、hadoop3：</span></span><br><span class="line">xsync xsync</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121932285.png" alt="image-20220516121932285"></p>
+<h2 id="6-安装JDK"><a href="#6-安装JDK" class="headerlink" title="(6).安装JDK;"></a>(6).安装JDK;</h2><p>进入官网下载匹配的jdk8安装包，上传至linux：cd</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> soft</span><br><span class="line"></span><br><span class="line"><span class="built_in">mkdir</span> installfile</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~/installfile</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121937403.png" alt="image-20220516121937403"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#解压：</span></span><br><span class="line">tar -zxvf jdk-8u281-linux-x64.tar.gz.crdownload -C ~/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#切换到soft目录下：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s jdk1.8.0_281 jdk</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121942242.png" alt="image-20220516121942242"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置环境变量：</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=~/soft/jdk</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121946353.png" alt="image-20220516121946353"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121950307.png" alt="image-20220516121950307"></p>
+<p>进入hadoop2、hadoop3按照上述步骤配置jdk、环境变量并验证</p>
+<h2 id="7-安装hadoop"><a href="#7-安装hadoop" class="headerlink" title="(7).安装hadoop"></a>(7).安装hadoop</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至installfile目录解压hadoop安装包：</span></span><br><span class="line"><span class="built_in">cd</span> /root/installfile</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压至soft目录下</span></span><br><span class="line">tar -zxvf hadoop-3.1.3.tar.gz -C ~/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s hadoop-3.1.3 hadoop</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121954599.png" alt="image-20220516121954599"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置环境变量：</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=~/soft/hadoop</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516121958454.png" alt="image-20220516121958454"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">hadoop version</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122002381.png" alt="image-20220516122002381"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入hadoop配置目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$HADOOP_HOME</span>/etc/hadoop</span><br><span class="line"></span><br><span class="line"><span class="comment">#在hadoop-env.sh中配置JAVA_HOME路径：</span></span><br><span class="line">vi hadoop-env.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122006516.png" alt="image-20220516122006516"></p>
+<p>配置core-site.xml：vi core-site.xml</p>
+<p>在和之间添加如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;/opt/hadoop/hadoop_data/tmp&lt;/value&gt;</span><br><span class="line">​    &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;fs.default.name&lt;/name&gt;</span><br><span class="line">​    &lt;!-- hadoop1的内网IP地址 --&gt;</span><br><span class="line">​    &lt;value&gt;hdfs://hadoop1:9000&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 指定NameNode的地址 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hdfs://hadoop1:8020&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122011920.png" alt="image-20220516122011920"></p>
+<p>配置hdfs-site.xml：vi hdfs-site.xml</p>
+<p>在和之间添加如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定NameNode的web端访问地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;dfs.namenode.http-address&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hadoop1:9870&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 设置SecondaryNameNode(2NN)的web端访问地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hadoop3:9868&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.name.dir&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/opt/hhadoop_data/dfs/name&lt;/value&gt;</span><br><span class="line">  &lt;description&gt;Path on the local filesystem where theNameNode stores the namespace and transactions logs persistently.&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.data.dir&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/opt/hadoop/hadoop_data/dfs/data&lt;/value&gt;</span><br><span class="line">  &lt;description&gt;Comma separated list of paths on the localfilesystem of a DataNode where it should store its blocks.&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;3&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;dfs.permissions&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">   &lt;description&gt;need not permissions&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122016807.png" alt="image-20220516122016807"> <img src="/2022/05/16/hadoop/image-20220516122021019.png" alt="image-20220516122021019"></p>
+<p>配置yarn-site.xml：vi yarn-site.xml</p>
+<p>在和之间添加如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定MapReduce走shuffle --&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 指定ResourceManager的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;hadoop2&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The address of the applications manager interface <span class="keyword">in</span> the RM.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8032&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The address of the scheduler interface.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The http address of the RM web application.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8088&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The https adddress of the RM web application.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.webapp.https.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8090&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8031&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The address of the RM admin interface.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8033&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;2048&lt;/value&gt;</span><br><span class="line">  &lt;discription&gt;每个节点可用内存,单位MB,默认8182MB&lt;/discription&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.vmem-pmem-ratio&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;2.1&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;2048&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="literal">false</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122026970.png" alt="image-20220516122026970"> <img src="/2022/05/16/hadoop/image-20220516122030561.png" alt="image-20220516122030561"> <img src="/2022/05/16/hadoop/image-20220516122034104.png" alt="image-20220516122034104"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#复制并且配置mapred-site.xml：</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cp</span> mapred-site.xml mapred-site.xml.template</span><br><span class="line"></span><br><span class="line">vi mapred-site.xml</span><br></pre></td></tr></table></figure>
+
+<p>在和之间添加如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定MapReduce程序运行在Yarn上的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">      &lt;name&gt;mapred.job.tracker&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;hadoop1:49001&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.local.dir&lt;/name&gt;</span><br><span class="line">​   &lt;value&gt;/opt/hadoop/hadoop_data/var&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;HADOOP_MAPRED_HOME=/root/soft/hadoop&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;mapreduce.map.env&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;HADOOP_MAPRED_HOME=/root/soft/hadoop&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;mapreduce.reduce.env&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;HADOOP_MAPRED_HOME=/root/soft/hadoop&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122039094.png" alt="image-20220516122039094"></p>
+<p>配置workers，将三个主机名添加进去：vi workers</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122042633.png" alt="image-20220516122042633"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入/sbin目录下：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft/hadoop/sbin/</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改start-dfs.sh和stop-dfs.sh在这两个文件开头加如下内容：</span></span><br><span class="line">HDFS_DATANODE_USER=root</span><br><span class="line"></span><br><span class="line">HADOOP_SECURE_SECURE_USER=root</span><br><span class="line"></span><br><span class="line">HDFS_NAMENODE_USER=root</span><br><span class="line"></span><br><span class="line">HDFS_SECONDARYNAMENODE_USER=root</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122046435.png" alt="image-20220516122046435"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改start-yarn.sh和stop-yarn.sh在这两个文件开头加如下内容：</span></span><br><span class="line">YARN_RESOURCEMANAGER_USER=root</span><br><span class="line"></span><br><span class="line">HADOOP_SECURE_DN_USER=root</span><br><span class="line"></span><br><span class="line">YARN_NODEMANAGER_USER=root</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122050361.png" alt="image-20220516122050361"></p>
+<p>切换到soft目录下：cd &#x2F;root&#x2F;soft</p>
+<p>使用xsync脚本将hadoop-3.1.3发送到hadoop2、hadoop3：</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122054081.png" alt="image-20220516122054081"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换hadoop2、hadoop3在soft目录下创建hadoop-3.1.3的软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s hadoop-3.1.3 hadoop</span><br><span class="line"></span><br><span class="line"><span class="comment">#配置hadoop环境变量：</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=~/soft/hadoop</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</span><br><span class="line"></span><br><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">hadoop version</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122058346.png" alt="image-20220516122058346"> <img src="/2022/05/16/hadoop/image-20220516122102094.png" alt="image-20220516122102094"></p>
+<h2 id="8-启动hadoop"><a href="#8-启动hadoop" class="headerlink" title="(8).启动hadoop"></a>(8).启动hadoop</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#格式化hadoop：</span></span><br><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure>
+
+<p>注：hadoop只能格式化一次，在下面出现successfully formatted为格式化成功，这里由于我已经格式化了，就不附截图了。</p>
+<p>在hadoop1启动hdfs：start-dfs.sh</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122107291.png" alt="image-20220516122107291"></p>
+<p>在hadoop2启动yarn：start-yarn.sh</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122112228.png" alt="image-20220516122112228"></p>
+<p>验证进程：</p>
+<p>在hadoop1、hadoop2、hadoop3分别输入：jps</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122116494.png" alt="image-20220516122116494"> <img src="/2022/05/16/hadoop/image-20220516122120013.png" alt="image-20220516122120013"> <img src="/2022/05/16/hadoop/image-20220516122123607.png" alt="image-20220516122123607"></p>
+<p>关闭防火墙：systemctl stop firewalld</p>
+<p>在浏览器输入：192.168.246.132:9870</p>
+<p><img src="/2022/05/16/hadoop/image-20220516140133885.png" alt="image-20220516140133885"> <img src="/2022/05/16/hadoop/image-20220516122128674.png" alt="image-20220516122128674"></p>
+<p>在浏览器输入：192.168.246.134:8088</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122132496.png" alt="image-20220516122132496"></p>
+<p>在浏览器端可查看每台服务器状态：</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122138080.png" alt="image-20220516122138080"></p>
+<h2 id="9-简单使用hadoop"><a href="#9-简单使用hadoop" class="headerlink" title="(9).简单使用hadoop"></a>(9).简单使用hadoop</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看hdfs的根目录：</span></span><br><span class="line">hdfs dfs -<span class="built_in">ls</span> /</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122143737.png" alt="image-20220516122143737"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在根目录下创建文件夹：</span></span><br><span class="line">hdfs dfs -<span class="built_in">mkdir</span> /data</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122147922.png" alt="image-20220516122147922"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将linux本地文件上传到hdfs：</span></span><br><span class="line">hdfs dfs -put emp.csv /</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122151618.png" alt="image-20220516122151618"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#移动emp.csv的位置到/data目录下：</span></span><br><span class="line">hdfs dfs -<span class="built_in">mv</span> /emp.csv /data</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122155106.png" alt="image-20220516122155106"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将data目录下的emp.csv复制到hdfs的根目录下：</span></span><br><span class="line">hdfs dfs -<span class="built_in">cp</span> /data/emp.csv /emp-copy.csv</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122159630.png" alt="image-20220516122159630"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看emp.csv文件内容：</span></span><br><span class="line">hdfs dfs -<span class="built_in">cat</span> /emp-copy.csv</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122204310.png" alt="image-20220516122204310"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除文件emp-copy.csv：</span></span><br><span class="line">hdfs dfs -<span class="built_in">rm</span> /emp-copy.csv </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除data文件夹:</span></span><br><span class="line">hdfs dfs -<span class="built_in">rm</span> -r /data</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122209350.png" alt="image-20220516122209350"> <img src="/2022/05/16/hadoop/image-20220516122212683.png" alt="image-20220516122209350"></p>
+<p>使用wordcount脚本（自己编写的），对某个文件里面的字符进行统计</p>
+<p>在linux本地创建1.txt文件并上传到hdfs根目录下的input（上面已有步骤，直接附截图）：</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122216665.png" alt="image-20220516122216665"> <img src="/2022/05/16/hadoop/image-20220516122220619.png" alt="image-20220516122220619"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#运行脚本：</span></span><br><span class="line">hadoop jar wordcount-1.0-SNAPSHOT.jar org.example.MyMain /input/1.txt /output/wordcount</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122224444.png" alt="image-20220516122224444"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看结果：</span></span><br><span class="line">hdfs dfs -<span class="built_in">cat</span> /output/wordcount/part-r-00000</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122228709.png" alt="image-20220516122228709"></p>
+<p>在浏览器界面（9870）也可查看hdfs的文件存放情况：</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122232821.png" alt="image-20220516122232821"></p>
+<h1 id="2-ZooKeeper集群搭建及使用"><a href="#2-ZooKeeper集群搭建及使用" class="headerlink" title="2.ZooKeeper集群搭建及使用"></a>2.ZooKeeper集群搭建及使用</h1><h2 id="1-下载zookeeper安装包并解压"><a href="#1-下载zookeeper安装包并解压" class="headerlink" title="(1).下载zookeeper安装包并解压"></a>(1).下载zookeeper安装包并解压</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.9.tar.gz -C ~/soft</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122236855.png" alt="image-20220516122236855"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s zookeeper-3.4.9 zookeeper</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步zookeeper至其他机器：</span></span><br><span class="line">xsync zookeeper-3.4.9</span><br></pre></td></tr></table></figure>
+
+<p>切换hadoop2、hadoop3创建软连接</p>
+<h2 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="(2).配置环境变量"></a>(2).配置环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> ZOOKEEPER_HOME=/root/soft/zookeeper</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ZOOKEEPER_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122242022.png" alt="image-20220516122242022"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>每一台都需要配置环境变量，在hadoop2、hadoop3重复（2）步骤</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122246648.png" alt="image-20220516122246648"></p>
+<h2 id="3-配置zoo-cfg"><a href="#3-配置zoo-cfg" class="headerlink" title="(3).配置zoo.cfg"></a>(3).配置zoo.cfg</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入conf目录：</span></span><br><span class="line"><span class="built_in">cd</span> zookeeper/conf/</span><br><span class="line"></span><br><span class="line"><span class="comment">#复制zoo_sample.cf：</span></span><br><span class="line"><span class="built_in">cp</span> zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122251044.png" alt="image-20220516122251044"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑zoo.cfg：</span></span><br><span class="line">vi zoo.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改：</span></span><br><span class="line">dataDir=/root/soft/zookeeper/zkData</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20225171803.png" alt="img"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#末尾添加：</span></span><br><span class="line">server.1=hadoop1:2888:3888</span><br><span class="line"></span><br><span class="line">server.2=hadoop2:2888:3888</span><br><span class="line"></span><br><span class="line">server.3=hadoop3:2888:3888</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122258768.png" alt="image-20220516122258768"></p>
+<p>server.A&#x3D;B: C: D。</p>
+<p>A:机器编号</p>
+<p>B:主机名</p>
+<p>C: Leader与Follower的访问端口</p>
+<p>D:选举Leader接口</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同步zoo.cfg：</span></span><br><span class="line">xsync zoo.cfg</span><br></pre></td></tr></table></figure>
+
+<p>配置服务器编号：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入zookeeper：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$ZOOKEEPER_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建数据存放目录：</span></span><br><span class="line"><span class="built_in">mkdir</span> zkData</span><br><span class="line"></span><br><span class="line"><span class="comment">#编辑myid：.</span></span><br><span class="line">vi zkData/myid</span><br></pre></td></tr></table></figure>
+
+<p>内容为：1</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122303679.png" alt="image-20220516122303679"> <img src="/2022/05/16/hadoop/image-20220516122307298.png" alt="image-20220516122307298"></p>
+<p>在hadoop2中的myid添加内容为：2</p>
+<p>在hadoop3中的myid添加内容为：3</p>
+<h2 id="4-编写zookeeper脚本"><a href="#4-编写zookeeper脚本" class="headerlink" title="(4).编写zookeeper脚本"></a>(4).编写zookeeper脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入bin目录下：</span></span><br><span class="line"><span class="built_in">cd</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建脚本：</span></span><br><span class="line">vi zk.sh</span><br></pre></td></tr></table></figure>
+
+<p>内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&quot;start&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------启动 <span class="variable">$i</span> zookeeper-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;zkServer.sh start &quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">&quot;stop&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------停止 <span class="variable">$i</span> zookeeper-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;zkServer.sh stop&quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">&quot;status&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------状态 <span class="variable">$i</span> zookeeper-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;zkServer.sh status&quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122311485.png" alt="image-20220516122311485"></p>
+<p>添加脚本执行权限：chmod u+x zk.sh</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122316821.png" alt="image-20220516122316821"></p>
+<h2 id="5-启动zookeeper集群"><a href="#5-启动zookeeper集群" class="headerlink" title="(5).启动zookeeper集群"></a>(5).启动zookeeper集群</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动zookeeper集群（启动前先检查防火墙。没关的关一下）：</span></span><br><span class="line">zk.sh start</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122320281.png" alt="image-20220516122320281"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看各机器状态：</span></span><br><span class="line">zk.sh status</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122324340.png" alt="image-20220516122324340"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#停止zookeeper集群：</span></span><br><span class="line">zk.sh stop</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122328422.png" alt="image-20220516122328422"></p>
+<h2 id="6-zookeeper集群的简单使用"><a href="#6-zookeeper集群的简单使用" class="headerlink" title="(6).zookeeper集群的简单使用"></a>(6).zookeeper集群的简单使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动zookeeper集群：</span></span><br><span class="line">zk.sh start</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入zookeeper命令行：</span></span><br><span class="line">zkCli.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122331781.png" alt="image-20220516122331781"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建节点（节点有四种类型，永久节点、临时节点、永久序列化节点、临时序列化节点）：</span></span><br><span class="line"><span class="comment"># -s 序列化 -e 临时节点 path  创建路径  data 节点数据</span></span><br><span class="line">create [-s] [-e] path data  </span><br><span class="line"></span><br><span class="line"><span class="comment">#创建demo临时节点：</span></span><br><span class="line">create -e /demo 321</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看根下的所有节点：</span></span><br><span class="line"><span class="built_in">ls</span> /</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122336640.png" alt="image-20220516122336640"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看path下所有znode,以及zonde的属性：</span></span><br><span class="line">ls2 /demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122340206.png" alt="image-20220516122340206"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#拿到/demo的数据：</span></span><br><span class="line">get /demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122344420.png" alt="image-20220516122344420"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改/demo的数据：</span></span><br><span class="line"><span class="built_in">set</span> /demo 456</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122348066.png" alt="image-20220516122348066"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#递归删除节点：</span></span><br><span class="line">rmr /demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122352849.png" alt="image-20220516122352849"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看历史记录：</span></span><br><span class="line"><span class="built_in">history</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122356338.png" alt="image-20220516122356338"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#退出zookeeper命令行：</span></span><br><span class="line">quit</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122400137.png" alt="image-20220516122400137"></p>
+<h1 id="3-HBase集群搭建及使用"><a href="#3-HBase集群搭建及使用" class="headerlink" title="3.HBase集群搭建及使用"></a>3.HBase集群搭建及使用</h1><h2 id="1-查看hbase与jdk、hadoop的版本匹配；"><a href="#1-查看hbase与jdk、hadoop的版本匹配；" class="headerlink" title="(1).查看hbase与jdk、hadoop的版本匹配；"></a>(1).查看hbase与jdk、hadoop的版本匹配；</h2><p><img src="/2022/05/16/hadoop/image-20220516122405362.png" alt="image-20220516122405362"> <img src="/2022/05/16/hadoop/image-20220516122409109.png" alt="image-20220516122409109"></p>
+<h2 id="2-集群规划"><a href="#2-集群规划" class="headerlink" title="(2).集群规划"></a>(2).集群规划</h2><p><img src="/2022/05/16/hadoop/image-20220516122412571.png" alt="image-20220516122412571"></p>
+<h2 id="3-下载、解压hbase安装包"><a href="#3-下载、解压hbase安装包" class="headerlink" title="(3).下载、解压hbase安装包"></a>(3).下载、解压hbase安装包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到installfile：</span></span><br><span class="line"><span class="built_in">cd</span> /root/installfile</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压至soft目录下：</span></span><br><span class="line">tar -zxvf hbase-2.4.11-bin.tar.gz -C ~/soft</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122416499.png" alt="image-20220516122416499"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s hbase-2.4.11 hbase</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步zookeeper至其他机器：</span></span><br><span class="line">xsync hbase-2.4.11</span><br><span class="line"></span><br><span class="line"><span class="comment">#切换hadoop2、hadoop3创建软连接</span></span><br></pre></td></tr></table></figure>
+
+<p>(4).配置环境变量；</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> HBASE_HOME=~/soft/hbase-2.4.11</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HBASE_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122421127.png" alt="image-20220516122421127"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">hbase version</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122426092.png" alt="image-20220516122426092"></p>
+<p>每一台都需要配置环境变量，在hadoop2、hadoop3重复（4）步骤</p>
+<h2 id="5-配置hbase-site-xml"><a href="#5-配置hbase-site-xml" class="headerlink" title="(5).配置hbase-site.xml"></a>(5).配置hbase-site.xml</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到conf目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$HBASE_HOME</span>/conf</span><br><span class="line"></span><br><span class="line"><span class="comment">#编辑hbase-site.xml：</span></span><br><span class="line">vi hbase-site.xml</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122430589.png" alt="image-20220516122430589"></p>
+<p>(先将原有配置全部删除)在和之间添加如下内容：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.rootdir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hdfs://hadoop1:8020/hbase&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​     &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;</span><br><span class="line">​     &lt;value&gt;hadoop1,hadoop2,hadoop3&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;/root/soft/zookeeper/zkData&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.tmp.dir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;/root/soft/hbase-2.4.11/tmp&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 在分布式的情况下一定要设置，不然容易出现Hmaster起不来的情况 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.unsafe.stream.capability.enforce&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122435139.png" alt="image-20220516122435139"></p>
+<h2 id="6-配置regionservers"><a href="#6-配置regionservers" class="headerlink" title="(6).配置regionservers"></a>(6).配置regionservers</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑regionservers：</span></span><br><span class="line">vi regionservers </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除原有的localhost，添加如下内容： </span></span><br><span class="line">hadoop1</span><br><span class="line">hadoop2</span><br><span class="line">hadoop3</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122439505.png" alt="image-20220516122439505"></p>
+<h2 id="7-配置备用master"><a href="#7-配置备用master" class="headerlink" title="(7).配置备用master"></a>(7).配置备用master</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑backup-masters：</span></span><br><span class="line">vi backup-masters </span><br><span class="line"></span><br><span class="line"><span class="comment">#添加内容为：</span></span><br><span class="line">hadoop2</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122443768.png" alt="image-20220516122443768"> <img src="/2022/05/16/hadoop/image-20220516122447722.png" alt="image-20220516122447722"></p>
+<h2 id="8-软连接hadoop配置文件到hbase配置目录并分发hbase；"><a href="#8-软连接hadoop配置文件到hbase配置目录并分发hbase；" class="headerlink" title="(8).软连接hadoop配置文件到hbase配置目录并分发hbase；"></a>(8).软连接hadoop配置文件到hbase配置目录并分发hbase；</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#软连接hadoop的core-site.xml到hbase：</span></span><br><span class="line"><span class="built_in">ln</span> -s /root/soft/hadoop/etc/hadoop/core-site.xml core-site.xml</span><br><span class="line"></span><br><span class="line"><span class="comment">#软连接hadoop的hdfs-site.xml到hbase：</span></span><br><span class="line"><span class="built_in">ln</span> -s /root/soft/hadoop/etc/hadoop/hdfs-site.xml hdfs-site.xml</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122452063.png" alt="image-20220516122452063"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#返回上一级目录：</span></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步conf文件夹：</span></span><br><span class="line">xsync conf</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122456356.png" alt="image-20220516122456356"></p>
+<h2 id="9-启动hbase集群"><a href="#9-启动hbase集群" class="headerlink" title="(9).启动hbase集群"></a>(9).启动hbase集群</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动hbase前需要先启动zookeeper、hadoop：</span></span><br><span class="line">zk.sh start</span><br><span class="line">start-all.sh</span><br><span class="line">start-hbase.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#或者分开启动hbase：</span></span><br><span class="line">hbase-daemon.sh start master</span><br><span class="line">hbase-daemon.sh start regionserver</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122500574.png" alt="image-20220516122500574"></p>
+<p>分别在hadoop1、hadoop2、hadoop3输入jps查看节点：jps</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122505347.png" alt="image-20220516122505347"> <img src="/2022/05/16/hadoop/image-20220516122508629.png" alt="image-20220516122508629"> <img src="/2022/05/16/hadoop/image-20220516122512505.png" alt="image-20220516122512505"> <img src="/2022/05/16/hadoop/image-20220516122517185.png" alt="image-20220516122517185"></p>
+<p>进入浏览器查看：192.168.246.132:16010</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122524759.png" alt="image-20220516122524759"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#停止hbase集群：</span></span><br><span class="line">stop-hbase.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果无法关闭就分别关闭master、regionserver：</span></span><br><span class="line">hbase-daemons.sh stop regionserver</span><br><span class="line"></span><br><span class="line">hbase-daemons.sh stop master</span><br></pre></td></tr></table></figure>
+
+<h2 id="10-hbase集群的简单使用；"><a href="#10-hbase集群的简单使用；" class="headerlink" title="(10).hbase集群的简单使用；"></a>(10).hbase集群的简单使用；</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动hbase集群：</span></span><br><span class="line">start-hbase.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入hbase命令行：</span></span><br><span class="line">hbase shell</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122531557.png" alt="image-20220516122531557"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看所有表：</span></span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122537346.png" alt="image-20220516122537346"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建stu表：</span></span><br><span class="line">create <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;info&#x27;</span>,<span class="string">&#x27;no&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122542755.png" alt="image-20220516122542755"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看表结构：</span></span><br><span class="line">describe <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122546736.png" alt="image-20220516122546736"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启用或禁用表：</span></span><br><span class="line">is_enabled <span class="string">&#x27;stu&#x27;</span></span><br><span class="line"></span><br><span class="line">is_disabled <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122551001.png" alt="image-20220516122551001"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#向stu表添加数据：</span></span><br><span class="line">put <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;1001&#x27;</span>,<span class="string">&#x27;info:name&#x27;</span>,<span class="string">&#x27;HYX&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#扫描表数据：</span></span><br><span class="line">scan <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122555113.png" alt="image-20220516122555113"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#继续向stu表添加数据：</span></span><br><span class="line"></span><br><span class="line">put <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;1002&#x27;</span>,<span class="string">&#x27;info:name&#x27;</span>,<span class="string">&#x27;Jack&#x27;</span></span><br><span class="line"></span><br><span class="line">put <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;1002&#x27;</span>,<span class="string">&#x27;info:age&#x27;</span>,<span class="string">&#x27;22&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122559328.png" alt="image-20220516122559328"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#统计表记录数：</span></span><br><span class="line">count <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122604057.png" alt="image-20220516122604057"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除stu表需要禁用表：</span></span><br><span class="line"><span class="built_in">disable</span> <span class="string">&#x27;stu&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除表：</span></span><br><span class="line">drop <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122607441.png" alt="image-20220516122607441"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#退出hbase命令行：</span></span><br><span class="line"><span class="built_in">exit</span> 或 quit</span><br></pre></td></tr></table></figure>
+
+<h1 id="4-Kafka集群搭建及使用"><a href="#4-Kafka集群搭建及使用" class="headerlink" title="4.Kafka集群搭建及使用"></a>4.Kafka集群搭建及使用</h1><h2 id="1-集群规划"><a href="#1-集群规划" class="headerlink" title="(1).集群规划"></a>(1).集群规划</h2><p><img src="/2022/05/16/hadoop/image-20220516140250117.png" alt="image-20220516140250117"></p>
+<h2 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="(2).下载并解压安装包"></a>(2).下载并解压安装包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到installfile目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/installfile</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压至soft目录下：</span></span><br><span class="line">tar -zxvf kafka_2.11-2.4.1.gz -C ~/soft</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122622290.png" alt="image-20220516122622290"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s kafka_2.11-2.4.1 kafka</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步kafka至其他机器：</span></span><br><span class="line">xsync kafka_2.11-2.4.1</span><br></pre></td></tr></table></figure>
+
+<p>切换hadoop2、hadoop3创建软连接</p>
+<h2 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="(3).配置环境变量"></a>(3).配置环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> KAFKA_HOME=/root/soft/kafka</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$KAFKA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122628614.png" alt="image-20220516122628614"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+
+<p>每一台都需要配置环境变量，在hadoop2、hadoop3重复（3）步骤</p>
+<h2 id="4-分别在三台机器上创建logs目录"><a href="#4-分别在三台机器上创建logs目录" class="headerlink" title="(4).分别在三台机器上创建logs目录"></a>(4).分别在三台机器上创建logs目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到kafka目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$KAFKA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建logs目录：</span></span><br><span class="line"><span class="built_in">mkdir</span> logs</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122633371.png" alt="image-20220516122633371"></p>
+<h2 id="5-修改配置文件server-properties"><a href="#5-修改配置文件server-properties" class="headerlink" title="(5).修改配置文件server.properties"></a>(5).修改配置文件server.properties</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至config目录：</span></span><br><span class="line"><span class="built_in">cd</span> config</span><br><span class="line"></span><br><span class="line"><span class="comment">#编辑server.properties：</span></span><br><span class="line">vi server.properties</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122637275.png" alt="image-20220516122637275"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改内容如下：</span></span><br><span class="line">broker.id=0</span><br><span class="line"></span><br><span class="line"><span class="comment">#删除topic功能</span></span><br><span class="line">delete.topic.enable=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">log.dirs=/root/soft/kafka/logs</span><br><span class="line"></span><br><span class="line">zookeeper.connect=hadoop1:2181,hadoop2:2181,hadoop3:2181/kafka</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122641096.png" alt="image-20220516122641096"> <img src="/2022/05/16/hadoop/image-20220516122644972.png" alt="image-20220516122644972"> <img src="/2022/05/16/hadoop/image-20220516122649136.png" alt="image-20220516122649136"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#分发server.properties到hadoop2、hadoop3：</span></span><br><span class="line">xsync server.properties</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改hadoop2的server.properties中</span></span><br><span class="line">broker.id=1</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改hadoop3的server.properties中</span></span><br><span class="line">broker.id=2</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-编写kafka脚本"><a href="#6-编写kafka脚本" class="headerlink" title="(6).编写kafka脚本"></a>(6).编写kafka脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入bin目录下：</span></span><br><span class="line"><span class="built_in">cd</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建脚本：</span></span><br><span class="line">vi kf.sh</span><br></pre></td></tr></table></figure>
+
+<p>内容如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&quot;start&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------启动 <span class="variable">$i</span> Kafka-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;/root/soft/kafka/bin/kafka-server-start.sh -daemon /root/soft/kafka/config/server.properties &quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">&quot;stop&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------停止 <span class="variable">$i</span> Kafka-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;/root/soft/kafka/bin/kafka-server-stop.sh stop&quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122655855.png" alt="image-20220516122655855"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加脚本执行权限：</span></span><br><span class="line"><span class="built_in">chmod</span> u+x kf.sh</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122701672.png" alt="image-20220516122701672"></p>
+<h2 id="7-启动kafka集群"><a href="#7-启动kafka集群" class="headerlink" title="(7).启动kafka集群"></a>(7).启动kafka集群</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">启#动kafka集群需要先启动zookeeper集群：</span><br><span class="line">zk.sh start |  kf.sh start</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122705626.png" alt="image-20220516122705626"></p>
+<p>使用jps查看三台机器的节点是否启动：jps</p>
+<p><img src="/2022/05/16/hadoop/image-20220516122709528.png" alt="image-20220516122709528"> <img src="/2022/05/16/hadoop/image-20220516122713433.png" alt="image-20220516122713433"> <img src="/2022/05/16/hadoop/image-20220516122716947.png" alt="image-20220516122716947"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#关闭kafka集群：</span></span><br><span class="line">kf.sh stop</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122721107.png" alt="image-20220516122721107"></p>
+<h2 id="8-kafka集群的简单使用"><a href="#8-kafka集群的简单使用" class="headerlink" title="(8).kafka集群的简单使用"></a>(8).kafka集群的简单使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动kafka集群：</span></span><br><span class="line">kf.sh start</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入kafka目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$KAFKA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看kafka topic列表：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka --list</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122725063.png" alt="image-20220516122725063"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建topic：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka \</span><br><span class="line">--create --replication-factor 3 --partitions 1 --topic demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122729379.png" alt="image-20220516122729379"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除topic：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka \</span><br><span class="line">--delete --topic demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122733878.png" alt="image-20220516122733878"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#发送消息：</span></span><br><span class="line">bin/kafka-console-producer.sh \</span><br><span class="line">--broker-list hadoop1:9092 --topic demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122737468.png" alt="image-20220516122737468"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#消费消息：</span></span><br><span class="line">bin/kafka-console-consumer.sh \</span><br><span class="line">--bootstrap-server hadoop1:9092 --from-beginning --topic demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122741682.png" alt="image-20220516122741682"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看某个topic的详情：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka \ --describe --topic demo</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122746568.png" alt="image-20220516122746568"> <img src="/2022/05/16/hadoop/image-20220516122750832.png" alt="image-20220516122750832"></p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改分区数：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka --alter --topic demo --partitions 6</span><br></pre></td></tr></table></figure>
+
+<p><img src="/2022/05/16/hadoop/image-20220516122757161.png" alt="image-20220516122757161"></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">成大事</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chengdashia.github.io/2022/05/16/hadoop/">https://chengdashia.github.io/2022/05/16/hadoop/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">成大事</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/hadoop/">
+                                    <span class="chip bg-color">hadoop</span>
+                                </a>
+                            
+                                <a href="/tags/zookeeper/">
+                                    <span class="chip bg-color">zookeeper</span>
+                                </a>
+                            
+                                <a href="/tags/kafka/">
+                                    <span class="chip bg-color">kafka</span>
+                                </a>
+                            
+                                <a href="/tags/hbase/">
+                                    <span class="chip bg-color">hbase</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2022/05/18/RabbitMQ-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="RabbitMQ 学习笔记">
+                        
+                        <span class="card-title">RabbitMQ 学习笔记</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2022-05-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    学习笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/RabbitMQ/">
+                        <span class="chip bg-color">RabbitMQ</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                本篇&nbsp;<i class="far fa-dot-circle"></i>
+            </div>
+            <div class="card">
+                <a href="/2022/05/16/hadoop/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="hadoop 大数据集群的搭建以及使用">
+                        
+                        <span class="card-title">hadoop 大数据集群的搭建以及使用</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2022-05-16
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/hadoop/" class="post-category">
+                                    hadoop
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/hadoop/">
+                        <span class="chip bg-color">hadoop</span>
+                    </a>
+                    
+                    <a href="/tags/zookeeper/">
+                        <span class="chip bg-color">zookeeper</span>
+                    </a>
+                    
+                    <a href="/tags/kafka/">
+                        <span class="chip bg-color">kafka</span>
+                    </a>
+                    
+                    <a href="/tags/hbase/">
+                        <span class="chip bg-color">hbase</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2026</span>
+            
+            <a href="/about" target="_blank">成大事</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "14";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chengdashia" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1847085602@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1847085602" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1847085602" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

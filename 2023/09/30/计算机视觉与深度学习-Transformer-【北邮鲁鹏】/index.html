@@ -1,0 +1,1335 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="计算机视觉与深度学习-Transformer-【北邮鲁鹏】, 成大事">
+    <meta name="description" content="
+原文发布于 CSDN：https://blog.csdn.net/m0_49683806/article/details/133277528
+
+引入相对于传统的 LSTM，Transformer 模型在处理长序列时具有更高的训练效率。这是">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>计算机视觉与深度学习-Transformer-【北邮鲁鹏】 | 成大事</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="成大事" type="application/atom+xml">
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">成大事</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">成大事</div>
+        <div class="logo-desc">
+            
+            成大事
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/chengdashia" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/chengdashia" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/1.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">计算机视觉与深度学习-Transformer-【北邮鲁鹏】</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                                <span class="chip bg-color">计算机视觉</span>
+                            </a>
+                        
+                            <a href="/tags/transformer/">
+                                <span class="chip bg-color">transformer</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="post-category">
+                                计算机视觉
+                            </a>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                深度学习
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-30
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    4.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    14 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>原文发布于 CSDN：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_49683806/article/details/133277528">https://blog.csdn.net/m0_49683806/article/details/133277528</a></p>
+</blockquote>
+<h2 id="引入"><a href="#引入" class="headerlink" title="引入"></a><span id="_1"></span>引入</h2><p>相对于传统的 LSTM，Transformer 模型在处理长序列时具有更高的训练效率。这是由于Transformer模型的并行计算性质以及自注意力机制的引入。</p>
+<p>传统的循环神经网络（如LSTM）在处理序列数据时需要按照时间顺序逐步计算和更新隐藏状态，导致训练速度较慢。而Transformer模型通过引入自注意力机制，能够同时对整个输入序列进行并行计算，从而加速了训练过程。在自注意力机制中，每个位置的编码可以直接关注到其他位置的编码，而不需要像LSTM一样逐步传递信息。<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/a44d3ec244655a098dedb8a1cdc61394.png" alt="在这里插入图片描述"></p>
+<h2 id="基本组成"><a href="#基本组成" class="headerlink" title="基本组成"></a><span id="_7"></span>基本组成</h2><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/31f6e93ead362dcec32a9d4af6f7f18d.png" alt="在这里插入图片描述"></p>
+<h3 id="编码器"><a href="#编码器" class="headerlink" title="编码器"></a><span id="_9"></span>编码器</h3><blockquote>
+<p>编码器（Encoder）：编码器是Transformer模型的输入部分，负责将输入序列转换为一系列高维表示。</p>
+</blockquote>
+<p>编码器由多个相同的编码器层（Encoder Layer）堆叠而成，堆叠多个相同的编码器层可以逐渐提取输入序列的高级表示，捕捉输入序列中的语义和上下文信息。</p>
+<p><strong>每个编码器层通常包含两个子层</strong></p>
+<h4 id="多头自注意力机制（Multi-Head-Self-Attention）"><a href="#多头自注意力机制（Multi-Head-Self-Attention）" class="headerlink" title="多头自注意力机制（Multi-Head Self-Attention）"></a><span id="MultiHead_SelfAttention_15"></span>多头自注意力机制（Multi-Head Self-Attention）</h4><ul>
+<li><p>是Transformer模型中的一种变体自注意力机制，用于增强模型对输入序列的建模能力。</p>
+</li>
+<li><p>在传统的自注意力机制中，通过计算每个位置与其他位置之间的相似度来获取位置之间的关联性，并生成加权表示。而多头自注意力则引入了多个注意力头（Attention Head），每个头都会学习不同的相似度权重，从而能够更全面地捕捉输入序列的信息。</p>
+</li>
+<li><p>多头自注意力的核心思想是将输入序列先经过多个线性变换，然后分成多个注意力头。每个注意力头都会进行独立的自注意力计算，生成自己的查询、键和值，并计算相应的注意力权重。</p>
+</li>
+</ul>
+<h5 id="多头自注意力的计算过程"><a href="#多头自注意力的计算过程" class="headerlink" title="多头自注意力的计算过程"></a><span id="_23"></span>多头自注意力的计算过程</h5><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/0e8b0c0dee57760b9ac21328b63fba4a.png" alt="在这里插入图片描述"></p>
+<p><strong>1、输入序列的线性变换：</strong></p>
+<p>将输入序列经过三个不同的线性变换，分别得到查询（Queries）、键（Keys）和值（Values）【 就是输入特征进行变换以后的下一轮要用到的真正的特征。】的表示。这些线性变换通常是具有不同权重的独立线性层。<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/0b1e8557448242ef98c265afa1264016.png" alt="在这里插入图片描述"><br><span class="katex--inline"><span class="katex"><span class="katex-mathml"> X 1 X_1 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0785em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>与<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W Q W^Q </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">Q</span></span></span></span></span></span></span></span></span></span></span></span>相乘得<span class="katex--inline"><span class="katex"><span class="katex-mathml"> q 1 q_1 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> X 2 X_2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0785em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>与<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W Q W^Q </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">Q</span></span></span></span></span></span></span></span></span></span></span></span>相乘得<span class="katex--inline"><span class="katex"><span class="katex-mathml"> q 2 q_2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">q</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span><br><span class="katex--inline"><span class="katex"><span class="katex-mathml"> X 1 X_1 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0785em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>与<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W K W^K </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0715em;">K</span></span></span></span></span></span></span></span></span></span></span></span>相乘得<span class="katex--inline"><span class="katex"><span class="katex-mathml"> k 1 k_1 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0315em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0315em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> X 2 X_2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0785em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>与<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W K W^K </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0715em;">K</span></span></span></span></span></span></span></span></span></span></span></span>相乘得<span class="katex--inline"><span class="katex"><span class="katex-mathml"> k 2 k_2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0315em;">k</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0315em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span><br><span class="katex--inline"><span class="katex"><span class="katex-mathml"> X 1 X_1 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0785em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>与<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W V W^V </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span></span></span></span></span></span></span></span></span>相乘得<span class="katex--inline"><span class="katex"><span class="katex-mathml"> v 1 v_1 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.5806em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> X 2 X_2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8333em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0785em;">X</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0785em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>与<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W V W^V </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8413em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span></span></span></span></span></span></span></span></span>相乘得<span class="katex--inline"><span class="katex"><span class="katex-mathml"> v 2 v_2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.5806em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0359em;">v</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0359em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span></p>
+<p><strong>2、多头注意力计算：</strong></p>
+<ul>
+<li>对于每个注意力头，分别计算查询和键之间的相似度。这可以通过对查询和键的内积进行计算得到。</li>
+<li>为了控制相似度的尺度，通常会对相似度进行缩放，例如将相似度除以查询或键的维度的平方根。</li>
+<li>将相似度得分进行softmax操作，以获得注意力权重。这样可以确保注意力权重的和为1，用于对值进行加权求和。</li>
+<li>注意力权重乘以对应的值，得到每个位置的加权值。</li>
+</ul>
+<p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/8f68295ddf8e936a7483ddde87d484c5.png" alt="在这里插入图片描述"></p>
+<p>流程图的形式<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/03758bed51ced822f5484a318cd0867e.png" alt="在这里插入图片描述"></p>
+<p><strong>3、多头注意力的合并：</strong></p>
+<p>对输入序列进行多组线性变换，得到多组查询（Q）、键（K）和值（V）的表示。每组Wk、Wq和Wv都是独立的权重矩阵。</p>
+<p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/d4035bfd361d2b6bfd99095f80fef359.png" alt="在这里插入图片描述"><br>在真实做的时候，使用了八组<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W Q , W K , W V W^Q,W^K,W^V </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.0358em; vertical-align: -0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight">Q</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.0715em;">K</span></span></span></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8413em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathnormal mtight" style="margin-right: 0.2222em;">V</span></span></span></span></span></span></span></span></span></span></span></span>。得到八组Z。八组结果，分别为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> Z 0 , Z 1 . . . Z 7 Z_0,Z_1…Z_7 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8778em; vertical-align: -0.1944em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0715em;">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0715em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0715em;">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0715em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mord">…</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0715em;">Z</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.0715em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">7</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span>。<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/4e1cbd18340336f25ba153a5cf5ba39c.png" alt="在这里插入图片描述"><br>然后将这八组结果contact起来。然后再学一组线性变换<span class="katex--inline"><span class="katex"><span class="katex-mathml"> W 0 W^0 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8141em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1389em;">W</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span></span></span></span></span><br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/e723570115b90f5d80612ccd30a08398.png" alt="在这里插入图片描述"><br>总结流程：<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/b7a1a043a456eea1d726d2205479d750.png" alt="在这里插入图片描述"></p>
+<p>将多个注意力头的输出表示进行拼接或线性变换，以得到多头注意力模块的最终输出。</p>
+<h5 id="头数与维度关系"><a href="#头数与维度关系" class="headerlink" title="头数与维度关系"></a><span id="_64"></span>头数与维度关系</h5><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/1265e012668d8c66323abb173e08f453.png" alt="在这里插入图片描述"></p>
+<h5 id="前馈神经网络（Feed-Forward-Neural-Network）"><a href="#前馈神经网络（Feed-Forward-Neural-Network）" class="headerlink" title="前馈神经网络（Feed-Forward Neural Network）"></a><span id="FeedForward_Neural_Network_67"></span>前馈神经网络（Feed-Forward Neural Network）</h5><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/cfb2134c44282e0d869453e324f12901.png" alt="在这里插入图片描述"></p>
+<h4 id="编码器中的ADD-NORM"><a href="#编码器中的ADD-NORM" class="headerlink" title="编码器中的ADD&amp;NORM"></a><span id="ADDNORM_71"></span>编码器中的ADD&amp;NORM</h4><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/c0f271ddccbafd5056382569fbea09a8.png" alt="在这里插入图片描述"></p>
+<h5 id="加法操作（Addition）"><a href="#加法操作（Addition）" class="headerlink" title="加法操作（Addition）"></a><span id="Addition_73"></span>加法操作（Addition）</h5><ul>
+<li>在编码器中，加法操作通常是通过将多头注意力模块的输出【<span class="katex--inline"><span class="katex"><span class="katex-mathml"> z z </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal" style="margin-right: 0.044em;">z</span></span></span></span></span>】与残差连接（Residual Connection）【<span class="katex--inline"><span class="katex"><span class="katex-mathml"> x x </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">x</span></span></span></span></span>】进行相加实现的。</li>
+<li>在多头注意力模块的输出和残差连接之间进行元素级别的相加操作。</li>
+<li>加法操作的目的是将多头注意力模块的输出与原始输入进行融合，以保留输入的原始信息。</li>
+</ul>
+<h5 id="归一化操作（Normalization）"><a href="#归一化操作（Normalization）" class="headerlink" title="归一化操作（Normalization）"></a><span id="Normalization_77"></span>归一化操作（Normalization）</h5><ul>
+<li>在加法操作之后，对结果进行归一化操作，通常使用层归一化（Layer Normalization）或批归一化（Batch Normalization）来实现。</li>
+<li>归一化操作的目的是对加法操作后的结果进行规范化，以提高模型的稳定性和泛化能力。</li>
+<li>归一化操作通常包括对结果进行平移和缩放，以使其具有适当的平均值和方差。</li>
+</ul>
+<h6 id="批归一化（Batch-Normalization）和层归一化（Layer-Normalization）"><a href="#批归一化（Batch-Normalization）和层归一化（Layer-Normalization）" class="headerlink" title="批归一化（Batch Normalization）和层归一化（Layer Normalization）"></a><span id="Batch_NormalizationLayer_Normalization_81"></span>批归一化（Batch Normalization）和层归一化（Layer Normalization）</h6><p>是两种常见的归一化技术，用于在神经网络中提升训练的效果和收敛速度。它们的主要区别在于归一化的维度和应用的位置。<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/963d97c03527efc238c44952eff62cc4.png" alt="在这里插入图片描述"></p>
+<p><strong>批归一化（Batch Normalization）：</strong></p>
+<ul>
+<li>批归一化是在每个批次（batch）的数据上进行归一化操作。</li>
+<li>它的计算是基于每个特征在整个批次中的均值和方差进行的。</li>
+<li>在训练过程中，批归一化可以减少内部协变量偏移（Internal Covariate Shift），有助于加速收敛并提高模型的泛化能力。</li>
+<li>在卷积神经网络中，批归一化通常应用在卷积操作后、激活函数之前。</li>
+</ul>
+<p><strong>层归一化（Layer Normalization）</strong>：</p>
+<ul>
+<li>层归一化是在每个样本的特征维度上进行归一化操作。</li>
+<li>它的计算是基于每个样本在同一层内的特征维度上的均值和方差进行的。</li>
+<li>与批归一化相比，层归一化更适用于循环神经网络（RNN）等没有明确批次维度的场景。</li>
+<li>层归一化可以减少样本间的依赖关系，有助于提高模型的鲁棒性和泛化能力。</li>
+<li>在循环神经网络中，层归一化通常应用在循环层的计算之后。</li>
+</ul>
+<h3 id="解码器"><a href="#解码器" class="headerlink" title="解码器"></a><span id="_101"></span>解码器</h3><blockquote>
+<p>解码器（Decoder）：解码器是Transformer模型的输出部分，负责根据编码器的表示生成输出序列。</p>
+</blockquote>
+<p>解码器也是由多个相同的解码器层（Decoder Layer）堆叠而成。通过堆叠多个相同的解码器层，解码器可以逐步生成目标序列，并在每个解码器层中融合源语言序列的上下文信息和自身的上下文信息。<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/7a47127bfe37cb59a4415029f683f69c.png" alt="在这里插入图片描述"></p>
+<p><strong>每个解码器层通常包含三个子层：</strong></p>
+<h4 id="遮蔽多头注意力（Masked-Multi-Head-Attention）："><a href="#遮蔽多头注意力（Masked-Multi-Head-Attention）：" class="headerlink" title="遮蔽多头注意力（Masked Multi-Head Attention）："></a><span id="Masked_MultiHead_Attention_109"></span>遮蔽多头注意力（Masked Multi-Head Attention）：</h4><ul>
+<li>遮蔽多头注意力是解码器中的第一个组件。</li>
+<li>它类似于编码器中的自注意力层，但在解码器中应用了遮蔽操作。</li>
+<li>遮蔽多头注意力允许解码器在生成每个目标位置的预测时，只关注之前生成的位置，遮蔽掉后续位置的信息。</li>
+<li>它帮助解码器在生成目标序列时保持自回归的性质，确保生成的每个位置只依赖于之前已生成的部分。这样可以编码模型在生成当前位置时访问未来位置的信息。</li>
+</ul>
+<h5 id="遮蔽多头注意力的操作步骤："><a href="#遮蔽多头注意力的操作步骤：" class="headerlink" title="遮蔽多头注意力的操作步骤："></a><span id="_115"></span>遮蔽多头注意力的操作步骤：</h5><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/8e4490e60d0b9d995d1d00b1afbed282.png" alt="在这里插入图片描述"></p>
+<p><strong>1、输入：</strong></p>
+<ul>
+<li>解码器的输入是来自上一层解码器的输出。</li>
+<li>输入包括查询（Query）向量、键（Key）向量和值（Value）向量。</li>
+</ul>
+<p><strong>2、掩码（Masking）：</strong></p>
+<ul>
+<li>在遮蔽多头注意力中，需要对注意力权重进行掩码操作。</li>
+<li>掩码矩阵的形状与注意力权重矩阵相同，其中需要遮蔽的位置被设置为一个很小的值或负无穷，以使得在softmax操作中相应位置的注意力权重趋近于零。</li>
+<li>掩码矩阵通常是一个上三角矩阵，确保当前位置只能依赖于之前已生成的部分。</li>
+</ul>
+<p><strong>3、注意力计算：</strong></p>
+<ul>
+<li>对于遮蔽多头注意力，与常规的多头注意力计算类似，但是在计算注意力权重时，需要将掩码矩阵与注意力得分相乘，以实现遮蔽效果。</li>
+<li>注意力得分是通过查询向量和键向量之间的点积计算得到的。</li>
+<li>掩码矩阵的作用是将掩码位置对应的注意力得分置为负无穷，使得在softmax操作中对应的注意力权重趋近于零。</li>
+<li>最后，将掩码后的注意力权重与值向量相乘，得到加权和作为遮蔽多头注意力的输出。</li>
+</ul>
+<h5 id="举例"><a href="#举例" class="headerlink" title="举例"></a><span id="_138"></span>举例</h5><p>当将中文词组”计算机视觉”翻译成英文”computer vision”时，遮蔽多头注意力的作用就像是给解码器戴了一副眼罩。它确保解码器在翻译每个词的时候，只能看到之前已经翻译的词，而不能看到后面还没翻译的词。</p>
+<p>在生成翻译结果的过程中，遮蔽多头注意力起到的作用如下：</p>
+<ul>
+<li><p>开始翻译时，解码器只知道第一个位置是一个特殊的开始标记。通过遮蔽多头注意力，它只能看到开始标记，而不知道后面还有什么内容。</p>
+</li>
+<li><p>然后，解码器会生成第一个翻译结果的词，比如英文的”computer”。在生成这个词时，遮蔽多头注意力确保解码器只能看到开始标记，而不知道”视觉”这个词的存在。</p>
+</li>
+<li><p>接着，解码器生成第二个翻译结果的词，比如英文的”vision”。在生成这个词时，遮蔽多头注意力仍然起作用，确保解码器只能看到开始标记和前面已生成的”computer”，而不知道后面还有什么内容。</p>
+</li>
+</ul>
+<p>通过遮蔽多头注意力，解码器可以逐步生成正确的翻译结果，每一步只依赖于之前已经生成的部分。这样可以确保翻译结果的准确性和连贯性，避免未来信息对当前生成的影响。在这个例子中，遮蔽多头注意力确保了生成英文单词”computer”时不会受到中文词组”视觉”的影响，从而得到正确的翻译结果”computer vision”。</p>
+<h4 id="多头注意力（Multi-Head-Attention）："><a href="#多头注意力（Multi-Head-Attention）：" class="headerlink" title="多头注意力（Multi-Head Attention）："></a><span id="MultiHead_Attention_150"></span>多头注意力（Multi-Head Attention）：</h4><p>多头注意力是解码器中的第二个组件。<br>它类似于编码器中的编码器-解码器注意力层，但没有遮蔽操作。<br>多头注意力允许解码器对编码器的输出进行注意力计算，以捕捉与当前解码位置相关的编码器信息。<br>它帮助解码器在生成每个目标位置的预测时，结合编码器的上下文信息，以更好地对输入序列进行对齐和建模。</p>
+<h4 id="前馈神经网络（Feed-Forward-Network）："><a href="#前馈神经网络（Feed-Forward-Network）：" class="headerlink" title="前馈神经网络（Feed-Forward Network）："></a><span id="FeedForward_Network_156"></span>前馈神经网络（Feed-Forward Network）：</h4><p>前馈神经网络是解码器中的最后一个组件。<br>它接收遮蔽多头注意力和多头注意力的输出，并通过一层或多层的全连接神经网络进行非线性变换。<br>前馈神经网络层有助于解码器对特定目标位置进行更深入的建模和预测，以生成最终的输出序列。</p>
+<h3 id="如何实现并行"><a href="#如何实现并行" class="headerlink" title="如何实现并行"></a><span id="_163"></span>如何实现并行</h3><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/e2ed2d048e2d39d0b5dd36844bd3b8f6.png" alt="在这里插入图片描述"></p>
+<p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/9afc8d934e04631790c39ea32107769d.png" alt="在这里插入图片描述"></p>
+<h3 id="编码器和解码器的堆叠"><a href="#编码器和解码器的堆叠" class="headerlink" title="编码器和解码器的堆叠"></a><span id="_172"></span>编码器和解码器的堆叠</h3><p><strong>通过堆叠多个编码器层和解码器层，可以增加模型的表示能力和深度。</strong></p>
+<p>Encoder和Decoder是累加的形式，既然是累加的形式，则要求输入和输出保持一致。<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/92f9c976135defc07cb39ededacd687a.png" alt="在这里插入图片描述"></p>
+<h3 id="编码器和解码器的联系"><a href="#编码器和解码器的联系" class="headerlink" title="编码器和解码器的联系"></a><span id="_178"></span>编码器和解码器的联系</h3><p>编码器和解码器之间存在辫子连接，主要体现在以下两个方面：</p>
+<ul>
+<li><p><strong>编码器-解码器注意力机制（Encoder-Decoder Attention）</strong>：在解码器的每个解码器层中，引入了编码器-解码器注意力机制。这个注意力机制使得解码器可以关注编码器的输出，从而将编码器的上下文信息引入到解码器的生成过程中。通过编码器-解码器注意力，解码器可以在生成目标序列的每个位置时，动态地关注与之对应的源语言序列的不同位置。这有助于解码器更好地利用编码器的信息，提高生成的准确性和一致性。</p>
+</li>
+<li><p><strong>编码器的输出作为解码器的输入</strong>：编码器的最后一层的输出被传递给解码器作为输入。这样，解码器在生成目标序列时可以直接访问编码器的表示和上下文信息。编码器的输出向解码器提供了一个初始的上下文向量，起到了引导解码器生成合理输出的作用。</p>
+</li>
+</ul>
+<p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/acbdc889babf899d83930144da509157.png" alt="在这里插入图片描述"><br>因为编码器和解码器都是可堆叠的，所以旁边显示的是Nx。</p>
+<p><strong>原始论文：编解码器均为6层，即N&#x3D;6</strong></p>
+<h2 id="Transformer的位置编码"><a href="#Transformer的位置编码" class="headerlink" title="Transformer的位置编码"></a><span id="Transformer_191"></span>Transformer的位置编码</h2><blockquote>
+<p>Transformer 模型中的位置编码（Positional Encoding）是为了在输入序列中引入位置信息，以帮助模型学习序列中的顺序和位置关系。由于 Transformer 模型没有像循环神经网络（RNN）那样的显式顺序处理机制，位置编码可以为模型提供序列中不同位置的信息。</p>
+</blockquote>
+<p>位置编码通常是通过在输入序列的嵌入表示中添加一个表示位置的向量来实现的。</p>
+<p>一种常用的位置编码方法是使用正弦和余弦函数。对于输入序列中的每个位置，使用以下公式计算位置编码向量：<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/aafe903d445b5689e9ec01044b57d23b.png" alt="在这里插入图片描述"><br>公式：</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> PE ( p o s , 2 i ) &#x3D; sin ⁡ ( p o s 1000 0 2 i &#x2F; d model ) \text{{PE}}(pos, 2i) &#x3D; \sin\left(\frac{{pos}}{{10000^{2i&#x2F;d_{\text{{model}}}}}}\right) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord"><span class="mord">PE</span></span></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord mathnormal">os</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mord mathnormal">i</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.854em; vertical-align: -0.704em;"></span><span class="mop">sin</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;"><span class="delimsizing size2">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.1076em;"><span style="top: -2.296em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"><span class="mord">1000</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814em;"><span style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight">i</span><span class="mord mtight">&#x2F;</span><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3448em;"><span style="top: -2.3488em; margin-left: 0em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight"><span class="mord mtight">model</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1512em;"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">p</span><span class="mord mathnormal">os</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.704em;"></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top: 0em;"><span class="delimsizing size2">)</span></span></span></span></span></span></span></span></p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> PE ( p o s , 2 i + 1 ) &#x3D; cos ⁡ ( p o s 1000 0 2 i &#x2F; d model ) \text{{PE}}(pos, 2i+1) &#x3D; \cos\left(\frac{{pos}}{{10000^{2i&#x2F;d_{\text{{model}}}}}}\right) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord text"><span class="mord"><span class="mord">PE</span></span></span><span class="mopen">(</span><span class="mord mathnormal">p</span><span class="mord mathnormal">os</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">2</span><span class="mord mathnormal">i</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1.854em; vertical-align: -0.704em;"></span><span class="mop">cos</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="minner"><span class="mopen delimcenter" style="top: 0em;"><span class="delimsizing size2">(</span></span><span class="mord"><span class="mopen nulldelimiter"></span><span class="mfrac"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.1076em;"><span style="top: -2.296em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"><span class="mord">1000</span><span class="mord"><span class="mord">0</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.814em;"><span style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span><span class="mord mathnormal mtight">i</span><span class="mord mtight">&#x2F;</span><span class="mord mtight"><span class="mord mathnormal mtight">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3448em;"><span style="top: -2.3488em; margin-left: 0em; margin-right: 0.0714em;"><span class="pstrut" style="height: 2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight"><span class="mord mtight">model</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1512em;"></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span><span style="top: -3.23em;"><span class="pstrut" style="height: 3em;"></span><span class="frac-line" style="border-bottom-width: 0.04em;"></span></span><span style="top: -3.677em;"><span class="pstrut" style="height: 3em;"></span><span class="mord"><span class="mord"><span class="mord mathnormal">p</span><span class="mord mathnormal">os</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.704em;"></span></span></span></span><span class="mclose nulldelimiter"></span></span><span class="mclose delimcenter" style="top: 0em;"><span class="delimsizing size2">)</span></span></span></span></span></span></span></span><br>其中，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> p o s pos </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.625em; vertical-align: -0.1944em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">os</span></span></span></span></span> 表示位置，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> i i </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6595em;"></span><span class="mord mathnormal">i</span></span></span></span></span> 表示维度索引，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> d model d_{\text{{model}}} </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord text mtight"><span class="mord mtight"><span class="mord mtight">model</span></span></span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span></span></span></span></span> 表示输入嵌入向量的维度。位置编码向量中的偶数索引位置使用正弦函数，奇数索引位置使用余弦函数。</p>
+<p>通过这种方式，位置编码将不同位置的单词表示映射到不同的位置编码向量，使得模型能够通过位置编码来区分不同位置的单词。<br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/29c73d49caeb8b1684073b0b98421af0.png" alt="在这里插入图片描述"><br>在Transformer模型中，位置编码与词嵌入向量相加，成为模型的输入。这样，模型就能同时利用词嵌入的语义信息和位置编码的顺序信息来进行计算和建模，从而更好地处理序列数据。</p>
+<h2 id="Transformer的输入和输出"><a href="#Transformer的输入和输出" class="headerlink" title="Transformer的输入和输出"></a><span id="Transformer_216"></span>Transformer的输入和输出</h2><p>输入是：待翻译的句子+已翻译的词汇<br>假如待翻译的句子长度是L，则使用One-hot编码，是L个One-hot维度的向量。One-hot维度和字典长度有关系。然后经过Input Embeding（嵌入层），嵌入层会对其进行降维，降到我们使用的一个<span class="katex--inline"><span class="katex"><span class="katex-mathml"> d m o d e l &#x3D; 512 d_{model}&#x3D;512 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right: 0.0197em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">512</span></span></span></span></span>的维度。</p>
+<p>同样的，已翻译的词汇，加入个数是M个，使用One-hot编码，是M个One-hot维度的向量。然后经过Output Embeding（嵌入层），嵌入层会对其进行降维，降到我们使用的一个<span class="katex--inline"><span class="katex"><span class="katex-mathml"> d m o d e l &#x3D; 512 d_{model}&#x3D;512 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8444em; vertical-align: -0.15em;"></span><span class="mord"><span class="mord mathnormal">d</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3361em;"><span style="top: -2.55em; margin-left: 0em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mord mathnormal mtight">o</span><span class="mord mathnormal mtight">d</span><span class="mord mathnormal mtight">e</span><span class="mord mathnormal mtight" style="margin-right: 0.0197em;">l</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">512</span></span></span></span></span>的维度。</p>
+<p><strong>L和M不一定相同</strong><br><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/2818beacc9dd6c1ed08c7ccf504523cd.png" alt="在这里插入图片描述"><br>输出：单词的概率</p>
+<h3 id="Transformer输入的嵌入"><a href="#Transformer输入的嵌入" class="headerlink" title="Transformer输入的嵌入"></a><span id="Transformer_226"></span>Transformer输入的嵌入</h3><p><img src="/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/d15cdb3ebbd9d8d144352ce070d9e935.png" alt="在这里插入图片描述"></p>
+<h3 id="Transformer输出的嵌入"><a href="#Transformer输出的嵌入" class="headerlink" title="Transformer输出的嵌入"></a><span id="Transformer_228"></span>Transformer输出的嵌入</h3><h4 id="三级目录"><a href="#三级目录" class="headerlink" title="三级目录"></a><span id="_229"></span>三级目录</h4>
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">成大事</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chengdashia.github.io/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/">https://chengdashia.github.io/2023/09/30/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-Transformer-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">成大事</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                                    <span class="chip bg-color">计算机视觉</span>
+                                </a>
+                            
+                                <a href="/tags/transformer/">
+                                    <span class="chip bg-color">transformer</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/10/19/%E5%9F%BA%E4%BA%8EYOLOv5-7-0%E7%9A%84PCB%E6%9D%BF%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/4.jpg" class="responsive-img" alt="基于YOLOv5-7.0的PCB板缺陷检测">
+                        
+                        <span class="card-title">基于YOLOv5-7.0的PCB板缺陷检测</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-10-19
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
+                                    学习笔记
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/YOLO/">
+                        <span class="chip bg-color">YOLO</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/23/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%BE%AA%E7%8E%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8E%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-Attention-%E6%B3%A8%E6%84%8F%E5%8A%9B%E6%9C%BA%E5%88%B6-%E3%80%90%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F%E3%80%91/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/3.jpg" class="responsive-img" alt="计算机视觉与深度学习-循环神经网络与注意力机制-Attention（注意力机制）-【北邮鲁鹏】">
+                        
+                        <span class="card-title">计算机视觉与深度学习-循环神经网络与注意力机制-Attention（注意力机制）-【北邮鲁鹏】</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-23
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="post-category">
+                                    计算机视觉
+                                </a>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    深度学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">计算机视觉</span>
+                    </a>
+                    
+                    <a href="/tags/rnn/">
+                        <span class="chip bg-color">rnn</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2026</span>
+            
+            <a href="/about" target="_blank">成大事</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "14";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chengdashia" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1847085602@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1847085602" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1847085602" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

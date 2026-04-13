@@ -1,0 +1,1323 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="计算机视觉与深度学习-卷积神经网络-卷积&amp;图像去噪&amp;边缘提取-卷积-[北邮鲁鹏], 成大事">
+    <meta name="description" content="
+原文发布于 CSDN：https://blog.csdn.net/m0_49683806/article/details/132906386
+
+参考学习链接计算机视觉与深度学习-04-图像去噪&amp;amp;卷积-北邮鲁鹏老师课程笔记
+卷积的定">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>计算机视觉与深度学习-卷积神经网络-卷积&amp;图像去噪&amp;边缘提取-卷积-[北邮鲁鹏] | 成大事</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="成大事" type="application/atom+xml">
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">成大事</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">成大事</div>
+        <div class="logo-desc">
+            
+            成大事
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/chengdashia" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/chengdashia" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">计算机视觉与深度学习-卷积神经网络-卷积&amp;图像去噪&amp;边缘提取-卷积-[北邮鲁鹏]</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">
+                                <span class="chip bg-color">人工智能</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                            <a href="/tags/cnn/">
+                                <span class="chip bg-color">cnn</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="post-category">
+                                计算机视觉
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-15
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    3.1k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    11 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>原文发布于 CSDN：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_49683806/article/details/132906386">https://blog.csdn.net/m0_49683806/article/details/132906386</a></p>
+</blockquote>
+<h2 id="参考学习链接"><a href="#参考学习链接" class="headerlink" title="参考学习链接"></a><span id="_1"></span>参考学习链接</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/guai7guai11/article/details/124480688?ops_request_misc=&request_id=21a8293aeb804b09ab44469ce4fd821c&biz_id=&utm_medium=distribute.pc_search_result.none-task-blog-2~blog~koosearch~default-5-124480688-null-null.268%5Ev1%5Econtrol&utm_term=%E9%B2%81%E9%B9%8F&spm=1018.2226.3001.4450">计算机视觉与深度学习-04-图像去噪&amp;卷积-北邮鲁鹏老师课程笔记</a></p>
+<h2 id="卷积的定义"><a href="#卷积的定义" class="headerlink" title="卷积的定义"></a><span id="_3"></span>卷积的定义</h2><blockquote>
+<p>在数学和信号处理中，卷积是一种数学运算，用于描述两个函数之间的关系。卷积可以看作是一种加权平均的操作，它将两个函数（通常是一个输入函数和一个响应函数）结合在一起，生成一个新的函数。</p>
+</blockquote>
+<p>卷积运算通常用符号 “*” 表示。给定两个函数 f(x) 和 g(x)，它们的卷积定义为：</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> [ ( f ∗ g ) ( x ) &#x3D; ∫ − ∞ ∞ f ( τ ) g ( x − τ ) d τ ] [ (f * g)(x) &#x3D; \int_{-\infty}^{\infty} f(\tau) g(x - \tau) d\tau ] </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[(</span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">g</span><span class="mclose">)</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.3846em; vertical-align: -0.9703em;"></span><span class="mop"><span class="mop op-symbol large-op" style="margin-right: 0.4445em; position: relative; top: -0.0011em;">∫</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.4143em;"><span style="top: -1.7881em; margin-left: -0.4445em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top: -3.8129em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.9703em;"></span></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.1132em;">τ</span><span class="mclose">)</span><span class="mord mathnormal" style="margin-right: 0.0359em;">g</span><span class="mopen">(</span><span class="mord mathnormal">x</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.1132em;">τ</span><span class="mclose">)</span><span class="mord mathnormal">d</span><span class="mord mathnormal" style="margin-right: 0.1132em;">τ</span><span class="mclose">]</span></span></span></span></span></span></p>
+<p>或者在离散的情况下，对于离散函数 f[n] 和 g[n]，卷积定义为：<br><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> [ ( f ∗ g ) [ n ] &#x3D; ∑ m &#x3D; − ∞ ∞ f [ m ] g [ n − m ] ] [ (f * g)[n] &#x3D; \sum_{m&#x3D;-\infty}^{\infty} f[m] g[n - m] ] </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">[(</span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">g</span><span class="mclose">)</span><span class="mopen">[</span><span class="mord mathnormal">n</span><span class="mclose">]</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 2.9597em; vertical-align: -1.3083em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 1.6514em;"><span style="top: -1.9em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathnormal mtight">m</span><span class="mrel mtight">&#x3D;</span><span class="mord mtight">−</span><span class="mord mtight">∞</span></span></span></span><span style="top: -3.05em;"><span class="pstrut" style="height: 3.05em;"></span><span class="mop op-symbol large-op">∑</span></span><span style="top: -4.3em; margin-left: 0em;"><span class="pstrut" style="height: 3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">∞</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 1.3083em;"></span></span></span></span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mopen">[</span><span class="mord mathnormal">m</span><span class="mclose">]</span><span class="mord mathnormal" style="margin-right: 0.0359em;">g</span><span class="mopen">[</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">m</span><span class="mclose">]]</span></span></span></span></span></span><br>上述定义中，卷积运算将函数 g(x)（或 g[n]）沿着 x 轴（或 n 轴）进行翻转，并与函数 f(x)（或 f[n]）逐点相乘，然后对乘积进行积分（或求和）来获得新的函数 (f * g)(x)（或 (f * g)[n]）。</p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/fcaa8c97cda661a4b1ead2494b59dc68.png" alt="在这里插入图片描述"><br>卷积后的图像<br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/1406f3acde62fdfd3e0b330468c5b85b.gif" alt="在这里插入图片描述"></p>
+<h2 id="卷积的性质"><a href="#卷积的性质" class="headerlink" title="卷积的性质"></a><span id="_18"></span>卷积的性质</h2><h3 id="叠加性"><a href="#叠加性" class="headerlink" title="叠加性"></a><span id="_19"></span>叠加性</h3><p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> f i l e r ( f 1 + f 2 ) &#x3D; f i l t e r ( f 1 ) + f i l t e r ( f 2 ) filer(f_1 + f_2) &#x3D; filter(f_1) + filter(f_2) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right: 0.0197em;">l</span><span class="mord mathnormal" style="margin-right: 0.0278em;">er</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.1076em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.1076em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal">lt</span><span class="mord mathnormal" style="margin-right: 0.0278em;">er</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.1076em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal">lt</span><span class="mord mathnormal" style="margin-right: 0.0278em;">er</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.3011em;"><span style="top: -2.55em; margin-left: -0.1076em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.15em;"></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></span><br>意味着两个信号（或函数）的卷积等于它们分别进行卷积后再相加。</p>
+<h3 id="平移不变性"><a href="#平移不变性" class="headerlink" title="平移不变性"></a><span id="_24"></span>平移不变性</h3><p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> f i l e r ( s h i f t ( f ) ) &#x3D; s h i f t ( f i l t e r ( f ) ) filer(shift(f)) &#x3D; shift(filter(f)) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right: 0.0197em;">l</span><span class="mord mathnormal" style="margin-right: 0.0278em;">er</span><span class="mopen">(</span><span class="mord mathnormal">s</span><span class="mord mathnormal">hi</span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mclose">))</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">s</span><span class="mord mathnormal">hi</span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mord mathnormal">t</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mord mathnormal">i</span><span class="mord mathnormal">lt</span><span class="mord mathnormal" style="margin-right: 0.0278em;">er</span><span class="mopen">(</span><span class="mord mathnormal" style="margin-right: 0.1076em;">f</span><span class="mclose">))</span></span></span></span></span></span><br>卷积的平移不变性是指在进行卷积操作时，输入信号（或图像）的平移不会影响卷积操作的输出结果。换句话说，如果输入信号发生平移，那么卷积操作的输出也会相应地发生相同的平移。<br>即卷积以后平移和平移以后再卷积是一样的</p>
+<h3 id="交换律"><a href="#交换律" class="headerlink" title="交换律"></a><span id="_30"></span>交换律</h3><p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> a ∗ b &#x3D; b ∗ a a * b &#x3D; b * a </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.4653em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">a</span></span></span></span></span></span></p>
+<h3 id="结合律"><a href="#结合律" class="headerlink" title="结合律"></a><span id="_34"></span>结合律</h3><p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> a ∗ ( b ∗ c ) &#x3D; ( a ∗ b ) ∗ c a * (b * c) &#x3D; (a * b) * c </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.4653em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.4306em;"></span><span class="mord mathnormal">c</span></span></span></span></span></span></p>
+<h3 id="分配律"><a href="#分配律" class="headerlink" title="分配律"></a><span id="_38"></span>分配律</h3><p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> a ∗ ( b + c ) &#x3D; ( a ∗ b ) + ( a ∗ c ) a * (b + c) &#x3D; (a * b) + (a * c) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.4653em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">c</span><span class="mclose">)</span></span></span></span></span></span></p>
+<h3 id="标量"><a href="#标量" class="headerlink" title="标量"></a><span id="_42"></span>标量</h3><p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> k a ∗ b &#x3D; a ∗ k b &#x3D; k ( a ∗ b ) ka * b &#x3D; a * kb &#x3D; k (a * b) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">ka</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">b</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.4653em;"></span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">kb</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0315em;">k</span><span class="mopen">(</span><span class="mord mathnormal">a</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">b</span><span class="mclose">)</span></span></span></span></span></span></p>
+<h2 id="边界填充"><a href="#边界填充" class="headerlink" title="边界填充"></a><span id="_46"></span>边界填充</h2><p><strong>为什么必须边界填充？</strong></p>
+<p>如果不进行边界填充，卷积结果的图像比原图像小一圈，卷积操作后的图像要小于输入时图像，通过边界填充，可以实现卷积前后图像的尺寸不变。</p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/8c9d37d481c22ca6d1d627f43768934b.png" alt="在这里插入图片描述"><br><strong>如果不进行边界填充，则卷积后的图像</strong><br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/ca48dc73da3e86b1637bf6f50b8e5668.png" alt="在这里插入图片描述"></p>
+<h3 id="边界填充方法-常数填充最常用"><a href="#边界填充方法-常数填充最常用" class="headerlink" title="边界填充方法 - 常数填充最常用"></a><span id="___54"></span>边界填充方法 - 常数填充最常用</h3><blockquote>
+<p>边界填充是在进行卷积操作时，在输入数据的边界周围添加额外的像素值。</p>
+</blockquote>
+<h4 id="常数填充"><a href="#常数填充" class="headerlink" title="常数填充"></a><span id="_56"></span>常数填充</h4><blockquote>
+<p>常数填充是指在边界上的像素周围添加一个固定的常数值。<br>常见的常数填充值包括零填充（常数为0）和边界值填充（常数为边界像素值）</p>
+</blockquote>
+<p>具体而言，对于一个输入大小为 M × N 的图像，如果要在每个边界填充 p 个像素，常数填充会在输入图像的边界上添加 p 行和 p 列的像素，其中每个像素的值都是预先设定好的常数。</p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/f91fabc3019c34d3a01c1430a66fe484.png" alt="在这里插入图片描述"><br>可以看到，分别在左边填充1列10元素，右边填充2列10元素，上边填充1列10元素，下边填充2列10元素。</p>
+<h4 id="零填充（zero-padding）"><a href="#零填充（zero-padding）" class="headerlink" title="零填充（zero padding）"></a><span id="zero_padding_64"></span>零填充（zero padding）</h4><blockquote>
+<p>零填充是指在边界上的像素周围添加值为零的像素。</p>
+</blockquote>
+<p>具体而言，对于一个输入大小为 M × N 的图像，如果要在每个边界填充 p 个像素，则零填充会在输入图像的边界上添加 p 行和 p 列的零像素，使得填充后的图像大小变为 (M + 2p) × (N + 2p)<br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/1149ebc22c3b87264348f707f1cce9cb.png" alt="在这里插入图片描述"><br>在零填充中，边界上添加的零像素值不包含任何信息，因此不会对卷积操作的结果产生影响。<br>零填充的主要目的是在进行卷积操作时，确保边缘像素有足够的邻域信息参与计算，从而避免边缘信息丢失。</p>
+<h4 id="拉伸"><a href="#拉伸" class="headerlink" title="拉伸"></a><span id="_71"></span>拉伸</h4><blockquote>
+<p>拉伸填充是指在边界上的像素值进行拉伸，使其扩展到填充区域。</p>
+</blockquote>
+<p>具体而言，对于一个输入大小为 M × N 的图像，如果要在每个边界填充 p 个像素，则拉伸填充会将边界上的像素值复制或拉伸到填充区域，使得填充后的图像大小变为 (M + 2p) × (N + 2p)。</p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/df6ec805c2ae505451a877fcaf586024.png" alt="在这里插入图片描述"><br>拉伸填充的目的是在进行卷积操作时，确保边缘像素有足够的邻域信息参与计算，避免边缘信息丢失。这对于保留输入数据的空间维度和边缘特征非常重要。<br>拉伸填充还可以防止卷积后输出特征图的尺寸缩小过快，使得网络能够在更多的空间位置上进行计算。</p>
+<h4 id="镜像"><a href="#镜像" class="headerlink" title="镜像"></a><span id="_79"></span>镜像</h4><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/ffef3b5e23b0460a172f83b11885a508.png" alt="在这里插入图片描述"></p>
+<h2 id="卷积示例"><a href="#卷积示例" class="headerlink" title="卷积示例"></a><span id="_81"></span>卷积示例</h2><h4 id="单位脉冲核"><a href="#单位脉冲核" class="headerlink" title="单位脉冲核"></a><span id="_82"></span>单位脉冲核</h4><h4 id="无变化"><a href="#无变化" class="headerlink" title="无变化"></a><span id="_83"></span>无变化</h4><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/15c7f76d80df4a7eda5bcacb40cefddb.png" alt="在这里插入图片描述"></p>
+<h4 id="平移"><a href="#平移" class="headerlink" title="平移"></a><span id="_86"></span>平移</h4><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/bf0647c4b2088b5ae39aee400b652087.png" alt="在这里插入图片描述"></p>
+<h4 id="平滑"><a href="#平滑" class="headerlink" title="平滑"></a><span id="_88"></span>平滑</h4><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/3f4f97973623336a52324fcf10b88255.png" alt="在这里插入图片描述"></p>
+<h4 id="锐化"><a href="#锐化" class="headerlink" title="锐化"></a><span id="_90"></span>锐化</h4><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/fee911015c6fd305c9cb09d4d0b60050.png" alt="在这里插入图片描述"></p>
+<p><strong>原图 - 平滑后的图 &#x3D; 边缘图</strong></p>
+<p>在边缘处，原始图像中的像素值与平滑后的图像中的像素值之间存在较大的差异，因此在边缘图中会显示出明显的边缘。</p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/c988497242b7d44053b82608574bc07f.png" alt="在这里插入图片描述"><br><strong>原图 + 边缘图 &#x3D; 锐化</strong></p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/c31046406bebcde7d69068ca14f7b1f2.png" alt="在这里插入图片描述"><br>将原式进行分解<br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/2b2b7b881df7f1110227efa2961a73df.png" alt="在这里插入图片描述"></p>
+<h3 id="卷积核"><a href="#卷积核" class="headerlink" title="卷积核"></a><span id="_103"></span>卷积核</h3><h4 id="平均卷积核"><a href="#平均卷积核" class="headerlink" title="平均卷积核"></a><span id="_104"></span>平均卷积核</h4><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/bdd1088f93eea43bf51f0a1ee034162e.png" alt="加粗样式"><br><strong>平均卷积核存在的问题</strong><br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/2776bc3476995b44768ce8df9a3dc6fa.png" alt="在这里插入图片描述"><br>因为是与周围加权平均，所以卷积后的图像产生了一些水平和竖直方向的条状。 振铃！</p>
+<p>其实对于平滑来说，卷积核中权重全都是1&#x2F;9 ，显然这是不合理的。在这个过程中会损失图像的高频信息产生振铃效应。也就是卷积后的图像产生了一些水平和竖直方向的条状纹路。</p>
+<p>图像处理中，对一幅图像进行滤波处理，若选用的滤波器具有陡峭（方的，不平滑）的变化，则会使滤波图像产生“振铃”，所谓“振铃”，就是指输出图像的灰度剧烈变化处产生的震荡，就好像钟被敲击后产生的空气震荡。</p>
+<p>解决方法：根据邻域像素与中心的远近程度分配权重<br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/0edcea3214189414c7677ed57cfdb154.png" alt="在这里插入图片描述"><br>距离中心位置越远相应的权重就应该更小。这样的设置也更加合理一些。这就是 高斯核。</p>
+<h4 id="高斯卷积核"><a href="#高斯卷积核" class="headerlink" title="高斯卷积核"></a><span id="_117"></span>高斯卷积核</h4><h5 id="高斯卷积核定义"><a href="#高斯卷积核定义" class="headerlink" title="高斯卷积核定义"></a><span id="_118"></span>高斯卷积核定义</h5><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/3ea00bb0aa53239896ecc47c8011a48e.png" alt="在这里插入图片描述"></p>
+<h5 id="高斯卷积核生成步骤"><a href="#高斯卷积核生成步骤" class="headerlink" title="高斯卷积核生成步骤"></a><span id="_120"></span>高斯卷积核生成步骤</h5><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/3c0f8f615b4669ccf217f53788d7b933.png" alt="在这里插入图片描述"></p>
+<p><strong>1. 确定卷积核的尺寸</strong><br>比如5x5</p>
+<p><strong>2. 设置高斯函数的标准差</strong><br>比如σ&#x3D;1</p>
+<p><strong>3. 计算卷积核各个位置权重值</strong><br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/f10b9f6eadb50400b870896c7062933a.png" alt="在这里插入图片描述"></p>
+<p><strong>4. 对权重值进行归一化</strong></p>
+<p>需要注意的是在高斯核中，约束条件是所有权重相加和为1，这样做的目的是防止卷积后数据的衰减和溢出，因为无论RGB还是灰度图都在[0,255]内。</p>
+<p><strong>为什么要对权重值进行归一化？- 防止像素值的衰减和放大</strong></p>
+<ul>
+<li><p>如果所有权重的和小于1，假如是一张全白的图也即是像素值全为255，经过一个3×3 ，权重和不是1而是0.1的卷积核，得到输出结果却是25.5 ，显然这也不是想要的结果。</p>
+</li>
+<li><p>如果所有权重的和大于1，卷积后数据溢出（像素值被放大），改变了图像原始的0-255的范围。</p>
+</li>
+</ul>
+<p>只有所有权重的和等于1，卷积后的像素值范围不会改变。</p>
+<p>因此，为解决该问题只需要将卷积核归一化即可，也就是卷积核中每一个值除以卷积核权重的总和，添加限制条件为权重和为1 。</p>
+<p><strong>高斯卷积核参数</strong></p>
+<p>高斯卷积核参数只有一个，高斯函数标准差σ。窗口尺寸可以由高斯函数标准差σ求出。窗口大小 &#x3D; 23σ+1。</p>
+<p><strong>卷积核尺寸大小（窗口大小）</strong></p>
+<p>一般由高斯函数标准差σ求出。左边三倍的方差，右边三倍的方差，再加上自身</p>
+<p><span class="katex--display"><span class="katex-display"><span class="katex"><span class="katex-mathml"> 窗口大小 &#x3D; 2 × 3 × σ + 1 。 窗口大小&#x3D;2×3×σ+1。 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord cjk_fallback">窗口大小</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6667em; vertical-align: -0.0833em;"></span><span class="mord mathnormal" style="margin-right: 0.0359em;">σ</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">1</span><span class="mord cjk_fallback">。</span></span></span></span></span></span><br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/a2d35a507855ed6b3192ad0a3c5b8c7c.png" alt="在这里插入图片描述"></p>
+<p><strong>高斯函数标准差σ</strong><br>其实就是标准差（方差），越大就会散布的越开，也即是窗宽相同，σ越大越扁，σ越小越突出，因为总面积要为1。<br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/a77693def3b022e5b20349debec5df65.png" alt="在这里插入图片描述"><br>窗宽相同，总面积都为1，则</p>
+<ul>
+<li>方差越大，中心权重越小，图像越平滑。</li>
+<li>方差越小，中心权重越大，图像越陡峭。<br><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/cc0327f0bf44783a3e72cc380a000bf8.png" alt="在这里插入图片描述"></li>
+</ul>
+<p><strong>窗宽尺寸</strong></p>
+<p>同理，也可以通过固定方差σ去改变窗口大小。</p>
+<p>当方差固定时，也就是说这个突出的最高中心点位置是相同的，而总面积又是相同的，归一化操作为（当前值&#x2F;所有值之和），则</p>
+<ul>
+<li>窗口越大，归一化中分子相同，分母越大，中心点权重占比越小，相对周围点权重占比越大，越平滑。</li>
+<li>窗口越小，归一化中分子相同，分母越小，中心点权重占比越大，相对周围点权重占比越小，越陡峭。</li>
+</ul>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/d42d0400d7f3b2e13db9e3a830274c2d.png" alt="在这里插入图片描述"><br>也就是说当方差固定时，窗口越小平滑的就越不明显，就会导致图像比较模糊。</p>
+<p>这样一来，就会涉及到两个参数的选取问题，一般来说有个经验性的值。窗口大小为6σ+1。</p>
+<p><strong>高斯卷积核参数经验法则</strong></p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/ca0274377b3d5b7cc38db28fbc54c6b5.png" alt="在这里插入图片描述"></p>
+<p><strong>为什么高斯卷积核窗口大小是23σ+1？</strong></p>
+<ul>
+<li><p>遵循3σ原则，基本可以包含99%以上的信号，甚至可以不用归一化。超过[-3σ,3σ]范围的信号很少。</p>
+</li>
+<li><p>高斯卷积核中心的左边和右边遵循3σ原则，所以是2x3σ，再加上自身1，所以是2x3xσ+1。</p>
+</li>
+</ul>
+<h5 id="高斯核特性"><a href="#高斯核特性" class="headerlink" title="高斯核特性"></a><span id="_189"></span>高斯核特性</h5><p><strong>1、去除图像中的“高频”成分（低通滤波器）</strong></p>
+<p><strong>2、两个高斯卷积核卷积后得到的还是高斯卷积核</strong></p>
+<ul>
+<li><p>使用多次小方差卷积核连续卷积，可以得到与大方差卷积核相同的结果</p>
+</li>
+<li><p>使用标准差为 σ 的高斯核进行两次卷积与使用标准差 σ<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 2 \sqrt{2} </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.04em; vertical-align: -0.1328em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.9072em;"><span class="svg-align" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="padding-left: 0.833em;"><span class="mord">2</span></span></span><span style="top: -2.8672em;"><span class="pstrut" style="height: 3em;"></span><span class="hide-tail" style="min-width: 0.853em; height: 1.08em;"> </span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1328em;"></span></span></span></span></span></span></span></span>的高斯核进行一次卷积相同</p>
+</li>
+</ul>
+<p>高斯卷积对一副图像进行连续两次σ&#x3D;1的高斯卷积输出结果等价于使用σ<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 2 \sqrt{2} </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.04em; vertical-align: -0.1328em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.9072em;"><span class="svg-align" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="padding-left: 0.833em;"><span class="mord">2</span></span></span><span style="top: -2.8672em;"><span class="pstrut" style="height: 3em;"></span><span class="hide-tail" style="min-width: 0.853em; height: 1.08em;"> </span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1328em;"></span></span></span></span></span></span></span></span>的高斯卷积一次的输出结果。这个满足勾股定理。</p>
+<p>比如连续两次的高斯卷积核大小为2 σ ，3 σ 可以使用σ<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 2 2 + 3 2 \sqrt{2 ^ 2 + 3 ^ 2} </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.04em; vertical-align: -0.1266em;"></span><span class="mord sqrt"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height: 0.9134em;"><span class="svg-align" style="top: -3em;"><span class="pstrut" style="height: 3em;"></span><span class="mord" style="padding-left: 0.833em;"><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7401em;"><span style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mord"><span class="mord">3</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.7401em;"><span style="top: -2.989em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span><span style="top: -2.8734em;"><span class="pstrut" style="height: 3em;"></span><span class="hide-tail" style="min-width: 0.853em; height: 1.08em;"> </span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height: 0.1266em;"></span></span></span></span></span></span></span></span> 的卷积核代替。</p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/ff659cf726aaa3218984def07a81e79b.png" alt="在这里插入图片描述"></p>
+<p><strong>3、可分离</strong></p>
+<p>可分解为两个一维高斯的乘积</p>
+<p>举个例子解释高斯核分解，假设有一个高斯卷积核与一个3x3大小的图像卷积（不考虑边界填充）得到应该是一个点。那么此时将高斯核拆解为两个一维向量，分别与图像进行卷积操作。它的主要作用就是加速。</p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/3f691f933d898e214b8ab90ac7482d94.png" alt="在这里插入图片描述"></p>
+<p>上图中的一维卷积核卷积不是向量乘矩阵，是进行卷积操作。</p>
+<h5 id="卷积核分解的作用（降低算法复杂度）"><a href="#卷积核分解的作用（降低算法复杂度）" class="headerlink" title="卷积核分解的作用（降低算法复杂度）"></a><span id="_219"></span>卷积核分解的作用（降低算法复杂度）</h5><p>如果使用一个 m x m的卷积核对一幅n x n大小的图像进行卷积，考虑边界填充，算法复杂度为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> O ( n 2 m 2 ) O(n^{2} m^{2}) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0278em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mord"><span class="mord mathnormal">m</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span></span></p>
+<p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/e52ec4e5c2899778f03aaf3e30475e2f.png" alt="在这里插入图片描述"></p>
+<p>使用分解卷积算法复杂度<span class="katex--inline"><span class="katex"><span class="katex-mathml"> O ( n 2 m ) O(n^{2} m) </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1.0641em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0278em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathnormal">n</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span><span class="mord mathnormal">m</span><span class="mclose">)</span></span></span></span></span>【其实这是x或者y一个方向上的复杂度】，也就是说如果对核进行分离，那么复杂度就能够降低一个等级，这是一件很有意义的事情。</p>
+<p>从这里也可以看出来如果使用小核进行卷积也能够加速运算。</p>
+<h3 id="高斯卷积核vs平均卷积核"><a href="#高斯卷积核vs平均卷积核" class="headerlink" title="高斯卷积核vs平均卷积核"></a><span id="vs_232"></span>高斯卷积核vs平均卷积核</h3><p><img src="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/aac92b99b72cfe9be5fee821f4365c5c.png" alt="在这里插入图片描述"></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">成大事</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chengdashia.github.io/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/">https://chengdashia.github.io/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%8D%B7%E7%A7%AF-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">成大事</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">
+                                    <span class="chip bg-color">人工智能</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                                <a href="/tags/cnn/">
+                                    <span class="chip bg-color">cnn</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/09/15/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E5%8D%B7%E7%A7%AF-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96-%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/9.jpg" class="responsive-img" alt="计算机视觉与深度学习-卷积神经网络-卷积&amp;图像去噪&amp;边缘提取-图像去噪 [北邮鲁鹏]">
+                        
+                        <span class="card-title">计算机视觉与深度学习-卷积神经网络-卷积&amp;图像去噪&amp;边缘提取-图像去噪 [北邮鲁鹏]</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-09-15
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="post-category">
+                                    计算机视觉
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">计算机视觉</span>
+                    </a>
+                    
+                    <a href="/tags/cnn/">
+                        <span class="chip bg-color">cnn</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/14/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C-%E8%AE%AD%E7%BB%83%E8%BF%87%E7%A8%8B-%E6%A8%A1%E5%9E%8B%E6%AD%A3%E5%88%99%E4%B8%8E%E8%B6%85%E5%8F%82%E6%95%B0%E8%B0%83%E4%BC%98-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="计算机视觉与深度学习-全连接神经网络-训练过程-模型正则与超参数调优- [北邮鲁鹏]">
+                        
+                        <span class="card-title">计算机视觉与深度学习-全连接神经网络-训练过程-模型正则与超参数调优- [北邮鲁鹏]</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-14
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="post-category">
+                                    计算机视觉
+                                </a>
+                            
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" class="post-category">
+                                    深度学习
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">
+                        <span class="chip bg-color">人工智能</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">神经网络</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2026</span>
+            
+            <a href="/about" target="_blank">成大事</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "14";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chengdashia" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1847085602@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1847085602" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1847085602" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>

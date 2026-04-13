@@ -1,0 +1,1370 @@
+<!DOCTYPE HTML>
+<html lang="zh-CN">
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="计算机视觉与深度学习-经典网络解析-AlexNet&amp;ZFNet&amp;VGG&amp;GoogLeNet&amp;ResNet[北邮鲁鹏], 成大事">
+    <meta name="description" content="
+原文发布于 CSDN：https://blog.csdn.net/m0_49683806/article/details/132921660
+
+参考文章计算机视觉与深度学习-05-纹理表示&amp;amp;卷积神经网络-北邮鲁鹏老师课程笔记
+Le">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="renderer" content="webkit|ie-stand|ie-comp">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="referrer" content="no-referrer-when-downgrade">
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+
+
+    <title>计算机视觉与深度学习-经典网络解析-AlexNet&amp;ZFNet&amp;VGG&amp;GoogLeNet&amp;ResNet[北邮鲁鹏] | 成大事</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
+    
+
+
+    <!-- bg-cover style     -->
+
+
+
+<link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/aos/aos.css">
+<link rel="stylesheet" type="text/css" href="/libs/animate/animate.min.css">
+<link rel="stylesheet" type="text/css" href="/libs/lightGallery/css/lightgallery.min.css">
+<link rel="stylesheet" type="text/css" href="/css/matery.css">
+<link rel="stylesheet" type="text/css" href="/css/my.css">
+<link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+
+
+    <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
+    <link rel="stylesheet" href="/css/post.css">
+
+
+
+
+    
+        <link rel="stylesheet" type="text/css" href="/css/reward.css">
+    
+
+
+
+    <script src="/libs/jquery/jquery-3.6.0.min.js"></script>
+
+<meta name="generator" content="Hexo 8.1.1"><link rel="alternate" href="/atom.xml" title="成大事" type="application/atom+xml">
+</head>
+
+
+<body>
+    <header class="navbar-fixed">
+    <nav id="headNav" class="bg-color nav-transparent">
+        <div id="navContainer" class="nav-wrapper container">
+            <div class="brand-logo">
+                <a href="/" class="waves-effect waves-light">
+                    
+                    <img src="/medias/logo.png" class="logo-img" alt="LOGO">
+                    
+                    <span class="logo-span">成大事</span>
+                </a>
+            </div>
+            
+
+<a href="#" data-target="mobile-nav" class="sidenav-trigger button-collapse"><i class="fas fa-bars"></i></a>
+<ul class="right nav-menu">
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/" class="waves-effect waves-light">
+      
+      <i class="fas fa-home" style="zoom: 0.6;"></i>
+      
+      <span>首页</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/tags" class="waves-effect waves-light">
+      
+      <i class="fas fa-tags" style="zoom: 0.6;"></i>
+      
+      <span>标签</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/categories" class="waves-effect waves-light">
+      
+      <i class="fas fa-bookmark" style="zoom: 0.6;"></i>
+      
+      <span>分类</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/archives" class="waves-effect waves-light">
+      
+      <i class="fas fa-archive" style="zoom: 0.6;"></i>
+      
+      <span>归档</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/about" class="waves-effect waves-light">
+      
+      <i class="fas fa-user-circle" style="zoom: 0.6;"></i>
+      
+      <span>关于</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/contact" class="waves-effect waves-light">
+      
+      <i class="fas fa-comments" style="zoom: 0.6;"></i>
+      
+      <span>留言板</span>
+    </a>
+    
+  </li>
+  
+  <li class="hide-on-med-and-down nav-item">
+    
+    <a href="/friends" class="waves-effect waves-light">
+      
+      <i class="fas fa-address-book" style="zoom: 0.6;"></i>
+      
+      <span>友情链接</span>
+    </a>
+    
+  </li>
+  
+  <li>
+    <a href="#searchModal" class="modal-trigger waves-effect waves-light">
+      <i id="searchIcon" class="fas fa-search" title="搜索" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+  <li>
+    <a href="javascript:;" class="waves-effect waves-light" onclick="switchNightMode()" title="深色/浅色模式" >
+      <i id="sum-moon-icon" class="fas fa-sun" style="zoom: 0.85;"></i>
+    </a>
+  </li>
+</ul>
+
+
+<div id="mobile-nav" class="side-nav sidenav">
+
+    <div class="mobile-head bg-color">
+        
+        <img src="/medias/logo.png" class="logo-img circle responsive-img">
+        
+        <div class="logo-name">成大事</div>
+        <div class="logo-desc">
+            
+            成大事
+            
+        </div>
+    </div>
+
+    <ul class="menu-list mobile-menu-list">
+        
+        <li class="m-nav-item">
+	  
+		<a href="/" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-home"></i>
+			
+			首页
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/tags" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-tags"></i>
+			
+			标签
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/categories" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-bookmark"></i>
+			
+			分类
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/archives" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-archive"></i>
+			
+			归档
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/about" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-user-circle"></i>
+			
+			关于
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/contact" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-comments"></i>
+			
+			留言板
+		</a>
+          
+        </li>
+        
+        <li class="m-nav-item">
+	  
+		<a href="/friends" class="waves-effect waves-light">
+			
+			    <i class="fa-fw fas fa-address-book"></i>
+			
+			友情链接
+		</a>
+          
+        </li>
+        
+        
+        <li><div class="divider"></div></li>
+        <li>
+            <a href="https://github.com/chengdashia" class="waves-effect waves-light" target="_blank">
+                <i class="fab fa-github-square fa-fw"></i>Fork Me
+            </a>
+        </li>
+        
+    </ul>
+</div>
+
+
+        </div>
+
+        
+            <style>
+    .nav-transparent .github-corner {
+        display: none !important;
+    }
+
+    .github-corner {
+        position: absolute;
+        z-index: 10;
+        top: 0;
+        right: 0;
+        border: 0;
+        transform: scale(1.1);
+    }
+
+    .github-corner svg {
+        color: #0f9d58;
+        fill: #fff;
+        height: 64px;
+        width: 64px;
+    }
+
+    .github-corner:hover .octo-arm {
+        animation: a 0.56s ease-in-out;
+    }
+
+    .github-corner .octo-arm {
+        animation: none;
+    }
+
+    @keyframes a {
+        0%,
+        to {
+            transform: rotate(0);
+        }
+        20%,
+        60% {
+            transform: rotate(-25deg);
+        }
+        40%,
+        80% {
+            transform: rotate(10deg);
+        }
+    }
+</style>
+
+<a href="https://github.com/chengdashia" class="github-corner tooltipped hide-on-med-and-down" target="_blank"
+   data-tooltip="Fork Me" data-position="left" data-delay="50">
+    <svg viewBox="0 0 250 250" aria-hidden="true">
+        <path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path>
+        <path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2"
+              fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path>
+        <path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z"
+              fill="currentColor" class="octo-body"></path>
+    </svg>
+</a>
+        
+    </nav>
+
+</header>
+
+    
+
+
+
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/5.jpg')">
+    <div class="container" style="right: 0px;left: 0px;">
+        <div class="row">
+            <div class="col s12 m12 l12">
+                <div class="brand">
+                    <h1 class="description center-align post-title">计算机视觉与深度学习-经典网络解析-AlexNet&amp;ZFNet&amp;VGG&amp;GoogLeNet&amp;ResNet[北邮鲁鹏]</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+<main class="post-container content">
+
+    
+    <div class="row">
+    <div id="main-content" class="col s12 m12 l9">
+        <!-- 文章内容详情 -->
+<div id="artDetail">
+    <div class="card">
+        <div class="card-content article-info">
+            <div class="row tag-cate">
+                <div class="col s7">
+                    
+                    <div class="article-tag">
+                        
+                            <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">
+                                <span class="chip bg-color">人工智能</span>
+                            </a>
+                        
+                            <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                <span class="chip bg-color">网络</span>
+                            </a>
+                        
+                            <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                <span class="chip bg-color">深度学习</span>
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+                <div class="col s5 right-align">
+                    
+                    <div class="post-cate">
+                        <i class="fas fa-bookmark fa-fw icon-category"></i>
+                        
+                            <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/" class="post-category">
+                                计算机视觉
+                            </a>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+
+            <div class="post-info">
+                
+                <div class="post-date info-break-policy">
+                    <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
+                    2023-09-18
+                </div>
+                
+
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
+                    6k
+                </div>
+                
+
+                
+                <div class="info-break-policy">
+                    <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
+                    23 分
+                </div>
+                
+
+                
+            </div>
+        </div>
+        <hr class="clearfix">
+
+        
+
+        
+
+        <div class="card-content article-card-content">
+            <div id="articleContent">
+                <blockquote>
+<p>原文发布于 CSDN：<a target="_blank" rel="noopener" href="https://blog.csdn.net/m0_49683806/article/details/132921660">https://blog.csdn.net/m0_49683806/article/details/132921660</a></p>
+</blockquote>
+<h2 id="参考文章"><a href="#参考文章" class="headerlink" title="参考文章"></a><span id="_1"></span>参考文章</h2><p><a target="_blank" rel="noopener" href="https://blog.csdn.net/guai7guai11/article/details/124507940">计算机视觉与深度学习-05-纹理表示&amp;卷积神经网络-北邮鲁鹏老师课程笔记</a></p>
+<h2 id="LeNet5"><a href="#LeNet5" class="headerlink" title="LeNet5"></a><span id="LeNet5_3"></span>LeNet5</h2><p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/f3846188d64412dc7875826467907f74.png" alt="在这里插入图片描述"></p>
+<h2 id="AlexNet"><a href="#AlexNet" class="headerlink" title="AlexNet"></a><span id="AlexNet_7"></span>AlexNet</h2><blockquote>
+<p>AlexNet 是一种卷积神经网络（Convolutional Neural Network，CNN）的架构。它是由Alex Krizhevsky、Ilya Sutskever和Geoffrey Hinton提出的，并在2012年的ImageNet大规模视觉识别挑战赛（ILSVRC）中获胜。<br>AlexNet是推动深度学习在计算机视觉任务中应用的先驱之一</p>
+</blockquote>
+<p>AlexNet跟LeNet-5类似也是一个用于图像识别的卷积神经网络。AlexNet网络结构更加复杂，参数更多。</p>
+<p><strong>验证了深度卷积神经网络的高效性</strong></p>
+<h3 id="参考文章-1"><a href="#参考文章-1" class="headerlink" title="参考文章"></a><span id="_14"></span>参考文章</h3><p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/467017218">手撕 CNN 经典网络之 AlexNet（理论篇）</a><br><a href="https://link.zhihu.com/?target=http://www.cs.toronto.edu/~fritz/absps/imagenet.pdf">论文《ImageNet Classification with Deep Convolutional Neural Networks》</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/86447716">【动手学计算机视觉】第十六讲：卷积神经网络之AlexNet</a></p>
+<h3 id="AlexNet模型结构"><a href="#AlexNet模型结构" class="headerlink" title="AlexNet模型结构"></a><span id="AlexNet_18"></span>AlexNet模型结构</h3><p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/974c19ce7001d617a6c82667cd5c3c55.png" alt="在这里插入图片描述"><br>AlexNet中使用的是ReLU激活函数，它5层卷积层除了第一层卷积核为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 11 ∗ 11 11*11 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">11</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">11</span></span></span></span></span>、第二次为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 5 ∗ 5 5*5 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">5</span></span></span></span></span>之外，其余三层均为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 ∗ 3 3*3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span></p>
+<p><strong>1. 第一层：卷积层</strong></p>
+<p><strong>输入</strong></p>
+<p>输入为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 224 ∗ 224 ∗ 3 224 * 224 * 3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">224</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">224</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>的图像，输入之前进行了去均值处理（AlexNet对数据集中所有图像向量求均值，均值为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 224 ∗ 224 ∗ 3 224 * 224 * 3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">224</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">224</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>，去均值操作为原图减去均值，绝对数值对分类没有意义，去均值之后的相对数值可以正确分类且计算量小）</p>
+<p><strong>卷积</strong><br>卷积核的数量为96，论文中两块GPU分别计算48个核；</p>
+<p>卷积核大小<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 11 ∗ 11 ∗ 3 ， s t r i d e &#x3D; 4 11 * 11 * 3，stride&#x3D;4 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">11</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">11</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord">3</span><span class="mord cjk_fallback">，</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right: 0.0278em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">4</span></span></span></span></span>，stride表示的是步长，padding &#x3D; 0，表示不填充边缘。</p>
+<p>卷积后的图形大小：</p>
+<p><span class="katex--inline"><span class="katex"><span class="katex-mathml"> w i d e &#x3D; ( 224 − k e r n e l _ s i z e + 2 ∗ p a d d i n g ) &#x2F; s t r i d e + 1 &#x3D; 54 wide &#x3D; (224 - kernel\_size+2 * padding) &#x2F; stride + 1 &#x3D; 54 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal" style="margin-right: 0.0269em;">w</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">224</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1.0044em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.0315em;">k</span><span class="mord mathnormal" style="margin-right: 0.0278em;">er</span><span class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right: 0.0197em;">l</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ze</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">dd</span><span class="mord mathnormal">in</span><span class="mord mathnormal" style="margin-right: 0.0359em;">g</span><span class="mclose">)</span><span class="mord">&#x2F;</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right: 0.0278em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">54</span></span></span></span></span><br><span class="katex--inline"><span class="katex"><span class="katex-mathml"> h e i g h t &#x3D; ( 224 − k e r n e l _ s i z e + 2 ∗ p a d d i n g ) &#x2F; s t r i d e + 1 &#x3D; 54 height &#x3D; (224 - kernel\_size+2 * padding) &#x2F; stride + 1 &#x3D; 54 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8889em; vertical-align: -0.1944em;"></span><span class="mord mathnormal">h</span><span class="mord mathnormal">e</span><span class="mord mathnormal">i</span><span class="mord mathnormal" style="margin-right: 0.0359em;">g</span><span class="mord mathnormal">h</span><span class="mord mathnormal">t</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">224</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1.0044em; vertical-align: -0.31em;"></span><span class="mord mathnormal" style="margin-right: 0.0315em;">k</span><span class="mord mathnormal" style="margin-right: 0.0278em;">er</span><span class="mord mathnormal">n</span><span class="mord mathnormal">e</span><span class="mord mathnormal" style="margin-right: 0.0197em;">l</span><span class="mord" style="margin-right: 0.0278em;">_</span><span class="mord mathnormal">s</span><span class="mord mathnormal">i</span><span class="mord mathnormal">ze</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal">p</span><span class="mord mathnormal">a</span><span class="mord mathnormal">dd</span><span class="mord mathnormal">in</span><span class="mord mathnormal" style="margin-right: 0.0359em;">g</span><span class="mclose">)</span><span class="mord">&#x2F;</span><span class="mord mathnormal">s</span><span class="mord mathnormal">t</span><span class="mord mathnormal" style="margin-right: 0.0278em;">r</span><span class="mord mathnormal">i</span><span class="mord mathnormal">d</span><span class="mord mathnormal">e</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">54</span></span></span></span></span><br><span class="katex--inline"><span class="katex"><span class="katex-mathml"> d i m e n t i o n &#x3D; 96 dimention &#x3D; 96 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord mathnormal">d</span><span class="mord mathnormal">im</span><span class="mord mathnormal">e</span><span class="mord mathnormal">n</span><span class="mord mathnormal">t</span><span class="mord mathnormal">i</span><span class="mord mathnormal">o</span><span class="mord mathnormal">n</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">96</span></span></span></span></span></p>
+<p>参考个数：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 11 × 11 × 3 + 1 ) × 96 &#x3D; 35 k (11 \times 11 \times 3 + 1) \times 96 &#x3D; 35k </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">11</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">11</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">96</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6944em;"></span><span class="mord">35</span><span class="mord mathnormal" style="margin-right: 0.0315em;">k</span></span></span></span></span></p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/c6822e49d63897e1e0e427264c148678.png" alt="在这里插入图片描述"><br><strong>池化</strong></p>
+<p>输入通道数根据输入图像而定，输出通道数为96，步长为4。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/829998fb16297e2b268f827b165fd49d.png" alt="在这里插入图片描述"><br>注：窗口大小3*3，步长2，池化过程出现重叠，现在一般不使用重叠池化。</p>
+<p>池化结果：27x27x96 特征图组<br><strong>局部响应归一化层（Local Response Normalized）</strong><br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/b1c57935098e3b5c83290f477b39946e.png" alt="在这里插入图片描述"></p>
+<p><strong>为什么要引入LRN层？</strong></p>
+<p>首先要引入一个神经生物学的概念：侧抑制（lateral inhibitio），即指被激活的神经元抑制相邻的神经元。<br>归一化（normaliazation）的目的就是“抑制”，LRN就是借鉴这种侧抑制来实现局部抑制，尤其是我们使用RELU的时候，这种“侧抑制”很有效 ，因而在AlexNet里使用有较好的效果。</p>
+<p><strong>归一化有什么好处？</strong></p>
+<p>1 归一化有助于快速收敛；</p>
+<p>2 对局部神经元的活动创建竞争机制，使得其中响应比较大的值变得相对更大，并抑制其他反馈较小的神经元，增强了模型的泛化能力。</p>
+<p>【补充：神经网络学习过程本质就是为了学习数据分布，一旦训练数据与测试数据的分布不同，那么网络的泛化能力也大大降低；另外一方面，一旦每批训练数据的分布各不相同(batch 梯度下降)，那么网络就要在每次迭代都去学习适应不同的分布，这样将会大大降低网络的训练速度，这也正是为什么我们需要对数据都要做一个归一化预处理的原因。<br>深度网络的训练是复杂的过程，只要网络的前面几层发生微小的改变，那么后面几层就会被累积放大下去。一旦网络某一层的输入数据的分布发生改变，那么这一层网络就需要去适应学习这个新的数据分布，所以如果训练过程中，训练数据的分布一直在发生变化，那么将会影响网络的训练速度。】</p>
+<p><strong>2. 第二层：卷积层</strong><br>输入为上一层卷积的 feature map，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 27 × 27 × 96 27 \times 27 \times 96 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">27</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">27</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">96</span></span></span></span></span>大小的特诊图组。</p>
+<p>卷积核的个数为256个，论文中的两个GPU分别有128个卷积核。<br>卷积核大小<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 5 ∗ 5 5*5 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">5</span></span></span></span></span>，输入通道数为96，输出通道数为256，步长为2，padding &#x3D; 2。<br>卷积结果：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 27 − 5 + 2 × 2 ) &#x2F; 1 + 1 , 27 × 27 × 256 (27 - 5 + 2 \times 2) &#x2F; 1 + 1,27 \times 27 \times 256 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">27</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">2</span><span class="mclose">)</span><span class="mord">&#x2F;1</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.8389em; vertical-align: -0.1944em;"></span><span class="mord">1</span><span class="mpunct">,</span><span class="mspace" style="margin-right: 0.1667em;"></span><span class="mord">27</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">27</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">256</span></span></span></span></span>的特征图组。</p>
+<p>然后做LRN。</p>
+<p>最后最大化池化<br>池化层窗口大小为3*3，步长为2。<br>池化结果：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 13 × 13 × 256 13 \times 13 \times 256 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">256</span></span></span></span></span>的特征图组。</p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/710e54306f889638ab2c8d26d8b2d0fc.png" alt="在这里插入图片描述"></p>
+<p><strong>3. 第三层：卷积层</strong><br>输入为第二层的输出，没有LRN和Pool。</p>
+<p>卷积核大小<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 ∗ 3 3*3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>，输入通道数为256，输出通道数为384，stride为1，padding &#x3D; 1。<br>图像尺寸为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 13 − 3 + 2 × 1 ) &#x2F; 1 + 1 &#x3D; 13 (13 - 3 + 2 \times 1) &#x2F; 1 + 1 &#x3D; 13 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">&#x2F;1</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">13</span></span></span></span></span><br>输出：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 13 × 13 × 384 13 \times 13 \times 384 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">384</span></span></span></span></span></p>
+<p><strong>4. 第四层：卷积层</strong></p>
+<p>输入为第三层的输出，没有LRN和Pool。</p>
+<p>卷积核个数为384，大小<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 ∗ 3 3*3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>，输入通道数为384，输出通道数为384，stride为1，padding &#x3D; 1。<br>图像尺寸为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 13 − 3 + 2 × 1 ) &#x2F; 1 + 1 &#x3D; 13 (13 - 3 + 2 \times 1) &#x2F; 1 + 1 &#x3D; 13 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">&#x2F;1</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">13</span></span></span></span></span><br>输出：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 13 × 13 × 384 13 \times 13 \times 384 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">384</span></span></span></span></span></p>
+<p><strong>5. 第五层：卷积层</strong></p>
+<p>输入为第四层的输出。</p>
+<p>卷积核大小<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 ∗ 3 3*3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>，输入通道数为384，输出通道数为256，stride为1，padding &#x3D; 1。<br>图像尺寸为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 13 − 3 + 2 × 1 ) &#x2F; 1 + 1 &#x3D; 13 (13 - 3 + 2 \times 1) &#x2F; 1 + 1 &#x3D; 13 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord">&#x2F;1</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">13</span></span></span></span></span><br>卷积结果为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 13 × 13 × 256 13 \times 13 \times 256 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">256</span></span></span></span></span></p>
+<p>池化层窗口大小为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 ∗ 3 3*3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>，步长为2。<br>图像尺寸为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 13 − 3 ) &#x2F; 2 + 1 &#x3D; 6 (13 - 3) &#x2F; 2 + 1 &#x3D; 6 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">13</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord">3</span><span class="mclose">)</span><span class="mord">&#x2F;2</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">1</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">6</span></span></span></span></span><br>池化结果为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 6 × 6 × 256 6 \times 6 \times 256 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">6</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">256</span></span></span></span></span></p>
+<p><strong>6. 第六层：全连接层</strong></p>
+<p>输入大小为上一层的输出，输出大小为4096。</p>
+<p>Dropout概率为0.5。</p>
+<p><strong>7. 第七层：全连接层</strong></p>
+<p>输入大小为上一层的输出，输出大小为4096。</p>
+<p>Dropout概率为0.5。</p>
+<p><strong>8. 第八层：全连接层</strong></p>
+<p>输入大小为4096，输出大小为分类数。</p>
+<p>Dropout概率为0.5。</p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/38b4ade0b2f062de8cfdf87269ac04eb.png" alt="在这里插入图片描述"><br>需要将第五层池化结果6×6×256转换为向量9216×1。因为全连接层不能输入矩阵，要输入向量。</p>
+<p><strong>注意：</strong> 需要注意一点，5个卷积层中前2个卷积层后面都会紧跟一个池化层，而第3、4层卷积层后面没有池化层，而是连续3、4、5层三个卷积层后才加入一个池化层。</p>
+<h4 id="AlexNet共8层："><a href="#AlexNet共8层：" class="headerlink" title="AlexNet共8层："></a><span id="AlexNet8_133"></span>AlexNet共8层：</h4><ul>
+<li>5个卷积层(CONV1——CONV5)</li>
+<li>3个全连接层(FC6-FC8)<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/5e997b0176ad01cbfc5cb15bacf54172.png" alt="在这里插入图片描述"></li>
+</ul>
+<h4 id="AlexNet运作流程"><a href="#AlexNet运作流程" class="headerlink" title="AlexNet运作流程"></a><span id="AlexNet_137"></span>AlexNet运作流程</h4><ul>
+<li>conv1：输入→卷积→ReLU→局部响应归一化→重叠最大池化层</li>
+<li>conv2：卷积→ReLU→局部响应归一化→重叠最大池化层</li>
+<li>conv3：卷积→ReLU</li>
+<li>conv4：卷积→ReLU</li>
+<li>conv5：卷积→ReLU→重叠最大池化层(经过这层之后还要进行flatten展平操作)</li>
+<li>FC1：全连接→ReLU→Dropout</li>
+<li>FC2：全连接→ReLU→Dropout</li>
+<li>FC3(可看作softmax层)：全连接→ReLU→Softmax</li>
+</ul>
+<h3 id="简单代码实现"><a href="#简单代码实现" class="headerlink" title="简单代码实现"></a><span id="_146"></span>简单代码实现</h3><p>使用pytorch</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> torch</span><br><span class="line"><span class="keyword">import</span> torch.nn <span class="keyword">as</span> nn</span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AlexNet</span>(nn.Module):</span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">__init__</span>(<span class="params">self, num_classes=<span class="number">1000</span></span>):</span><br><span class="line">        <span class="built_in">super</span>(AlexNet, <span class="variable language_">self</span>).__init__()</span><br><span class="line">        <span class="comment"># 第一个卷积层，输入通道3（RGB图像），输出通道64，卷积核大小11x11，步长4，填充2</span></span><br><span class="line">        <span class="variable language_">self</span>.conv1 = nn.Conv2d(<span class="number">3</span>, <span class="number">64</span>, kernel_size=<span class="number">11</span>, stride=<span class="number">4</span>, padding=<span class="number">2</span>)</span><br><span class="line">        <span class="variable language_">self</span>.relu1 = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 最大池化层，窗口大小3x3，步长2</span></span><br><span class="line">        <span class="variable language_">self</span>.maxpool1 = nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 第二个卷积层，输入通道64，输出通道192，卷积核大小5x5，填充2</span></span><br><span class="line">        <span class="variable language_">self</span>.conv2 = nn.Conv2d(<span class="number">64</span>, <span class="number">192</span>, kernel_size=<span class="number">5</span>, padding=<span class="number">2</span>)</span><br><span class="line">        <span class="variable language_">self</span>.relu2 = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 第二个最大池化层，窗口大小3x3，步长2</span></span><br><span class="line">        <span class="variable language_">self</span>.maxpool2 = nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 第三个卷积层，输入通道192，输出通道384，卷积核大小3x3，填充1</span></span><br><span class="line">        <span class="variable language_">self</span>.conv3 = nn.Conv2d(<span class="number">192</span>, <span class="number">384</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">        <span class="variable language_">self</span>.relu3 = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 第四个卷积层，输入通道384，输出通道256，卷积核大小3x3，填充1</span></span><br><span class="line">        <span class="variable language_">self</span>.conv4 = nn.Conv2d(<span class="number">384</span>, <span class="number">256</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">        <span class="variable language_">self</span>.relu4 = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 第五个卷积层，输入通道256，输出通道256，卷积核大小3x3，填充1</span></span><br><span class="line">        <span class="variable language_">self</span>.conv5 = nn.Conv2d(<span class="number">256</span>, <span class="number">256</span>, kernel_size=<span class="number">3</span>, padding=<span class="number">1</span>)</span><br><span class="line">        <span class="variable language_">self</span>.relu5 = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 第三个最大池化层，窗口大小3x3，步长2</span></span><br><span class="line">        <span class="variable language_">self</span>.maxpool3 = nn.MaxPool2d(kernel_size=<span class="number">3</span>, stride=<span class="number">2</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 自适应平均池化层，输出特征图大小为6x6</span></span><br><span class="line">        <span class="variable language_">self</span>.avgpool = nn.AdaptiveAvgPool2d((<span class="number">6</span>, <span class="number">6</span>))</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 全连接层，输入大小为256x6x6，输出大小为4096</span></span><br><span class="line">        <span class="variable language_">self</span>.fc1 = nn.Linear(<span class="number">256</span> * <span class="number">6</span> * <span class="number">6</span>, <span class="number">4096</span>)</span><br><span class="line">        <span class="variable language_">self</span>.relu6 = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 全连接层，输入大小为4096，输出大小为4096</span></span><br><span class="line">        <span class="variable language_">self</span>.fc2 = nn.Linear(<span class="number">4096</span>, <span class="number">4096</span>)</span><br><span class="line">        <span class="variable language_">self</span>.relu7 = nn.ReLU(inplace=<span class="literal">True</span>)</span><br><span class="line">        </span><br><span class="line">        <span class="comment"># 全连接层，输入大小为4096，输出大小为num_classes</span></span><br><span class="line">        <span class="variable language_">self</span>.fc3 = nn.Linear(<span class="number">4096</span>, num_classes)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">def</span> <span class="title function_">forward</span>(<span class="params">self, x</span>):</span><br><span class="line">        x = <span class="variable language_">self</span>.conv1(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.relu1(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.maxpool1(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.conv2(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.relu2(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.maxpool2(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.conv3(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.relu3(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.conv4(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.relu4(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.conv5(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.relu5(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.maxpool3(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.avgpool(x)</span><br><span class="line">        x = x.view(x.size(<span class="number">0</span>), -<span class="number">1</span>)</span><br><span class="line">        x = <span class="variable language_">self</span>.fc1(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.relu6(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.fc2(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.relu7(x)</span><br><span class="line">        x = <span class="variable language_">self</span>.fc3(x)</span><br><span class="line">        <span class="keyword">return</span> x</span><br><span class="line"></span><br><span class="line"><span class="comment"># 创建AlexNet模型的实例</span></span><br><span class="line">model = AlexNet(num_classes=<span class="number">1000</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment"># 打印模型结构</span></span><br><span class="line"><span class="built_in">print</span>(model)</span><br></pre></td></tr></table></figure>
+
+<h3 id="重要说明"><a href="#重要说明" class="headerlink" title="重要说明"></a><span id="_227"></span>重要说明</h3><ul>
+<li>用于提取图像特征的卷积层以及用于分类的全连接层是同时学习的。</li>
+<li>卷积层与全连接层在学习过程中会相互影响、相互促进</li>
+</ul>
+<h3 id="重要技巧"><a href="#重要技巧" class="headerlink" title="重要技巧"></a><span id="_230"></span>重要技巧</h3><ul>
+<li>Dropout策略防止过拟合；</li>
+<li>使用动量的随机梯度下降算法，加速收敛；</li>
+<li>验证集损失不下降时，手动降低10倍的学习率；</li>
+<li>采用样本增强策略增加训练样本数量，防止过拟合；</li>
+<li>集成多个模型，进一步提高精度。</li>
+</ul>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/1d45368fefbd0d090ca0d981b4c54a90.png" alt="在这里插入图片描述"><br>现在显存基本都够用，不需要再考虑分两个GPU计算。</p>
+<p><strong>AlexNet卷积层在做什么？</strong></p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/875d31c4e75758029dc5c0b6c876df25.png" alt="在这里插入图片描述"></p>
+<h3 id="主要贡献"><a href="#主要贡献" class="headerlink" title="主要贡献"></a><span id="_244"></span>主要贡献</h3><ol>
+<li>提出了一种卷积层加全连接层的卷积神经网络结构</li>
+<li>首次使用ReLU函数做为神经网络的激活函数</li>
+<li>首次提出Dropout正则化来控制过拟合</li>
+<li>使用加入动量的小批量梯度下降算法加速了训练过程的收敛</li>
+<li>使用数据增强策略极大地抑制了训练过程的过拟合</li>
+<li>利用了GPU的并行计算能力，加速了网络的训练与推断</li>
+</ol>
+<h2 id="ZFNet"><a href="#ZFNet" class="headerlink" title="ZFNet"></a><span id="ZFNet_252"></span>ZFNet</h2><p>ZFNet是一种基于AlexNet的模型，由Matthew D. Zeiler和Rob Fergus在2013年提出。相对于AlexNet，ZFNet结构与AlexNet网络结构基本一致，进行了一些改进，包括卷积核。</p>
+<h3 id="主要改进"><a href="#主要改进" class="headerlink" title="主要改进"></a><span id="_254"></span>主要改进</h3><h4 id="减小第一层卷积核"><a href="#减小第一层卷积核" class="headerlink" title="减小第一层卷积核"></a><span id="_255"></span>减小第一层卷积核</h4><p>如果第一层的卷积核很大，那么第一层提取的就是粗粒度的信息，之后的层也将会丢掉细粒度的信息。相比AlexNet第一层卷积核大小为 11×11，ZFNet将第一个卷积层的卷积核大小改为7 × 7，卷积核减小，这样做的目的是为了增加感受野（receptive field），即更大范围内的像素对输出的影响。</p>
+<p>ZFNet可以更好地捕捉图像中的局部特征，可以观察更细粒度的东西。并且具有更好的细节分辨能力。</p>
+<h4 id="将第二、第三个卷积层的卷积步长都设置为2"><a href="#将第二、第三个卷积层的卷积步长都设置为2" class="headerlink" title="将第二、第三个卷积层的卷积步长都设置为2"></a><span id="2_261"></span>将第二、第三个卷积层的卷积步长都设置为2</h4><p>相比AlexNet第一层的卷积步长4，ZFNet将第一层的卷积步长设置为2，为了不让原始图像的分辨率不会降低过快，不会使得图像分辨率降低过快导致信息损失的太快。</p>
+<h4 id="增加了第三、第四个卷积层的卷积核个数"><a href="#增加了第三、第四个卷积层的卷积核个数" class="headerlink" title="增加了第三、第四个卷积层的卷积核个数"></a><span id="_264"></span>增加了第三、第四个卷积层的卷积核个数</h4><p>在AlexNet中，第三个卷积层有384个卷积核，而第四个卷积层有256个卷积核。<br>在ZFNet中，第三个卷积层的卷积核个数增加到了512个，而第四个卷积层的卷积核个数增加到了1024个。</p>
+<p>ZFNet在第三个和第四个卷积层中增加了卷积核的个数。这样做的目的是增加网络的表达能力，以便更好地捕捉图像中的细节和特征。通过增加卷积核的个数，ZFNet可以更好地学习图像的细节和抽象特征，从而提高模型的性能和准确度。这些改进使得ZFNet在图像分类和计算机视觉任务中取得了较好的结果。</p>
+<h2 id="VGG"><a href="#VGG" class="headerlink" title="VGG"></a><span id="VGG_271"></span>VGG</h2><p>VGG是Oxford的Visual Geometry Group的组提出的（大家应该能看出VGG名字的由来了）。该网络是在ILSVRC 2014上的相关工作，主要工作是证明了增加网络的深度能够在一定程度上影响网络最终的性能。VGG有两种结构，分别是VGG16和VGG19，两者并没有本质上的区别，只是网络深度不一样。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/d01efa7befbf849321b407b5af3c5357.png" alt="在这里插入图片描述"></p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a><span id="_275"></span>参考</h3><p><a href="https://link.zhihu.com/?target=https://arxiv.org/pdf/1409.1556.pdf">论文地址</a><br><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/41423739">一文读懂VGG网络</a></p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/011559919ce0d615450046bf879fe156.png" alt="在这里插入图片描述"></p>
+<h3 id="VGG网络贡献"><a href="#VGG网络贡献" class="headerlink" title="VGG网络贡献"></a><span id="VGG_281"></span>VGG网络贡献</h3><h4 id="使用尺寸更小的-3-×-3-3-times-3-3×3卷积串联来获得更大的感受野"><a href="#使用尺寸更小的-3-×-3-3-times-3-3×3卷积串联来获得更大的感受野" class="headerlink" title="使用尺寸更小的 3 × 3 3 \times 3 3×3卷积串联来获得更大的感受野"></a><span id="3_times_3_283"></span>使用尺寸更小的<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 × 3 3 \times 3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>卷积串联来获得更大的感受野</h4><p>对于给定的感受野（与输出有关的输入图片的局部大小），采用堆积的小卷积核是优于采用大的卷积核，因为多层非线性层可以额增加网络深度来保证学习更复杂的模式，而且代价还比较小（参数更少）。</p>
+<h4 id="放弃使用-11-×-11-11-times-11-11×11和-5-×-5-5-times-5-5×5这样的大尺寸卷积核"><a href="#放弃使用-11-×-11-11-times-11-11×11和-5-×-5-5-times-5-5×5这样的大尺寸卷积核" class="headerlink" title="放弃使用 11 × 11 11 \times 11 11×11和 5 × 5 5 \times 5 5×5这样的大尺寸卷积核"></a><span id="11_times_115_times_5_287"></span>放弃使用<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 11 × 11 11 \times 11 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">11</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">11</span></span></span></span></span>和<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 5 × 5 5 \times 5 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">5</span></span></span></span></span>这样的大尺寸卷积核</h4><p>使用了3个3x3卷积核来代替7x7卷积核，使用了2个3x3卷积核来代替5*5卷积核，这样做的主要目的是在保证具有相同感知野的条件下，提升了网络的深度，在一定程度上提升了神经网络的效果。</p>
+<p><em><strong>2个<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 × 3 3 \times 3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>卷积核串联，感受野为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 5 × 5 5 \times 5 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">5</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">5</span></span></span></span></span></strong></em><br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/d252b9c401bc9f77699bc29d2f7c373c.png" alt="在这里插入图片描述"><br><em><strong>3个<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 3 × 3 3 \times 3 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span></span></span></span></span>卷积核串联，感受野为<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 7 × 7 7 \times 7 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">7</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">7</span></span></span></span></span></strong></em><br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/2d43e86247cc1dcd4b400cf5cdaa2bb8.png" alt="在这里插入图片描述"></p>
+<h4 id="深度更深、非线性更强，网络的参数也更少；"><a href="#深度更深、非线性更强，网络的参数也更少；" class="headerlink" title="深度更深、非线性更强，网络的参数也更少；"></a><span id="_295"></span>深度更深、非线性更强，网络的参数也更少；</h4><p>比如，3个步长为1的3x3卷积核的一层层叠加作用可看成一个大小为7的感受野（其实就表示3个3x3连续卷积相当于一个7x7卷积），其参数总量为 <span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 3 × 3 × C ) × C × 3 &#x3D; 27 C 2 (3 \times 3 \times C) \times C \times 3 &#x3D; 27C^2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7667em; vertical-align: -0.0833em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">3</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.8141em;"></span><span class="mord">27</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span><br>如果直接使用7x7卷积核，其参数总量为 <span class="katex--inline"><span class="katex"><span class="katex-mathml"> ( 7 × 7 × C ) × C &#x3D; 49 C 2 (7 \times 7 \times C) \times C &#x3D; 49C^2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mopen">(</span><span class="mord">7</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">7</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 1em; vertical-align: -0.25em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mclose">)</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.8141em;"></span><span class="mord">49</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span> ，这里 C 指的是输入和输出的通道数。</p>
+<p>很明显，<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 27 C 2 27C^2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8141em;"></span><span class="mord">27</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>小于<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 49 C 2 49C^2 </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.8141em;"></span><span class="mord">49</span><span class="mord"><span class="mord mathnormal" style="margin-right: 0.0715em;">C</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height: 0.8141em;"><span style="top: -3.063em; margin-right: 0.05em;"><span class="pstrut" style="height: 2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span></span></span></span></span>，即减少了参数；而且3x3卷积核有利于更好地保持图像性质。</p>
+<h4 id="去掉了AlexNet中的局部响应归一化层-LRN-层。"><a href="#去掉了AlexNet中的局部响应归一化层-LRN-层。" class="headerlink" title="去掉了AlexNet中的局部响应归一化层(LRN)层。"></a><span id="AlexNetLRN_300"></span>去掉了AlexNet中的局部响应归一化层(LRN)层。</h4><h3 id="网络结构"><a href="#网络结构" class="headerlink" title="网络结构"></a><span id="_302"></span>网络结构</h3><p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/1067448d22d729e9d2b9d173e8ce7517.png" alt="在这里插入图片描述"></p>
+<p>1、输入224x224x3的图片，经64个3x3的卷积核作两次卷积+ReLU，卷积后的尺寸变为224x224x64</p>
+<p>2、作max pooling（最大化池化），池化单元尺寸为2x2（效果为图像尺寸减半），池化后的尺寸变为112x112x64</p>
+<p>3、经128个3x3的卷积核作两次卷积+ReLU，尺寸变为112x112x128</p>
+<p>4、作2x2的max pooling池化，尺寸变为56x56x128</p>
+<p>5、经256个3x3的卷积核作三次卷积+ReLU，尺寸变为56x56x256</p>
+<p>6、作2x2的max pooling池化，尺寸变为28x28x256</p>
+<p>7、经512个3x3的卷积核作三次卷积+ReLU，尺寸变为28x28x512</p>
+<p>8、作2x2的max pooling池化，尺寸变为14x14x512</p>
+<p>9、经512个3x3的卷积核作三次卷积+ReLU，尺寸变为14x14x512</p>
+<p>10、作2x2的max pooling池化，尺寸变为7x7x512</p>
+<p>11、与两层1x1x4096，一层1x1x1000进行全连接+ReLU（共三层）</p>
+<p>12、通过softmax输出1000个预测结果</p>
+<h3 id="主要改进-1"><a href="#主要改进-1" class="headerlink" title="主要改进"></a><span id="_330"></span>主要改进</h3><h4 id="输入去均值"><a href="#输入去均值" class="headerlink" title="输入去均值"></a><span id="_331"></span>输入去均值</h4><p>AlexNet和ZFNet的输入去均值：求所有图像向量的均值，最后得出一个与原始图像大小相同维度的均值向量。</p>
+<p>VGG输入去均值：求所有图像向量的RGB均值，最后得到的是一个3×1的向量 [R,G,B]</p>
+<h4 id="小卷积核串联代替大卷积核"><a href="#小卷积核串联代替大卷积核" class="headerlink" title="小卷积核串联代替大卷积核"></a><span id="_336"></span>小卷积核串联代替大卷积核</h4><p>增加了非线性能力。</p>
+<p>多个小尺寸卷积核串联可以得到与大尺寸卷积核相同的感受野。</p>
+<p>与高斯核不同，高斯核中两个小卷积核组合卷积核大卷积核卷积结果相同。但是卷积神经网络中的卷积核，多个小卷积核组合和大卷积核结果不同，但是感受野相同。</p>
+<h4 id="无重叠池化"><a href="#无重叠池化" class="headerlink" title="无重叠池化"></a><span id="_343"></span>无重叠池化</h4><p>窗口大小为2×2，步长为2。</p>
+<h4 id="卷积核个数逐层增加"><a href="#卷积核个数逐层增加" class="headerlink" title="卷积核个数逐层增加"></a><span id="_346"></span>卷积核个数逐层增加</h4><p>前层卷积核少，是因为前层学习到的是图像的基元（点、线、边），基元很少，所以不需要很多的神经元学习，又前层的图像都比较大，若神经元很多，计算量会很大（K×m×m×D×K×n×n）。到后面的层时，包含很多的语义结构，需要更多的卷积核学习。</p>
+<p><strong>为什么在VGG网络前四段里，每经过一次池化操作，卷积核个数就增加一倍？</strong></p>
+<p>1、池化操作可以减少特征图尺寸，降低显存占用<br>2、增加卷积核个数有助于学习更多的结构特诊，但会增加网络参数数量以及内存消耗<br>3、一减一增的设计平衡了识别精度与存储、计算开销</p>
+<p><strong>最终提升了网络性能</strong></p>
+<p><strong>为什么卷积核个数增加到512后就不再增加了？</strong></p>
+<p>1、第一个全连接层含102M参数，占总参数个数的74%<br>2、这一层的参数个数是特征图的尺寸与个数的乘积<br>3、参数过多容易过拟合，且不易被训练</p>
+<p>如果将最后一层卷积核个数增加至1024，这一层参数个数为：<span class="katex--inline"><span class="katex"><span class="katex-mathml"> 7 × 7 × 1024 × 4096 &#x3D; 205520896 ≈ 200 M 7 \times 7 \times 1024 \times 4096 &#x3D; 205520896 \approx 200M </span><span class="katex-html"><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">7</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">7</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.7278em; vertical-align: -0.0833em;"></span><span class="mord">1024</span><span class="mspace" style="margin-right: 0.2222em;"></span><span class="mbin">×</span><span class="mspace" style="margin-right: 0.2222em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">4096</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">&#x3D;</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6444em;"></span><span class="mord">205520896</span><span class="mspace" style="margin-right: 0.2778em;"></span><span class="mrel">≈</span><span class="mspace" style="margin-right: 0.2778em;"></span></span><span class="base"><span class="strut" style="height: 0.6833em;"></span><span class="mord">200</span><span class="mord mathnormal" style="margin-right: 0.109em;">M</span></span></span></span></span></p>
+<h2 id="GoogLeNet"><a href="#GoogLeNet" class="headerlink" title="GoogLeNet"></a><span id="GoogLeNet_366"></span>GoogLeNet</h2><h3 id="参考-1"><a href="#参考-1" class="headerlink" title="参考"></a><span id="_367"></span>参考</h3><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1409.4842.pdf">论文原文</a></p>
+<h3 id="GoogLeNet模型结构"><a href="#GoogLeNet模型结构" class="headerlink" title="GoogLeNet模型结构"></a><span id="GoogLeNet_370"></span>GoogLeNet模型结构</h3><p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/a4f5cd74cd1628c243908b1e4e9c3adc.png" alt="在这里插入图片描述"></p>
+<h3 id="创新点"><a href="#创新点" class="headerlink" title="创新点"></a><span id="_372"></span>创新点</h3><p><strong>串联结构（如VGG）存在的问题</strong></p>
+<p>后面的卷积层只能处理前层输出的特征图；前层因某些原因（比如感受野限制）丢失重要信息，后层无法找回。</p>
+<p>解决方案：每一层尽量多的保留输入信号中的信息。</p>
+<h4 id="Inception结构，它能保留输入信号中的更多特征信息"><a href="#Inception结构，它能保留输入信号中的更多特征信息" class="headerlink" title="Inception结构，它能保留输入信号中的更多特征信息"></a><span id="Inception_379"></span>Inception结构，它能保留输入信号中的更多特征信息</h4><p>Inception 结构的主要思路是怎样用密集成分来近似最优的局部稀疏结构。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/28ddf0c6e42e5c7b74364f626f1bff4c.png" alt="在这里插入图片描述"><br>1、采用不同大小的卷积核意味着不同大小的感受野，最后拼接意味着不同尺度特征的融合；<br>2、 之所以卷积核大小采用1、3和5，主要是为了方便对齐。<br>设定卷积步长stride&#x3D;1之后，只要分别设定pad&#x3D;0、1、2，那么卷积之后便可以得到相同维度的特征。<br>3、3×3 max pooling 可理解为非最大化抑制。<br>文章说很多地方都表明pooling挺有效，所以Inception里面也嵌入了。保留且加强了原图中比较重要的信息。<br>4、网络越到后面，特征越抽象，而且每个特征所涉及的感受野也更大了，因此随着层数的增加，3x3和5x5卷积的比例也要增加。<br>5、1×1 3×3 5×5卷积，及3×3max pooling，通过设定合适的padding都会得到相同维度的特征，然后将这些特征直接拼接在一起。</p>
+<p><strong>但是，使用5x5的卷积核仍然会带来巨大的计算量。</strong></p>
+<p>为此，文章借鉴NIN2，采用1x1卷积核来进行降维。</p>
+<p>具体改进后的Inception Module如下图：<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/2b5d68ddb7844ec4ab6a1d2750895f16.png" alt="在这里插入图片描述"></p>
+<p>例如：上一层的输出为100x100x128，经过具有256个输出的5x5卷积层之(stride&#x3D;1，pad&#x3D;2)，输出数据为100x100x256。其中，卷积层的参数为128x5x5x256。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/02b410729eb4e9541b5a867125bff786.png" alt="在这里插入图片描述"><br>假如上一层输出先经过具有32个输出的1x1卷积层，再经过具有256个输出的5x5卷积层，那么最终的输出数据仍为100x100x256，但卷积参数量已经减少为128x1x1x32 + 32x5x5x256，大约减少了4倍。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/a8762394b6f8ee937edd5135592357c7.png" alt="在这里插入图片描述"></p>
+<p><strong>层数更深、参数更少、计算效率更高、非线性表达能力也更强</strong></p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/09b5e2e3bfddae1bcec327b2ec88b065.png" alt="在这里插入图片描述"></p>
+<h4 id="去掉了AlexNet的前两个全连接层，并采用了平均池化"><a href="#去掉了AlexNet的前两个全连接层，并采用了平均池化" class="headerlink" title="去掉了AlexNet的前两个全连接层，并采用了平均池化"></a><span id="AlexNet_409"></span>去掉了AlexNet的前两个全连接层，并采用了平均池化</h4><p>这一设计使得GoogLeNet只有500万参数，比AlexNet少了12倍<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/3d6374fe09be09e97d35af6abebd8d2e.png" alt="在这里插入图片描述"></p>
+<h4 id="引入了辅助分类器"><a href="#引入了辅助分类器" class="headerlink" title="引入了辅助分类器"></a><span id="_413"></span>引入了辅助分类器</h4><p>克服了训练过程中的梯度消失问题<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/4c48b77ce4b5855d1a3c5ac3e1a30006.png" alt="在这里插入图片描述"></p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/c38e093b549735702c215307f2245eeb.png" alt="在这里插入图片描述"><br><strong>问题1：平均池化向量化与直接展开向量化有什么区别？</strong><br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/55ac20cb62e1b1ac395892f03d32e54d.png" alt="在这里插入图片描述"><br>特征响应图中位置信息不太重要，平均池化，忽略位置信息，可以很大节省计算量。</p>
+<p><strong>问题2: 利用1 x1卷积进行压缩会损失信息吗?</strong><br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/3f1e7b7d9550366c2e1b344068c29908.png" alt="在这里插入图片描述"></p>
+<p>不会，假设图像或特征响应图深度通道为64，其中记录信息的只有少数，对应的向量非常稀疏，且其后的每个卷积核（深度通道也为64）都作用在这64个通道上。 经过压缩，并不会影响图像原始信息的记录。</p>
+<h2 id="ResNet"><a href="#ResNet" class="headerlink" title="ResNet"></a><span id="ResNet_427"></span>ResNet</h2><p>Resnet之后的网络应用在ImageNet之外的问题上，效果不一定好。</p>
+<h3 id="参考-2"><a href="#参考-2" class="headerlink" title="参考"></a><span id="_429"></span>参考</h3><p><a target="_blank" rel="noopener" href="https://arxiv.org/pdf/1512.03385.pdf">ResNet论文：Deep Residual Learning for Image Recognition</a></p>
+<h3 id="产生背景"><a href="#产生背景" class="headerlink" title="产生背景"></a><span id="_432"></span>产生背景</h3><p>卷积网络深度越深，是否性能越好？</p>
+<p><strong>实验：持续向一个“基础”的卷积神经网络上面叠加更深的层数会发生什么？</strong><br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/750759cc7fe550b794040aaa55aee96d.png" alt="在这里插入图片描述"></p>
+<h3 id="贡献"><a href="#贡献" class="headerlink" title="贡献"></a><span id="_437"></span>贡献</h3><h4 id="残差模块"><a href="#残差模块" class="headerlink" title="残差模块"></a><span id="_438"></span>残差模块</h4><p>研究者考虑了这样一个问题：<br>浅层网络学习到了有效的分类模式后，如何向上堆积新层来建立更深的网络，使其满足即使不能提升浅层网络的性能，深层网络也不应降低性能。</p>
+<p>提出了一种残差模块，通过堆叠残差模块可以构建任意深度的神经网络，而不会出现“退化”现象。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/e3371b6e62e1baea50fc8e1e10ae6949.png" alt="在这里插入图片描述"></p>
+<p>前向传递：原始信息一直被保存的很好，没有丢失信息，信号不容易衰减，前向信息流就很顺畅。</p>
+<p>反向传递：即使F(x)&#x3D;0，反向信息也可以传递。</p>
+<p><strong>类比锐化过程理解，原图x+细节F(x)&#x3D;锐化H(x)。</strong><br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/cc5b4eb544412fc6a9889fe735d83f69.png" alt="在这里插入图片描述"></p>
+<h5 id="残差结构"><a href="#残差结构" class="headerlink" title="残差结构"></a><span id="_451"></span>残差结构</h5><p>残差结构能够避免普通的卷积层堆叠存在信息丢失问题，保证前向信息流的顺畅。</p>
+<p>残差结构能够应对梯度反传过程中的梯度消失问题，保证反向梯度流的通顺。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/77e6e7e2c9e3e2f3404ad220581f978d.png" alt="在这里插入图片描述"><br>X之后的1×1卷积核：降维，减少3×3卷积的运算量。<br>conv(3×3)之后的1×1卷积核：升维（还原X的维度），为了实现X+F(X)。<br><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/71039415678f40b04d3f628f66303ec9.png" alt="在这里插入图片描述"></p>
+<h4 id="批归一化"><a href="#批归一化" class="headerlink" title="批归一化"></a><span id="_461"></span>批归一化</h4><p>提出了批归一化方法来对抗梯度消失，该方法降低了网络训练过程对于权重初始化的依赖。</p>
+<h4 id="ReLU激活函数的初始化方法"><a href="#ReLU激活函数的初始化方法" class="headerlink" title="ReLU激活函数的初始化方法"></a><span id="ReLU_463"></span>ReLU激活函数的初始化方法</h4><p>提出了一种针对ReLU激活函数的初始化方法。</p>
+<h3 id="网络结构-1"><a href="#网络结构-1" class="headerlink" title="网络结构"></a><span id="_467"></span>网络结构</h3><p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/dbf4a0891227540bb7eec3285a56a0f9.png" alt="在这里插入图片描述"></p>
+<h3 id="为什么残差网络性能好？"><a href="#为什么残差网络性能好？" class="headerlink" title="为什么残差网络性能好？"></a><span id="_469"></span>为什么残差网络性能好？</h3><p><strong>一种典型的解释：残差网络可以看作是一种集成模型！</strong></p>
+<p><img src="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/6a65c603d80cd84467944b2709104c3b.png" alt="在这里插入图片描述"><br><a target="_blank" rel="noopener" href="https://www.zhihu.com/question/336310627/answer/2296295659">残差网络为何有效，都有哪些发展？</a></p>
+
+                
+            </div>
+            <hr/>
+
+            
+
+    <div class="reprint" id="reprint-statement">
+        
+            <div class="reprint__author">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-user">
+                        文章作者:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="/about" rel="external nofollow noreferrer">成大事</a>
+                </span>
+            </div>
+            <div class="reprint__type">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-link">
+                        文章链接:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    <a href="https://chengdashia.github.io/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/">https://chengdashia.github.io/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-AlexNet-ZFNet-VGG-GoogLeNet-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/</a>
+                </span>
+            </div>
+            <div class="reprint__notice">
+                <span class="reprint-meta" style="font-weight: bold;">
+                    <i class="fas fa-copyright">
+                        版权声明:
+                    </i>
+                </span>
+                <span class="reprint-info">
+                    本博客所有文章除特別声明外，均采用
+                    <a href="https://creativecommons.org/licenses/by/4.0/deed.zh" rel="external nofollow noreferrer" target="_blank">CC BY 4.0</a>
+                    许可协议。转载请注明来源
+                    <a href="/about" target="_blank">成大事</a>
+                    !
+                </span>
+            </div>
+        
+    </div>
+
+    <script async defer>
+      document.addEventListener("copy", function (e) {
+        let toastHTML = '<span>复制成功，请遵循本文的转载规则</span><button class="btn-flat toast-action" onclick="navToReprintStatement()" style="font-size: smaller">查看</a>';
+        M.toast({html: toastHTML})
+      });
+
+      function navToReprintStatement() {
+        $("html, body").animate({scrollTop: $("#reprint-statement").offset().top - 80}, 800);
+      }
+    </script>
+
+
+
+            <div class="tag_share" style="display: block;">
+                <div class="post-meta__tag-list" style="display: inline-block;">
+                    
+                        <div class="article-tag">
+                            
+                                <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">
+                                    <span class="chip bg-color">人工智能</span>
+                                </a>
+                            
+                                <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                                    <span class="chip bg-color">网络</span>
+                                </a>
+                            
+                                <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                                    <span class="chip bg-color">深度学习</span>
+                                </a>
+                            
+                        </div>
+                    
+                </div>
+                <div class="post_share" style="zoom: 80%; width: fit-content; display: inline-block; float: right; margin: -0.15rem 0;">
+                    <link rel="stylesheet" type="text/css" href="/libs/share/css/share.min.css">
+<div id="article-share">
+
+    
+    <div class="social-share" data-sites="twitter,facebook,google,qq,qzone,wechat,weibo,douban,linkedin" data-wechat-qrcode-helper="<p>微信扫一扫即可分享！</p>"></div>
+    <script src="/libs/share/js/social-share.min.js"></script>
+    
+
+    
+
+</div>
+
+                </div>
+            </div>
+            
+                <div id="reward">
+    <a href="#rewardModal" class="reward-link modal-trigger btn-floating btn-medium waves-effect waves-light red">赏</a>
+
+    <!-- Modal Structure -->
+    <div id="rewardModal" class="modal">
+        <div class="modal-content">
+            <a class="close modal-close"><i class="fas fa-times"></i></a>
+            <h4 class="reward-title">你的赏识是我前进的动力</h4>
+            <div class="reward-content">
+                <div class="reward-tabs">
+                    <ul class="tabs row">
+                        <li class="tab col s6 alipay-tab waves-effect waves-light"><a href="#alipay">支付宝</a></li>
+                        <li class="tab col s6 wechat-tab waves-effect waves-light"><a href="#wechat">微 信</a></li>
+                    </ul>
+                    <div id="alipay">
+                        <img src="/medias/reward/alipay.jpg" class="reward-img" alt="支付宝打赏二维码">
+                    </div>
+                    <div id="wechat">
+                        <img src="/medias/reward/wechat.png" class="reward-img" alt="微信打赏二维码">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    $(function () {
+        $('.tabs').tabs();
+    });
+</script>
+
+            
+        </div>
+    </div>
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+<article id="prenext-posts" class="prev-next articles">
+    <div class="row article-row">
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge left-badge text-color">
+                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+            <div class="card">
+                <a href="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-ResNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="计算机视觉与深度学习-经典网络解析-ResNet-[北邮鲁鹏]">
+                        
+                        <span class="card-title">计算机视觉与深度学习-经典网络解析-ResNet-[北邮鲁鹏]</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                        <span class="publish-date">
+                            <i class="far fa-clock fa-fw icon-date"></i>2023-09-18
+                        </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90/" class="post-category">
+                                    经典网络解析
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                    <a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/">
+                        <span class="chip bg-color">计算机视觉</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+        
+        <div class="article col s12 m6" data-aos="fade-up">
+            <div class="article-badge right-badge text-color">
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
+            </div>
+            <div class="card">
+                <a href="/2023/09/18/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0-%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90-GoogLeNet-%E5%8C%97%E9%82%AE%E9%B2%81%E9%B9%8F/">
+                    <div class="card-image">
+                        
+                        
+                        <img src="/medias/featureimages/13.jpg" class="responsive-img" alt="计算机视觉与深度学习-经典网络解析-GoogLeNet-[北邮鲁鹏]">
+                        
+                        <span class="card-title">计算机视觉与深度学习-经典网络解析-GoogLeNet-[北邮鲁鹏]</span>
+                    </div>
+                </a>
+                <div class="card-content article-content">
+                    <div class="summary block-with-text">
+                        
+                            
+                        
+                    </div>
+                    <div class="publish-info">
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2023-09-18
+                            </span>
+                        <span class="publish-author">
+                            
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E8%A7%A3%E6%9E%90/" class="post-category">
+                                    经典网络解析
+                                </a>
+                            
+                            
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="card-action article-tags">
+                    
+                    <a href="/tags/%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD/">
+                        <span class="chip bg-color">人工智能</span>
+                    </a>
+                    
+                    <a href="/tags/%E7%BD%91%E7%BB%9C/">
+                        <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/">
+                        <span class="chip bg-color">深度学习</span>
+                    </a>
+                    
+                </div>
+                
+            </div>
+        </div>
+        
+    </div>
+</article>
+
+</div>
+
+
+
+<!-- 代码块功能依赖 -->
+<script type="text/javascript" src="/libs/codeBlock/codeBlockFuction.js"></script>
+
+
+
+<!-- 代码语言 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeLang.js"></script>
+
+
+<!-- 代码块复制 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeCopy.js"></script>
+
+
+<!-- 代码块收缩 -->
+
+<script type="text/javascript" src="/libs/codeBlock/codeShrink.js"></script>
+
+
+
+    </div>
+    <div id="toc-aside" class="expanded col l3 hide-on-med-and-down">
+        <div class="toc-widget card" style="background-color: white;">
+            <div class="toc-title"><i class="far fa-list-alt"></i>&nbsp;&nbsp;目录</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+</div>
+
+<!-- TOC 悬浮按钮. -->
+
+<div id="floating-toc-btn" class="hide-on-med-and-down">
+    <a class="btn-floating btn-large bg-color">
+        <i class="fas fa-list-ul"></i>
+    </a>
+</div>
+
+
+<script src="/libs/tocbot/tocbot.min.js"></script>
+<script>
+    $(function () {
+        tocbot.init({
+            tocSelector: '#toc-content',
+            contentSelector: '#articleContent',
+            headingsOffset: -($(window).height() * 0.4 - 45),
+            collapseDepth: Number('0'),
+            headingSelector: 'h2, h3, h4'
+        });
+
+        // Set scroll toc fixed.
+        let tocHeight = parseInt($(window).height() * 0.4 - 64);
+        let $tocWidget = $('.toc-widget');
+        $(window).scroll(function () {
+            let scroll = $(window).scrollTop();
+            /* add post toc fixed. */
+            if (scroll > tocHeight) {
+                $tocWidget.addClass('toc-fixed');
+            } else {
+                $tocWidget.removeClass('toc-fixed');
+            }
+        });
+
+        
+        /* 修复文章卡片 div 的宽度. */
+        let fixPostCardWidth = function (srcId, targetId) {
+            let srcDiv = $('#' + srcId);
+            if (srcDiv.length === 0) {
+                return;
+            }
+
+            let w = srcDiv.width();
+            if (w >= 450) {
+                w = w + 21;
+            } else if (w >= 350 && w < 450) {
+                w = w + 18;
+            } else if (w >= 300 && w < 350) {
+                w = w + 16;
+            } else {
+                w = w + 14;
+            }
+            $('#' + targetId).width(w);
+        };
+
+        // 切换TOC目录展开收缩的相关操作.
+        const expandedClass = 'expanded';
+        let $tocAside = $('#toc-aside');
+        let $mainContent = $('#main-content');
+        $('#floating-toc-btn .btn-floating').click(function () {
+            if ($tocAside.hasClass(expandedClass)) {
+                $tocAside.removeClass(expandedClass).hide();
+                $mainContent.removeClass('l9');
+            } else {
+                $tocAside.addClass(expandedClass).show();
+                $mainContent.addClass('l9');
+            }
+            fixPostCardWidth('artDetail', 'prenext-posts');
+        });
+        
+    });
+</script>
+
+    
+
+</main>
+
+
+
+
+    <footer class="page-footer bg-color">
+    
+        <link rel="stylesheet" href="/libs/aplayer/APlayer.min.css">
+<style>
+    .aplayer .aplayer-lrc p {
+        
+        display: none;
+        
+        font-size: 12px;
+        font-weight: 700;
+        line-height: 16px !important;
+    }
+
+    .aplayer .aplayer-lrc p.aplayer-lrc-current {
+        
+        display: none;
+        
+        font-size: 15px;
+        color: #42b983;
+    }
+
+    
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body {
+        left: -66px !important;
+    }
+
+    .aplayer.aplayer-fixed.aplayer-narrow .aplayer-body:hover {
+        left: 0px !important;
+    }
+
+    
+</style>
+<div class="">
+    
+    <div class="row">
+        <meting-js class="col l8 offset-l2 m10 offset-m1 s12"
+                   server="netease"
+                   type="playlist"
+                   id="503838841"
+                   fixed='true'
+                   autoplay='false'
+                   theme='#42b983'
+                   loop='all'
+                   order='random'
+                   preload='auto'
+                   volume='0.7'
+                   list-folded='true'
+        >
+        </meting-js>
+    </div>
+</div>
+
+<script src="/libs/aplayer/APlayer.min.js"></script>
+<script src="/libs/aplayer/Meting.min.js"></script>
+
+    
+
+    <div class="container row center-align"
+         style="margin-bottom: 15px !important;">
+        <div class="col s12 m8 l8 copy-right">
+            Copyright&nbsp;&copy;
+            
+                <span id="year">2022-2026</span>
+            
+            <a href="/about" target="_blank">成大事</a>
+            |&nbsp;Powered by&nbsp;<a href="https://hexo.io/" target="_blank">Hexo</a>
+            |&nbsp;Theme&nbsp;<a href="https://github.com/blinkfox/hexo-theme-matery" target="_blank">Matery</a>
+            
+            <br>
+            
+            
+            
+                
+            
+            
+                <span id="busuanzi_container_site_pv">
+                &nbsp;|&nbsp;<i class="far fa-eye"></i>&nbsp;总访问量:&nbsp;
+                    <span id="busuanzi_value_site_pv" class="white-color"></span>
+            </span>
+            
+            
+                <span id="busuanzi_container_site_uv">
+                &nbsp;|&nbsp;<i class="fas fa-users"></i>&nbsp;总访问人数:&nbsp;
+                    <span id="busuanzi_value_site_uv" class="white-color"></span>
+            </span>
+            
+            <br>
+
+            <!-- 运行天数提醒. -->
+            
+                <span id="sitetime"> Loading ...</span>
+                <script>
+                    var calcSiteTime = function () {
+                        var seconds = 1000;
+                        var minutes = seconds * 60;
+                        var hours = minutes * 60;
+                        var days = hours * 24;
+                        var years = days * 365;
+                        var today = new Date();
+                        var startYear = "2022";
+                        var startMonth = "5";
+                        var startDate = "14";
+                        var startHour = "0";
+                        var startMinute = "0";
+                        var startSecond = "0";
+                        var todayYear = today.getFullYear();
+                        var todayMonth = today.getMonth() + 1;
+                        var todayDate = today.getDate();
+                        var todayHour = today.getHours();
+                        var todayMinute = today.getMinutes();
+                        var todaySecond = today.getSeconds();
+                        var t1 = Date.UTC(startYear, startMonth, startDate, startHour, startMinute, startSecond);
+                        var t2 = Date.UTC(todayYear, todayMonth, todayDate, todayHour, todayMinute, todaySecond);
+                        var diff = t2 - t1;
+                        var diffYears = Math.floor(diff / years);
+                        var diffDays = Math.floor((diff / days) - diffYears * 365);
+
+                        // 区分是否有年份.
+                        var language = 'zh-CN';
+                        if (startYear === String(todayYear)) {
+                            document.getElementById("year").innerHTML = todayYear;
+                            var daysTip = 'This site has been running for ' + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                daysTip = '本站已运行 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                daysTip = '本站已運行 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = daysTip;
+                        } else {
+                            document.getElementById("year").innerHTML = startYear + " - " + todayYear;
+                            var yearsAndDaysTip = 'This site has been running for ' + diffYears + ' years and '
+                                + diffDays + ' days';
+                            if (language === 'zh-CN') {
+                                yearsAndDaysTip = '本站已运行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            } else if (language === 'zh-HK') {
+                                yearsAndDaysTip = '本站已運行 ' + diffYears + ' 年 ' + diffDays + ' 天';
+                            }
+                            document.getElementById("sitetime").innerHTML = yearsAndDaysTip;
+                        }
+                    }
+
+                    calcSiteTime();
+                </script>
+            
+            <br>
+            
+        </div>
+        <div class="col s12 m4 l4 social-link social-statis">
+    <a href="https://github.com/chengdashia" class="tooltipped" target="_blank" data-tooltip="访问我的GitHub" data-position="top" data-delay="50">
+        <i class="fab fa-github"></i>
+    </a>
+
+
+
+    <a href="mailto:1847085602@qq.com" class="tooltipped" target="_blank" data-tooltip="邮件联系我" data-position="top" data-delay="50">
+        <i class="fas fa-envelope-open"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="tencent://AddContact/?fromId=50&fromSubId=1&subcmd=all&uin=1847085602" class="tooltipped" target="_blank" data-tooltip="QQ联系我: 1847085602" data-position="top" data-delay="50">
+        <i class="fab fa-qq"></i>
+    </a>
+
+
+
+
+
+
+
+    <a href="/atom.xml" class="tooltipped" target="_blank" data-tooltip="RSS 订阅" data-position="top" data-delay="50">
+        <i class="fas fa-rss"></i>
+    </a>
+
+</div>
+    </div>
+</footer>
+
+<div class="progress-bar"></div>
+
+
+    <!-- 搜索遮罩框 -->
+<div id="searchModal" class="modal">
+    <div class="modal-content">
+        <div class="search-header">
+            <span class="title"><i class="fas fa-search"></i>&nbsp;&nbsp;搜索</span>
+            <input type="search" id="searchInput" name="s" placeholder="请输入搜索的关键字"
+                   class="search-input">
+        </div>
+        <div id="searchResult"></div>
+    </div>
+</div>
+
+<script type="text/javascript">
+$(function () {
+    var searchFunc = function (path, search_id, content_id) {
+        'use strict';
+        $.ajax({
+            url: path,
+            dataType: "xml",
+            success: function (xmlResponse) {
+                // get the contents from search data
+                var datas = $("entry", xmlResponse).map(function () {
+                    return {
+                        title: $("title", this).text(),
+                        content: $("content", this).text(),
+                        url: $("url", this).text()
+                    };
+                }).get();
+                var $input = document.getElementById(search_id);
+                var $resultContent = document.getElementById(content_id);
+                $input.addEventListener('input', function () {
+                    var str = '<ul class=\"search-result-list\">';
+                    var keywords = this.value.trim().toLowerCase().split(/[\s\-]+/);
+                    $resultContent.innerHTML = "";
+                    if (this.value.trim().length <= 0) {
+                        return;
+                    }
+                    // perform local searching
+                    datas.forEach(function (data) {
+                        var isMatch = true;
+                        var data_title = data.title.trim().toLowerCase();
+                        var data_content = data.content.trim().replace(/<[^>]+>/g, "").toLowerCase();
+                        var data_url = data.url;
+                        data_url = data_url.indexOf('/') === 0 ? data.url : '/' + data_url;
+                        var index_title = -1;
+                        var index_content = -1;
+                        var first_occur = -1;
+                        // only match artiles with not empty titles and contents
+                        if (data_title !== '' && data_content !== '') {
+                            keywords.forEach(function (keyword, i) {
+                                index_title = data_title.indexOf(keyword);
+                                index_content = data_content.indexOf(keyword);
+                                if (index_title < 0 && index_content < 0) {
+                                    isMatch = false;
+                                } else {
+                                    if (index_content < 0) {
+                                        index_content = 0;
+                                    }
+                                    if (i === 0) {
+                                        first_occur = index_content;
+                                    }
+                                }
+                            });
+                        }
+                        // show search results
+                        if (isMatch) {
+                            str += "<li><a href='" + data_url + "' class='search-result-title'>" + data_title + "</a>";
+                            var content = data.content.trim().replace(/<[^>]+>/g, "");
+                            if (first_occur >= 0) {
+                                // cut out 100 characters
+                                var start = first_occur - 20;
+                                var end = first_occur + 80;
+                                if (start < 0) {
+                                    start = 0;
+                                }
+                                if (start === 0) {
+                                    end = 100;
+                                }
+                                if (end > content.length) {
+                                    end = content.length;
+                                }
+                                var match_content = content.substr(start, end);
+                                // highlight all keywords
+                                keywords.forEach(function (keyword) {
+                                    var regS = new RegExp(keyword, "gi");
+                                    match_content = match_content.replace(regS, "<em class=\"search-keyword\">" + keyword + "</em>");
+                                });
+
+                                str += "<p class=\"search-result\">" + match_content + "...</p>"
+                            }
+                            str += "</li>";
+                        }
+                    });
+                    str += "</ul>";
+                    $resultContent.innerHTML = str;
+                });
+            }
+        });
+    };
+
+    searchFunc('/search.xml', 'searchInput', 'searchResult');
+});
+</script>
+
+    <!-- 白天和黑夜主题 -->
+<div class="stars-con">
+    <div id="stars"></div>
+    <div id="stars2"></div>
+    <div id="stars3"></div>  
+</div>
+
+<script>
+    function switchNightMode() {
+        $('<div class="Cuteen_DarkSky"><div class="Cuteen_DarkPlanet"></div></div>').appendTo($('body')),
+        setTimeout(function () {
+            $('body').hasClass('DarkMode') 
+            ? ($('body').removeClass('DarkMode'), localStorage.setItem('isDark', '0'), $('#sum-moon-icon').removeClass("fa-sun").addClass('fa-moon')) 
+            : ($('body').addClass('DarkMode'), localStorage.setItem('isDark', '1'), $('#sum-moon-icon').addClass("fa-sun").removeClass('fa-moon')),
+            
+            setTimeout(function () {
+            $('.Cuteen_DarkSky').fadeOut(1e3, function () {
+                $(this).remove()
+            })
+            }, 2e3)
+        })
+    }
+</script>
+
+    <!-- 回到顶部按钮 -->
+<div id="backTop" class="top-scroll">
+    <a class="btn-floating btn-large waves-effect waves-light" href="#!">
+        <i class="fas fa-arrow-up"></i>
+    </a>
+</div>
+
+
+    <script src="/libs/materialize/materialize.min.js"></script>
+    <script src="/libs/masonry/masonry.pkgd.min.js"></script>
+    <script src="/libs/aos/aos.js"></script>
+    <script src="/libs/scrollprogress/scrollProgress.min.js"></script>
+    <script src="/libs/lightGallery/js/lightgallery-all.min.js"></script>
+    <script src="/js/matery.js"></script>
+
+    
+
+    
+    
+    
+
+    <!-- 雪花特效 -->
+    
+
+    <!-- 鼠标星星特效 -->
+    
+
+     
+        <script src="https://ssl.captcha.qq.com/TCaptcha.js"></script>
+        <script src="/libs/others/TencentCaptcha.js"></script>
+        <button id="TencentCaptcha" data-appid="xxxxxxxxxx" data-cbfn="callback" type="button" hidden></button>
+    
+
+    <!-- Baidu Analytics -->
+
+    <!-- Baidu Push -->
+
+<script>
+    (function () {
+        var bp = document.createElement('script');
+        var curProtocol = window.location.protocol.split(':')[0];
+        if (curProtocol === 'https') {
+            bp.src = 'https://zz.bdstatic.com/linksubmit/push.js';
+        } else {
+            bp.src = 'http://push.zhanzhang.baidu.com/push.js';
+        }
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+    })();
+</script>
+
+    
+    <script src="/libs/others/clicklove.js" async="async"></script>
+    
+    
+    <script async src="/libs/others/busuanzi.pure.mini.js"></script>
+    
+
+    
+
+    
+
+    <!--腾讯兔小巢-->
+    
+    
+
+    
+
+    
+
+    
+    <script src="/libs/instantpage/instantpage.js" type="module"></script>
+    
+
+</body>
+
+</html>
