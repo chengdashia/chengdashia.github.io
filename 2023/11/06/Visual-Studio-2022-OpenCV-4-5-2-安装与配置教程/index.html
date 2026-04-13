@@ -39,6 +39,10 @@ OpenCV的下载与配置参考这个OpenCV的下载与环境变量的配置：Wi
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
@@ -409,7 +413,7 @@ OpenCV的下载与配置参考这个OpenCV的下载与环境变量的配置：Wi
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    667
+                    657
                 </div>
                 
 
@@ -457,12 +461,27 @@ OpenCV的下载与配置参考这个OpenCV的下载与环境变量的配置：Wi
 <p>添加完后，继续点击库目录，将OpenCV的库目录添加进去：</p>
 <p>E:\studyTools\OpenCV\opencv\build\x64\vc15\lib</p>
 <p><img src="/2023/11/06/Visual-Studio-2022-OpenCV-4-5-2-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/79c98c0796b3276efce820f76c8e1d3e.png" alt="在这里插入图片描述"><br>添加完后，点击连接器，点击输入，点击附加依赖项，添加lib文件，lib文件可以在E:\studyTools\OpenCV\opencv\build\x64\vc15\lib中查看，数字后面带d的表示debug，选这个就行了（添加依赖项的时候可不用路径，只输入文件名，如：opencv_world411d.lib）。<br><img src="/2023/11/06/Visual-Studio-2022-OpenCV-4-5-2-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/a7c5e895797c58579899c925832f9e43.png" alt="在这里插入图片描述"></p>
-<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a><span id="_52"></span>测试</h3><h4 id="先写一个输出"><a href="#先写一个输出" class="headerlink" title="先写一个输出"></a><span id="_53"></span>先写一个输出</h4><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;iostream&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> std;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">    cout &lt;&lt; <span class="string">&quot;Hello World!!!&quot;</span> &lt;&lt; endl;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="测试"><a href="#测试" class="headerlink" title="测试"></a><span id="_52"></span>测试</h3><h4 id="先写一个输出"><a href="#先写一个输出" class="headerlink" title="先写一个输出"></a><span id="_53"></span>先写一个输出</h4><pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;iostream></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> std<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    cout <span class="token operator">&lt;&lt;</span> <span class="token string">"Hello World!!!"</span> <span class="token operator">&lt;&lt;</span> endl<span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="将OpenCV的动态链接库添加到项目的-x64-Debug下"><a href="#将OpenCV的动态链接库添加到项目的-x64-Debug下" class="headerlink" title="将OpenCV的动态链接库添加到项目的 x64 | Debug下"></a><span id="OpenCV_x64__Debug_62"></span>将OpenCV的动态链接库添加到项目的 x64 | Debug下</h4><p>在OpenCV的 E:\studyTools\OpenCV\opencv\build\x64\vc15\bin目录下</p>
 <p><img src="/2023/11/06/Visual-Studio-2022-OpenCV-4-5-2-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/660b590deb33562d9b9ba15e45721fa4.png" alt="在这里插入图片描述"><br>将其复制到项目的 x64 | Debug下，你是什么环境，就是那个环境的目录下。<br><img src="/2023/11/06/Visual-Studio-2022-OpenCV-4-5-2-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/2385574b22a78547c5c3edba591d4510.png" alt="在这里插入图片描述"></p>
 <h4 id="测试配置效果"><a href="#测试配置效果" class="headerlink" title="测试配置效果"></a><span id="_68"></span>测试配置效果</h4><p>编写测试代码，使用OpenCV读取图片并进行展示。</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;opencv2/opencv.hpp&gt;</span></span></span><br><span class="line"><span class="keyword">using</span> <span class="keyword">namespace</span> cv;</span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    Mat img = <span class="built_in">imread</span>(<span class="string">&quot;C:\\Users\\pc\\Desktop\\zcy.jpg&quot;</span>);</span><br><span class="line">    <span class="built_in">imshow</span>(<span class="string">&quot;img&quot;</span>, img);</span><br><span class="line"></span><br><span class="line">    <span class="built_in">waitKey</span>(<span class="number">0</span>);</span><br><span class="line">    <span class="built_in">destroyAllWindows</span>();</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token macro property"><span class="token directive-hash">#</span><span class="token directive keyword">include</span> <span class="token string">&lt;opencv2/opencv.hpp></span></span>
+<span class="token keyword">using</span> <span class="token keyword">namespace</span> cv<span class="token punctuation">;</span>
+<span class="token keyword">int</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+
+    Mat img <span class="token operator">=</span> <span class="token function">imread</span><span class="token punctuation">(</span><span class="token string">"C:\\Users\\pc\\Desktop\\zcy.jpg"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">imshow</span><span class="token punctuation">(</span><span class="token string">"img"</span><span class="token punctuation">,</span> img<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token function">waitKey</span><span class="token punctuation">(</span><span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token function">destroyAllWindows</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">return</span> <span class="token number">0</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>点击运行。</p>
 <p><img src="/2023/11/06/Visual-Studio-2022-OpenCV-4-5-2-%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE%E6%95%99%E7%A8%8B/b87cfd2c0c2ff225f35119ea2b0c452d.png" alt="在这里插入图片描述"></p>

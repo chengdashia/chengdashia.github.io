@@ -41,6 +41,10 @@
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
@@ -369,10 +373,6 @@
                     
                     <div class="article-tag">
                         
-                            <a href="/tags/centos/">
-                                <span class="chip bg-color">centos</span>
-                            </a>
-                        
                             <a href="/tags/tcp-ip/">
                                 <span class="chip bg-color">tcp/ip</span>
                             </a>
@@ -383,6 +383,10 @@
                         
                             <a href="/tags/%E7%BD%91%E7%BB%9C/">
                                 <span class="chip bg-color">网络</span>
+                            </a>
+                        
+                            <a href="/tags/centos/">
+                                <span class="chip bg-color">centos</span>
                             </a>
                         
                     </div>
@@ -415,14 +419,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    517
+                    523
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    1 分
+                    2 分
                 </div>
                 
 
@@ -446,10 +450,16 @@
 </blockquote>
 <h3 id="1-查看配置好网卡后，DHCP动态分配的IP地址"><a href="#1-查看配置好网卡后，DHCP动态分配的IP地址" class="headerlink" title="1.查看配置好网卡后，DHCP动态分配的IP地址"></a><span id="1DHCPIP_7"></span>1.查看配置好网卡后，DHCP动态分配的IP地址</h3><p><img src="/2024/01/19/CentOS7-%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP/8c18843eaf3f1aec5c15af92fc1b90ba.png" alt="在这里插入图片描述"></p>
 <h3 id="2-查看网关"><a href="#2-查看网关" class="headerlink" title="2. 查看网关"></a><span id="2__11"></span>2. 查看网关</h3><p><img src="/2024/01/19/CentOS7-%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP/7232c8162d078301faaa9b46dabeccc4.png" alt="在这里插入图片描述"><br><img src="/2024/01/19/CentOS7-%E9%85%8D%E7%BD%AE%E9%9D%99%E6%80%81IP/456740e1b82051585895a116ccfab908.png" alt="在这里插入图片描述"><br>网关地址在配置IP有用。</p>
-<h3 id="3-更改IP地址文件"><a href="#3-更改IP地址文件" class="headerlink" title="3. 更改IP地址文件"></a><span id="3_IP_15"></span>3. 更改IP地址文件</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure>
+<h3 id="3-更改IP地址文件"><a href="#3-更改IP地址文件" class="headerlink" title="3. 更改IP地址文件"></a><span id="3_IP_15"></span>3. 更改IP地址文件</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> /etc/sysconfig/network-scripts/ifcfg-ens33<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在文件中，找到或添加以下行，并用你自己的网络设置替换相应的值：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">BOOTPROTO=static</span><br><span class="line">ONBOOT=<span class="built_in">yes</span></span><br><span class="line">IPADDR=192.168.160.133</span><br><span class="line">NETMASK=255.255.255.0</span><br><span class="line">GATEWAY=192.168.160.2</span><br><span class="line">DNS1=8.8.8.8</span><br><span class="line">DNS2=8.8.4.4</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">BOOTPROTO</span><span class="token operator">=</span>static
+<span class="token assign-left variable">ONBOOT</span><span class="token operator">=</span>yes
+<span class="token assign-left variable">IPADDR</span><span class="token operator">=</span><span class="token number">192.168</span>.160.133
+<span class="token assign-left variable">NETMASK</span><span class="token operator">=</span><span class="token number">255.255</span>.255.0
+<span class="token assign-left variable">GATEWAY</span><span class="token operator">=</span><span class="token number">192.168</span>.160.2
+<span class="token assign-left variable">DNS1</span><span class="token operator">=</span><span class="token number">8.8</span>.8.8
+<span class="token assign-left variable">DNS2</span><span class="token operator">=</span><span class="token number">8.8</span>.4.4<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><code>BOOTPROTO</code> 设置为 <code>static</code> 表明这是一个静态 IP 配置。</li>
@@ -460,13 +470,13 @@
 <li><code>DNS1</code> 和 <code>DNS2</code> 是你的 DNS 服务器地址，这里使用了 Google 的公共 DNS 服务器地址作为示例。</li>
 </ul>
 <h3 id="4-重启网络服务"><a href="#4-重启网络服务" class="headerlink" title="4. 重启网络服务"></a><span id="4__38"></span>4. 重启网络服务</h3><p>保存并关闭文件后，重新启动网络服务以应用更改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">systemctl restart network</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl restart network<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="5-检查配置"><a href="#5-检查配置" class="headerlink" title="5. 检查配置"></a><span id="5__46"></span>5. 检查配置</h3><p>使用以下命令来检查新的 IP 配置是否生效：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip addr</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ip</span> addr<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="6-更新路由（如果需要）"><a href="#6-更新路由（如果需要）" class="headerlink" title="6. 更新路由（如果需要）"></a><span id="6__53"></span>6. 更新路由（如果需要）</h3><p>如果你更改了网关，你可能需要更新系统路由。使用以下命令来查看当前路由：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ip route</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ip</span> route<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>如果需要修改路由，你可以使用 <code>ip route add</code> 或 <code>ip route change</code> 命令。</p>
 <p>确保你用的静态 IP 地址没有被网络中的其他设备使用，并且是你的本地网络子网内的有效地址。在对网络配置进行任何更改之前，建议备份原有的配置文件。如果你正在远程访问这台 CentOS 7 机器进行配置，错误的网络设置可能会导致你丢失对机器的访问。在这种情况下，确保有替代的访问方法，例如通过控制台或物理访问来修复配置。</p>
@@ -534,10 +544,6 @@
                     
                         <div class="article-tag">
                             
-                                <a href="/tags/centos/">
-                                    <span class="chip bg-color">centos</span>
-                                </a>
-                            
                                 <a href="/tags/tcp-ip/">
                                     <span class="chip bg-color">tcp/ip</span>
                                 </a>
@@ -548,6 +554,10 @@
                             
                                 <a href="/tags/%E7%BD%91%E7%BB%9C/">
                                     <span class="chip bg-color">网络</span>
+                                </a>
+                            
+                                <a href="/tags/centos/">
+                                    <span class="chip bg-color">centos</span>
                                 </a>
                             
                         </div>

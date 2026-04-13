@@ -5,11 +5,11 @@
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="基于Docker安装的mysql来安装hive, 成大事">
-    <meta name="description" content="首先安装mysql用mysql:5.7举例1可以先在docker hub上查找mysql的镜像1docker search mysql
+    <meta name="description" content="首先安装mysql用mysql:5.7举例1可以先在docker hub上查找mysql的镜像docker search mysql
 
 
 2，我这次安装的mysql:5.7所以直接从docker hub上拉取mysql:5.7  
-1do">
+dock">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -38,6 +38,10 @@
 <link rel="stylesheet" type="text/css" href="/css/matery.css">
 <link rel="stylesheet" type="text/css" href="/css/my.css">
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
 
 
 
@@ -418,7 +422,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.2k
+                    1.1k
                 </div>
                 
 
@@ -440,22 +444,28 @@
 
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h1 id="首先安装mysql"><a href="#首先安装mysql" class="headerlink" title="首先安装mysql"></a>首先安装mysql</h1><h2 id="用mysql-5-7举例"><a href="#用mysql-5-7举例" class="headerlink" title="用mysql:5.7举例"></a>用mysql:5.7举例</h2><h3 id="1可以先在docker-hub上查找mysql的镜像"><a href="#1可以先在docker-hub上查找mysql的镜像" class="headerlink" title="1可以先在docker hub上查找mysql的镜像"></a>1可以先在docker hub上查找mysql的镜像</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql</span><br></pre></td></tr></table></figure>
+                <h1 id="首先安装mysql"><a href="#首先安装mysql" class="headerlink" title="首先安装mysql"></a>首先安装mysql</h1><h2 id="用mysql-5-7举例"><a href="#用mysql-5-7举例" class="headerlink" title="用mysql:5.7举例"></a>用mysql:5.7举例</h2><h3 id="1可以先在docker-hub上查找mysql的镜像"><a href="#1可以先在docker-hub上查找mysql的镜像" class="headerlink" title="1可以先在docker hub上查找mysql的镜像"></a>1可以先在docker hub上查找mysql的镜像</h3><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">docker search mysql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="/2022/05/24/%E5%9F%BA%E4%BA%8EDocker%E5%AE%89%E8%A3%85%E7%9A%84mysql%E6%9D%A5%E5%AE%89%E8%A3%85hive/image-20220524190015919.png" alt="image-20220524190015919"></p>
 <h3 id="2，我这次安装的mysql-5-7"><a href="#2，我这次安装的mysql-5-7" class="headerlink" title="2，我这次安装的mysql:5.7"></a>2，我这次安装的mysql:5.7</h3><p>所以直接从docker hub上拉取mysql:5.7  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull mysql:5.7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="3-运行mysql"><a href="#3-运行mysql" class="headerlink" title="3,运行mysql"></a>3,运行mysql</h3><blockquote>
 <h1 id="运行容器，需要做数据挂载！-安装启动MySQL，需要配置密码，这是要注意点！"><a href="#运行容器，需要做数据挂载！-安装启动MySQL，需要配置密码，这是要注意点！" class="headerlink" title="运行容器，需要做数据挂载！ #安装启动MySQL，需要配置密码，这是要注意点！"></a>运行容器，需要做数据挂载！ #安装启动MySQL，需要配置密码，这是要注意点！</h1><h1 id="官方测试：docker-run-—name-some-mysql-e-MYSQL-ROOT-PASSWORD-my-secret-pw-d-mysql-tag"><a href="#官方测试：docker-run-—name-some-mysql-e-MYSQL-ROOT-PASSWORD-my-secret-pw-d-mysql-tag" class="headerlink" title="官方测试：docker run —name some-mysql -e MYSQL_ROOT_PASSWORD&#x3D;my-secret-pw -d mysql:tag"></a>官方测试：docker run —name some-mysql -e MYSQL_ROOT_PASSWORD&#x3D;my-secret-pw -d mysql:tag</h1><h1 id="启动："><a href="#启动：" class="headerlink" title="启动："></a>启动：</h1><p>-d 后台运行<br>-p 端口映射<br>-v 卷挂载<br>-e 环境配置<br>—name 容器名字  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3306:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v/home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql0 mysql:5.7</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">3306</span>:3306 <span class="token parameter variable">-v</span> /home/mysql/conf:/etc/mysql/conf.d -v/home/mysql/data:/var/lib/mysql <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token parameter variable">--name</span> mysql0 mysql:5.7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="4-查看容器是否创建成功"><a href="#4-查看容器是否创建成功" class="headerlink" title="4,查看容器是否创建成功"></a>4,查看容器是否创建成功</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker  ps 命令</span></span><br><span class="line">      <span class="comment">#列出当前正在运行的容器</span></span><br><span class="line">-a    <span class="comment">#列出当前正在运行的容器+带出历史运行过的容器</span></span><br><span class="line">-n=?  <span class="comment">#显示最近创建的容器</span></span><br><span class="line">-q    <span class="comment">#只显示容器的编号</span></span><br><span class="line"></span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<h3 id="4-查看容器是否创建成功"><a href="#4-查看容器是否创建成功" class="headerlink" title="4,查看容器是否创建成功"></a>4,查看容器是否创建成功</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># docker  ps 命令</span>
+      <span class="token comment">#列出当前正在运行的容器</span>
+<span class="token parameter variable">-a</span>    <span class="token comment">#列出当前正在运行的容器+带出历史运行过的容器</span>
+<span class="token parameter variable">-n</span><span class="token operator">=</span>?  <span class="token comment">#显示最近创建的容器</span>
+<span class="token parameter variable">-q</span>    <span class="token comment">#只显示容器的编号</span>
+
+<span class="token function">docker</span> <span class="token function">ps</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/24/%E5%9F%BA%E4%BA%8EDocker%E5%AE%89%E8%A3%85%E7%9A%84mysql%E6%9D%A5%E5%AE%89%E8%A3%85hive/image-20220524190023030.png" alt="image-20220524190023030"></p>
 <p>有个命令，可以进入容器内部,ctrl+p+q可以以后台运行的方式退出这个软件</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it 容器的<span class="built_in">id</span> /bin/bash</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> 容器的id /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="5，使用navicat连接服务器或虚拟机上的mysql"><a href="#5，使用navicat连接服务器或虚拟机上的mysql" class="headerlink" title="5，使用navicat连接服务器或虚拟机上的mysql"></a>5，使用navicat连接服务器或虚拟机上的mysql</h3><p><img src="/2022/05/24/%E5%9F%BA%E4%BA%8EDocker%E5%AE%89%E8%A3%85%E7%9A%84mysql%E6%9D%A5%E5%AE%89%E8%A3%85hive/image-20220524190032705.png" alt="image-20220524190032705"></p>
 <h2 id="开始安装hive"><a href="#开始安装hive" class="headerlink" title="开始安装hive"></a>开始安装hive</h2><p>前提条件：</p>
@@ -464,35 +474,83 @@
 </blockquote>
 <p><img src="/2022/05/24/%E5%9F%BA%E4%BA%8EDocker%E5%AE%89%E8%A3%85%E7%9A%84mysql%E6%9D%A5%E5%AE%89%E8%A3%85hive/image-20220524190037826.png" alt="image-20220524190037826"></p>
 <h3 id="安装步骤："><a href="#安装步骤：" class="headerlink" title="安装步骤："></a>安装步骤：</h3><p>1，去官网下载hive安装文件，下载地址 ：<a target="_blank" rel="noopener" href="https://mirrors.tuna.tsinghua.edu.cn/apache/hive/">hive 下载地址</a>apache-hive-2.3.9-bin.tar.gz<br>2，将hive安装文件上传到虚拟机或是服务器的~&#x2F;soft目录下，解压：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$ <span class="built_in">cd</span> ~/soft</span><br><span class="line">$ tar -zxvf apache-hive-2.3.9-bin.tar.gz</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">$ <span class="token builtin class-name">cd</span> ~/soft
+$ <span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> apache-hive-2.3.9-bin.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>3，创建软连接：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">ln</span> -s apache-hive-2.3.9-bin hive</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ln</span> <span class="token parameter variable">-s</span> apache-hive-2.3.9-bin hive<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>4，配置环境变量  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.bashrc</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>文件添加以下内容  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#注意：一定不要打错！ 可以在操作之前拍个快照。</span></span><br><span class="line"><span class="built_in">export</span> HIVE_HOME=~/soft/hive</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HIVE_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#注意：一定不要打错！ 可以在操作之前拍个快照。</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HIVE_HOME</span><span class="token operator">=~</span>/soft/hive
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">$HIVE_HOME</span>/bin:<span class="token environment constant">$PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p>使配置文件生效  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>5，配置hive-site.xml(没有这个文件直接vim就可以创建)  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cd</span> hive/conf</span><br><span class="line">vim hive-site.xml</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> hive/conf
+<span class="token function">vim</span> hive-site.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>将以下内容添加到xml文件中  </p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot; standalone=&quot;no&quot;?&gt;</span><br><span class="line">&lt;?xml-stylesheet type=&quot;text/xsl&quot; href=&quot;configuration.xsl&quot;?&gt;</span><br><span class="line">&lt;configuration&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;javax.jdo.option.ConnectionURL&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true&amp;amp;useSSL=false&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--数据库驱动  如果你使用的是8.x  驱动是：com.mysql.cj.jdbc.Driver--&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;javax.jdo.option.ConnectionDriverName&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;com.mysql.jdbc.Driver&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line"> &lt;!--数据库的用户名--&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;javax.jdo.option.ConnectionUserName&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;root&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"> </span><br><span class="line"> &lt;!--数据库的密码--&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;javax.jdo.option.ConnectionPassword&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;123456&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"> </span><br><span class="line">&lt;/configuration&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8" standalone="no"?></span>
+<span class="token prolog">&lt;?xml-stylesheet type="text/xsl" href="configuration.xsl"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionURL<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>jdbc:mysql://localhost:3306/hive?createDatabaseIfNotExist=true<span class="token entity named-entity" title="&amp;">&amp;amp;</span>useSSL=false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+ <span class="token comment">&lt;!--数据库驱动  如果你使用的是8.x  驱动是：com.mysql.cj.jdbc.Driver--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionDriverName<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>com.mysql.jdbc.Driver<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+ <span class="token comment">&lt;!--数据库的用户名--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionUserName<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>root<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+ 
+ <span class="token comment">&lt;!--数据库的密码--></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>javax.jdo.option.ConnectionPassword<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>123456<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+ 
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>6，将mysql的驱动文件拷贝到hive&#x2F;lib目录下  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">cp</span> mysql-connection-java-5.1.46.jar ~/soft/hive/lib</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> mysql-connection-java-5.1.46.jar ~/soft/hive/lib<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>7，初始化Mysql  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">find / -name schematool</span><br><span class="line">/root/soft/apache-hive-2.3.9-bin/bin/schematool -dbType mysql -initSchema</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> / <span class="token parameter variable">-name</span> schematool
+/root/soft/apache-hive-2.3.9-bin/bin/schematool <span class="token parameter variable">-dbType</span> mysql <span class="token parameter variable">-initSchema</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>可以看到已经正确完成初始化了。<br><img src="/2022/05/24/%E5%9F%BA%E4%BA%8EDocker%E5%AE%89%E8%A3%85%E7%9A%84mysql%E6%9D%A5%E5%AE%89%E8%A3%85hive/image-20220524190045119.png" alt="image-20220524190045119"></p>
 <p>如果初始化不成功，可能是hadoop的版本问题。hadoop3. *和hive 3 .*会出现</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">Exception <span class="keyword">in</span> thread <span class="string">&quot;main&quot;</span> java.lang.NoSuchMethodError: com.google.common.base.Preconditions.checkArgument(ZLjava/lang/String;Ljava/lang/Object;)V</span><br><span class="line">    at org.apache.hadoop.conf.Configuration.<span class="built_in">set</span>(Configuration.java:1357)</span><br><span class="line">    at org.apache.hadoop.conf.Configuration.<span class="built_in">set</span>(Configuration.java:1338)</span><br><span class="line">    at org.apache.hadoop.mapred.JobConf.setJar(JobConf.java:536)</span><br><span class="line">    at org.apache.hadoop.mapred.JobConf.setJarByClass(JobConf.java:554)</span><br><span class="line">    at org.apache.hadoop.mapred.JobConf.&lt;init&gt;(JobConf.java:448)</span><br><span class="line">    at org.apache.hadoop.hive.conf.HiveConf.initialize(HiveConf.java:5141)</span><br><span class="line">    at org.apache.hadoop.hive.conf.HiveConf.&lt;init&gt;(HiveConf.java:5099)</span><br><span class="line">    at org.apache.hadoop.hive.common.LogUtils.initHiveLog4jCommon(LogUtils.java:97)</span><br><span class="line">    at org.apache.hadoop.hive.common.LogUtils.initHiveLog4j(LogUtils.java:81)</span><br><span class="line">    at org.apache.hadoop.hive.cli.CliDriver.run(CliDriver.java:699)</span><br><span class="line">    at org.apache.hadoop.hive.cli.CliDriver.main(CliDriver.java:683)</span><br><span class="line">    at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><br><span class="line">    at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><br><span class="line">    at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><br><span class="line">    at java.lang.reflect.Method.invoke(Method.java:483)</span><br><span class="line">    at org.apache.hadoop.util.RunJar.run(RunJar.java:323)</span><br><span class="line">    at org.apache.hadoop.util.RunJar.main(RunJar.java:236)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">Exception <span class="token keyword">in</span> thread <span class="token string">"main"</span> java.lang.NoSuchMethodError: com.google.common.base.Preconditions.checkArgument<span class="token punctuation">(</span>ZLjava/lang/String<span class="token punctuation">;</span>Ljava/lang/Object<span class="token punctuation">;</span><span class="token punctuation">)</span>V
+    at org.apache.hadoop.conf.Configuration.set<span class="token punctuation">(</span>Configuration.java:1357<span class="token punctuation">)</span>
+    at org.apache.hadoop.conf.Configuration.set<span class="token punctuation">(</span>Configuration.java:1338<span class="token punctuation">)</span>
+    at org.apache.hadoop.mapred.JobConf.setJar<span class="token punctuation">(</span>JobConf.java:536<span class="token punctuation">)</span>
+    at org.apache.hadoop.mapred.JobConf.setJarByClass<span class="token punctuation">(</span>JobConf.java:554<span class="token punctuation">)</span>
+    at org.apache.hadoop.mapred.JobConf.<span class="token operator">&lt;</span>init<span class="token operator">></span><span class="token punctuation">(</span>JobConf.java:448<span class="token punctuation">)</span>
+    at org.apache.hadoop.hive.conf.HiveConf.initialize<span class="token punctuation">(</span>HiveConf.java:5141<span class="token punctuation">)</span>
+    at org.apache.hadoop.hive.conf.HiveConf.<span class="token operator">&lt;</span>init<span class="token operator">></span><span class="token punctuation">(</span>HiveConf.java:5099<span class="token punctuation">)</span>
+    at org.apache.hadoop.hive.common.LogUtils.initHiveLog4jCommon<span class="token punctuation">(</span>LogUtils.java:97<span class="token punctuation">)</span>
+    at org.apache.hadoop.hive.common.LogUtils.initHiveLog4j<span class="token punctuation">(</span>LogUtils.java:81<span class="token punctuation">)</span>
+    at org.apache.hadoop.hive.cli.CliDriver.run<span class="token punctuation">(</span>CliDriver.java:699<span class="token punctuation">)</span>
+    at org.apache.hadoop.hive.cli.CliDriver.main<span class="token punctuation">(</span>CliDriver.java:683<span class="token punctuation">)</span>
+    at sun.reflect.NativeMethodAccessorImpl.invoke0<span class="token punctuation">(</span>Native Method<span class="token punctuation">)</span>
+    at sun.reflect.NativeMethodAccessorImpl.invoke<span class="token punctuation">(</span>NativeMethodAccessorImpl.java:62<span class="token punctuation">)</span>
+    at sun.reflect.DelegatingMethodAccessorImpl.invoke<span class="token punctuation">(</span>DelegatingMethodAccessorImpl.java:43<span class="token punctuation">)</span>
+    at java.lang.reflect.Method.invoke<span class="token punctuation">(</span>Method.java:483<span class="token punctuation">)</span>
+    at org.apache.hadoop.util.RunJar.run<span class="token punctuation">(</span>RunJar.java:323<span class="token punctuation">)</span>
+    at org.apache.hadoop.util.RunJar.main<span class="token punctuation">(</span>RunJar.java:236<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>错误原因：系统找不到这个类所在的jar包或者jar包的版本不一样系统不知道使用哪个。hive启动报错的原因是后者</p>
 <p>解决办法：</p>
@@ -502,7 +560,8 @@
 <p>再次启动问题得到解决！</p>
 <p>可以测试hive是否安装成功，开启hive之前要先开启hadoop</p>
 <p>可以测试hive是否安装成功，开启hive之前要先开启hadoop</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">start-all.sh</span><br><span class="line">hive</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">start-all.sh
+hive<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>可以看到安装成功了。<br><img src="/2022/05/24/%E5%9F%BA%E4%BA%8EDocker%E5%AE%89%E8%A3%85%E7%9A%84mysql%E6%9D%A5%E5%AE%89%E8%A3%85hive/image-20220524190049670.png" alt="image-20220524190049670"></p>
 
@@ -661,13 +720,13 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2022/05/25/ElasticSearch%E7%AC%94%E8%AE%B0/">
+                <a href="/2022/05/25/java-8-%E6%96%B0%E7%89%B9%E6%80%A7/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/23.jpg" class="responsive-img" alt="ElasticSearch笔记">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="java学习笔记">
                         
-                        <span class="card-title">ElasticSearch笔记</span>
+                        <span class="card-title">java学习笔记</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
@@ -684,8 +743,8 @@
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0/" class="post-category">
-                                    学习笔记
+                            <a href="/categories/java/" class="post-category">
+                                    java
                                 </a>
                             
                             
@@ -694,14 +753,6 @@
                 </div>
                 
                 <div class="card-action article-tags">
-                    
-                    <a href="/tags/Springboot/">
-                        <span class="chip bg-color">Springboot</span>
-                    </a>
-                    
-                    <a href="/tags/Elasticsearch/">
-                        <span class="chip bg-color">Elasticsearch</span>
-                    </a>
                     
                     <a href="/tags/java/">
                         <span class="chip bg-color">java</span>

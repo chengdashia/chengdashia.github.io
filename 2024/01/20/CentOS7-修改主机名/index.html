@@ -39,6 +39,10 @@
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
@@ -409,7 +413,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    744
+                    743
                 </div>
                 
 
@@ -453,39 +457,43 @@
 <h3 id="查看主机名"><a href="#查看主机名" class="headerlink" title="查看主机名"></a><span id="_17"></span>查看主机名</h3><p>CentOS 7 使用 <code>systemd</code>，它引入了 <code>hostnamectl</code> 命令，允许更改和查看当前的主机名。</p>
 <ol>
 <li><p>要查看当前主机名，运行：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">//查看一下当前的主机名的情况，查看全部三种主机名</span><br><span class="line">hostnamectl</span><br><span class="line"></span><br><span class="line">// 或者，查看全部的三种主机名</span><br><span class="line">hostnamectl status</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">//查看一下当前的主机名的情况，查看全部三种主机名
+hostnamectl
+
+// 或者，查看全部的三种主机名
+hostnamectl status<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2024/01/20/CentOS7-%E4%BF%AE%E6%94%B9%E4%B8%BB%E6%9C%BA%E5%90%8D/5b584b246f551f4c9d1042fe7c922645.png" alt="在这里插入图片描述"></p>
 </li>
 </ol>
 <h2 id="修改主机名"><a href="#修改主机名" class="headerlink" title="修改主机名"></a><span id="_30"></span>修改主机名</h2><p>在 CentOS 7 中修改主机名的过程相对简单</p>
 <h3 id="使用-hostnamectl-命令"><a href="#使用-hostnamectl-命令" class="headerlink" title="使用 hostnamectl 命令"></a><span id="_hostnamectl__33"></span>使用 <code>hostnamectl</code> 命令</h3><h4 id="临时有效"><a href="#临时有效" class="headerlink" title="临时有效"></a><span id="_34"></span>临时有效</h4><p>hostname 主机名&#x2F;&#x2F;只能临时修改的主机名，当重启机器后，主机名称又变回来了。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hostname node1</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">hostname</span> node1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h4 id="永久生效"><a href="#永久生效" class="headerlink" title="永久生效"></a><span id="_41"></span>永久生效</h4><p>永久性的修改主机名称，重启后能保持修改后的。</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> hostnamectl set-hostname your-new-hostname</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> hostnamectl set-hostname your-new-hostname<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>将 <code>your-new-hostname</code> 替换为您想要的新主机名。</p>
 <p>重启系统或注销当前会话以确保更改完全生效。</p>
 <h3 id="编辑配置文件"><a href="#编辑配置文件" class="headerlink" title="编辑配置文件"></a><span id="_53"></span>编辑配置文件</h3><p>另一种方法是直接编辑包含主机名的配置文件。</p>
 <ol>
 <li><p>使用文本编辑器编辑 <code>/etc/hostname</code> 文件，该文件仅包含系统的主机名。例如，使用 <code>vi</code> 编辑器：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vi /etc/hostname</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">vi</span> /etc/hostname<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 </li>
 <li><p>删除当前主机名，并替换为您想要的新主机名，然后保存并退出编辑器。</p>
 </li>
 <li><p>同样，您可能还需要编辑 <code>/etc/hosts</code> 文件，这样本地解析可以对应到新的主机名：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> vi /etc/hosts</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">vi</span> /etc/hosts<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>在这个文件中，找到引用旧主机名的行（通常与 <code>127.0.0.1</code> 或 <code>::1</code> 相关联），并将旧主机名替换为新主机名。</p>
 </li>
 <li><p>保存并关闭文件。</p>
 </li>
 <li><p>重启系统或网络服务以确保更改生效：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl restart network</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl restart network<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>或者仅仅重启系统：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> reboot</span><br></pre></td></tr></table></figure></li>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">reboot</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></li>
 </ol>
 <p>在修改主机名后，您可以再次运行 <code>hostnamectl status</code> 或简单地执行 <code>hostname</code> 命令，以确认主机名已经更改。</p>
 
@@ -747,10 +755,6 @@
                 
                 <div class="card-action article-tags">
                     
-                    <a href="/tags/centos/">
-                        <span class="chip bg-color">centos</span>
-                    </a>
-                    
                     <a href="/tags/tcp-ip/">
                         <span class="chip bg-color">tcp/ip</span>
                     </a>
@@ -761,6 +765,10 @@
                     
                     <a href="/tags/%E7%BD%91%E7%BB%9C/">
                         <span class="chip bg-color">网络</span>
+                    </a>
+                    
+                    <a href="/tags/centos/">
+                        <span class="chip bg-color">centos</span>
                     </a>
                     
                 </div>

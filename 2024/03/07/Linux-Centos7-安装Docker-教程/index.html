@@ -40,6 +40,10 @@
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
@@ -410,7 +414,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    267
+                    265
                 </div>
                 
 
@@ -438,22 +442,38 @@
 <blockquote>
 <p>要安装Docker Engine，您需要CentOS 7或8的维护版本。不支持或未测试存档版本。</p>
 </blockquote>
-<h2 id="1，卸载旧版本"><a href="#1，卸载旧版本" class="headerlink" title="1，卸载旧版本"></a><span id="1_4"></span>1，卸载旧版本</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker<span class="literal">-client</span> \</span><br><span class="line">                  docker<span class="literal">-client-latest</span> \</span><br><span class="line">                  docker<span class="literal">-common</span> \</span><br><span class="line">                  docker<span class="literal">-latest</span> \</span><br><span class="line">                  docker<span class="literal">-latest-logrotate</span> \</span><br><span class="line">                  docker<span class="literal">-logrotate</span> \</span><br><span class="line">                  docker<span class="literal">-engine</span></span><br></pre></td></tr></table></figure>
+<h2 id="1，卸载旧版本"><a href="#1，卸载旧版本" class="headerlink" title="1，卸载旧版本"></a><span id="1_4"></span>1，卸载旧版本</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2024/03/07/Linux-Centos7-%E5%AE%89%E8%A3%85Docker-%E6%95%99%E7%A8%8B/aa71c3e75753a36b65cc9921acd1dd67.png" alt="在这里插入图片描述"><br>yum报告没有安装这些软件包就可以了。</p>
-<h2 id="2，安装docker软件包"><a href="#2，安装docker软件包" class="headerlink" title="2，安装docker软件包"></a><span id="2docker_17"></span>2，安装docker软件包</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install <span class="literal">-y</span> yum<span class="literal">-utils</span></span><br></pre></td></tr></table></figure>
+<h2 id="2，安装docker软件包"><a href="#2，安装docker软件包" class="headerlink" title="2，安装docker软件包"></a><span id="2docker_17"></span>2，安装docker软件包</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo yum install <span class="token operator">-</span>y yum-utils<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h2 id="3-设置镜像仓库地址"><a href="#3-设置镜像仓库地址" class="headerlink" title="3,设置镜像仓库地址"></a><span id="3_21"></span>3,设置镜像仓库地址</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认是国外的</span></span><br><span class="line">sudo yum<span class="literal">-config-manager</span> \</span><br><span class="line">    <span class="literal">--add-repo</span> \</span><br><span class="line">    https://download.docker.com/linux/centos/docker<span class="literal">-ce</span>.repo</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 换成阿里云镜像地址</span></span><br><span class="line">sudo yum<span class="literal">-config-manager</span> \</span><br><span class="line">    <span class="literal">--add-repo</span> \</span><br><span class="line">    http://mirrors.aliyun.com/docker<span class="literal">-ce</span>/linux/centos/docker<span class="literal">-ce</span>.repo</span><br></pre></td></tr></table></figure>
+<h2 id="3-设置镜像仓库地址"><a href="#3-设置镜像仓库地址" class="headerlink" title="3,设置镜像仓库地址"></a><span id="3_21"></span>3,设置镜像仓库地址</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 默认是国外的</span>
+sudo yum-config-manager \
+    <span class="token operator">--</span><span class="token function">add-repo</span> \
+    https:<span class="token operator">/</span><span class="token operator">/</span>download<span class="token punctuation">.</span>docker<span class="token punctuation">.</span>com/linux/centos/docker-ce<span class="token punctuation">.</span>repo
+    
+<span class="token comment"># 换成阿里云镜像地址</span>
+sudo yum-config-manager \
+    <span class="token operator">--</span><span class="token function">add-repo</span> \
+    http:<span class="token operator">/</span><span class="token operator">/</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com/docker-ce/linux/centos/docker-ce<span class="token punctuation">.</span>repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2024/03/07/Linux-Centos7-%E5%AE%89%E8%A3%85Docker-%E6%95%99%E7%A8%8B/d3123bb3f71ce57cd70714403d1d7c24.png" alt="在这里插入图片描述"></p>
 <h2 id="4-安装最新版Docker-Engine容器"><a href="#4-安装最新版Docker-Engine容器" class="headerlink" title="4,安装最新版Docker Engine容器"></a><span id="4Docker_Engine_34"></span>4,安装最新版Docker Engine容器</h2><p>安装前建议先将将服务器上的软件包信息现在本地缓存,以提高安装软件的速度</p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo yum makecache fast<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="/2024/03/07/Linux-Centos7-%E5%AE%89%E8%A3%85Docker-%E6%95%99%E7%A8%8B/32007733201ab5d043f8b3b27f371d54.png" alt="在这里插入图片描述"></p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker-ce社区版(docker-ee企业版)</span></span><br><span class="line">sudo yum install docker<span class="literal">-ce</span> docker<span class="literal">-ce-cli</span> containerd.io</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># docker-ce社区版(docker-ee企业版)</span>
+sudo yum install docker-ce docker-ce-<span class="token function">cli</span> containerd<span class="token punctuation">.</span>io<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2024/03/07/Linux-Centos7-%E5%AE%89%E8%A3%85Docker-%E6%95%99%E7%A8%8B/7a2516cab11039d45cc5df4deedece99.png" alt="在这里插入图片描述">安装完成后，Docker只安装但并未启动</p>
-<h2 id="5，启动Docker"><a href="#5，启动Docker" class="headerlink" title="5，启动Docker"></a><span id="5Docker_45"></span>5，启动Docker</h2><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">start</span> docker</span><br></pre></td></tr></table></figure>
+<h2 id="5，启动Docker"><a href="#5，启动Docker" class="headerlink" title="5，启动Docker"></a><span id="5Docker_45"></span>5，启动Docker</h2><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo systemctl <span class="token function">start</span> docker<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>然后可用docker version命令测试Docker是否安装成功，并查看Docker的版本信息<br><img src="/2024/03/07/Linux-Centos7-%E5%AE%89%E8%A3%85Docker-%E6%95%99%E7%A8%8B/d7de7b5bda79a19eb69df7ff5a5ab8a6.png" alt="在这里插入图片描述"></p>
 

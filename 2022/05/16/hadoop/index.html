@@ -9,7 +9,7 @@
 (2).虚拟机准备；1、创建虚拟机（具体步骤不再展示）；
 2 、配置网络；ping外网：ping baidu.com
 如果ping不通修改如下文件：
-1vi /etc/sysconfig/n">
+vi /etc/sysconfig/ne">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta name="renderer" content="webkit|ie-stand|ie-comp">
@@ -38,6 +38,10 @@
 <link rel="stylesheet" type="text/css" href="/css/matery.css">
 <link rel="stylesheet" type="text/css" href="/css/my.css">
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
+
+
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
 
 
 
@@ -414,14 +418,14 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    4.4k
+                    4.1k
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-clock fa-fw"></i>阅读时长:&nbsp;&nbsp;
-                    21 分
+                    19 分
                 </div>
                 
 
@@ -440,7 +444,7 @@
 <h2 id="2-虚拟机准备；"><a href="#2-虚拟机准备；" class="headerlink" title="(2).虚拟机准备；"></a>(2).虚拟机准备；</h2><h3 id="1、创建虚拟机（具体步骤不再展示）；"><a href="#1、创建虚拟机（具体步骤不再展示）；" class="headerlink" title="1、创建虚拟机（具体步骤不再展示）；"></a>1、创建虚拟机（具体步骤不再展示）；</h3><p><img src="/2022/05/16/hadoop/image-20220516121741768.png" alt="image-20220516121741768"></p>
 <h3 id="2-、配置网络；"><a href="#2-、配置网络；" class="headerlink" title="2 、配置网络；"></a>2 、配置网络；</h3><h4 id="ping外网：ping-baidu-com"><a href="#ping外网：ping-baidu-com" class="headerlink" title="ping外网：ping baidu.com"></a>ping外网：ping baidu.com</h4><p><img src="/2022/05/16/hadoop/image-20220516121747924.png" alt="image-20220516121747924"></p>
 <h4 id="如果ping不通"><a href="#如果ping不通" class="headerlink" title="如果ping不通"></a>如果ping不通</h4><p>修改如下文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> /etc/sysconfig/network-scripts/ifcfg-ens33<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121754932.png" alt="image-20220516121754932"></p>
 <h4 id="重启网络服务："><a href="#重启网络服务：" class="headerlink" title="重启网络服务："></a>重启网络服务：</h4><p>service network restart</p>
@@ -449,7 +453,12 @@
 <p><img src="/2022/05/16/hadoop/image-20220516121810372.png" alt="image-20220516121810372"> <img src="/2022/05/16/hadoop/image-20220516121816889.png" alt="image-20220516121816889"> <img src="/2022/05/16/hadoop/image-20220516121824390.png" alt="image-20220516121824390"></p>
 <p>查看IP：ip addr</p>
 <p><img src="/2022/05/16/hadoop/image-20220516140004855.png" alt="image-20220516140004855"></p>
-<h4 id="修改网卡的配置文件"><a href="#修改网卡的配置文件" class="headerlink" title="修改网卡的配置文件"></a>修改网卡的配置文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens33</span><br><span class="line"><span class="comment">#修改并添加：（IP为静态）</span></span><br><span class="line">BOOTPROTO=static</span><br><span class="line">IPADDR=192.168.246.132</span><br><span class="line">GATEWAY=192.168.246.2</span><br><span class="line">DNS1=192.168.246.2</span><br></pre></td></tr></table></figure>
+<h4 id="修改网卡的配置文件"><a href="#修改网卡的配置文件" class="headerlink" title="修改网卡的配置文件"></a>修改网卡的配置文件</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> /etc/sysconfig/network-scripts/ifcfg-ens33
+<span class="token comment">#修改并添加：（IP为静态）</span>
+<span class="token assign-left variable">BOOTPROTO</span><span class="token operator">=</span>static
+<span class="token assign-left variable">IPADDR</span><span class="token operator">=</span><span class="token number">192.168</span>.246.132
+<span class="token assign-left variable">GATEWAY</span><span class="token operator">=</span><span class="token number">192.168</span>.246.2
+<span class="token assign-left variable">DNS1</span><span class="token operator">=</span><span class="token number">192.168</span>.246.2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>如图所示</p>
 <p><img src="/2022/05/16/hadoop/image-20220516121832458.png" alt="image-20220516121832458"></p>
@@ -460,7 +469,12 @@
 <p>点击下一页，</p>
 <p>选择克隆类型时，创建完整克隆：</p>
 <p><img src="/2022/05/16/hadoop/image-20220516121842574.png" alt="image-20220516121842574"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#打开第二、三台虚拟机，进入：</span></span><br><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-ens-33</span><br><span class="line"></span><br><span class="line"><span class="comment">#更改</span></span><br><span class="line">IPADDR=192.168.246.133  </span><br><span class="line">IPADDR=192.168.246.134</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#打开第二、三台虚拟机，进入：</span>
+<span class="token function">vi</span> /etc/sysconfig/network-scripts/ifcfg-ens-33
+
+<span class="token comment">#更改</span>
+<span class="token assign-left variable">IPADDR</span><span class="token operator">=</span><span class="token number">192.168</span>.246.133  
+<span class="token assign-left variable">IPADDR</span><span class="token operator">=</span><span class="token number">192.168</span>.246.134<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121847510.png" alt="image-20220516121847510"></p>
 <p>重启网络服务并查看是否可以ping通外网。</p>
@@ -472,13 +486,23 @@
 <p>修改第三台主机名：sudo hostnamectl set-hostname hadoop3</p>
 <p><img src="/2022/05/16/hadoop/image-20220516121903823.png" alt="image-20220516121903823"></p>
 <p>三台都要修改ip与主机名的映射：sudo vi &#x2F;etc&#x2F;hosts</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加：</span></span><br><span class="line">192.168.246.132 hadoop1</span><br><span class="line"></span><br><span class="line">192.168.246.134 hadoop2</span><br><span class="line"></span><br><span class="line">192.168.246.133 hadoop3</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#添加：</span>
+<span class="token number">192.168</span>.246.132 hadoop1
+
+<span class="token number">192.168</span>.246.134 hadoop2
+
+<span class="token number">192.168</span>.246.133 hadoop3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121908682.png" alt="image-20220516121908682"></p>
 <p>重启虚拟机生效：reboot</p>
 <h2 id="4-配置免密登录"><a href="#4-配置免密登录" class="headerlink" title="(4).配置免密登录"></a>(4).配置免密登录</h2><p>在hadoop1机器上操作：ssh-keygen -t rsa</p>
 <p>执行命令后，连续敲击三次回车键，生成公钥</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#拷贝公钥：</span></span><br><span class="line">ssh-copy-id hadoop1</span><br><span class="line"></span><br><span class="line">ssh-copy-id hadoop2</span><br><span class="line"></span><br><span class="line">ssh-copy-id hadoop3</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#拷贝公钥：</span>
+ssh-copy-id hadoop1
+
+ssh-copy-id hadoop2
+
+ssh-copy-id hadoop3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>由于我已拷贝过，所以显示已存在</p>
 <p><img src="/2022/05/16/hadoop/image-20220516121913155.png" alt="image-20220516121913155"></p>
@@ -486,77 +510,351 @@
 <p><img src="/2022/05/16/hadoop/image-20220516121917445.png" alt="image-20220516121917445"></p>
 <h2 id="5-编写分发脚本；"><a href="#5-编写分发脚本；" class="headerlink" title="(5).编写分发脚本；"></a>(5).编写分发脚本；</h2><p>输入：rsync —help</p>
 <p><img src="/2022/05/16/hadoop/image-20220516121922280.png" alt="image-20220516121922280"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#三台虚拟机安装rsync命令：</span></span><br><span class="line"><span class="built_in">sudo</span> yum install rsync -y</span><br><span class="line"></span><br><span class="line"><span class="comment">#rsync与scp区别：用rsync做文件的复制比scp快，rsync只对差异文件作更新</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#在主目录创建bin目录：</span></span><br><span class="line"><span class="built_in">mkdir</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建分发脚本脚本：</span></span><br><span class="line">vim ~/bin/xsync</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#三台虚拟机安装rsync命令：</span>
+<span class="token function">sudo</span> yum <span class="token function">install</span> <span class="token function">rsync</span> <span class="token parameter variable">-y</span>
+
+<span class="token comment">#rsync与scp区别：用rsync做文件的复制比scp快，rsync只对差异文件作更新</span>
+
+<span class="token comment">#在主目录创建bin目录：</span>
+<span class="token function">mkdir</span> ~/bin
+
+<span class="token comment">#创建分发脚本脚本：</span>
+<span class="token function">vim</span> ~/bin/xsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>脚本内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash </span></span><br><span class="line"><span class="comment">#1. 判断参数个数</span></span><br><span class="line"><span class="keyword">if</span> [ <span class="variable">$#</span> -lt 1 ]</span><br><span class="line"><span class="keyword">then</span> </span><br><span class="line">    <span class="built_in">echo</span> Not Enough Arguement!</span><br><span class="line">    <span class="built_in">exit</span>;</span><br><span class="line"><span class="keyword">fi</span></span><br><span class="line"><span class="comment">#2. 遍历集群所有机器</span></span><br><span class="line"><span class="comment">#注意，如果你的主机名命名和我不一样，下面这三个更换成你的主机名</span></span><br><span class="line"><span class="keyword">for</span> host <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line"><span class="keyword">do</span> </span><br><span class="line">    <span class="built_in">echo</span> =================  <span class="variable">$host</span>  =================    </span><br><span class="line">    <span class="comment">#3. 遍历所有目录，挨个发送</span></span><br><span class="line">    <span class="keyword">for</span> file <span class="keyword">in</span> <span class="variable">$@</span></span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">        <span class="comment">#4 判断文件是否存在</span></span><br><span class="line">        <span class="keyword">if</span> [ -e <span class="variable">$file</span> ]</span><br><span class="line">            <span class="keyword">then</span></span><br><span class="line">                <span class="comment">#5. 获取父目录</span></span><br><span class="line">                pdir=$(<span class="built_in">cd</span> -P $(<span class="built_in">dirname</span> <span class="variable">$file</span>); <span class="built_in">pwd</span>)</span><br><span class="line">                fname=$(<span class="built_in">basename</span> <span class="variable">$file</span>)</span><br><span class="line">                ssh <span class="variable">$host</span> <span class="string">&quot;mkdir -p <span class="variable">$pdir</span>&quot;</span></span><br><span class="line">                rsync -av <span class="variable">$pdir</span>/<span class="variable">$fname</span> <span class="variable">$host</span>:<span class="variable">$pdir</span></span><br><span class="line">            <span class="keyword">else</span></span><br><span class="line">                <span class="built_in">echo</span> <span class="variable">$file</span> does not exists!                </span><br><span class="line">        <span class="keyword">fi</span></span><br><span class="line">    <span class="keyword">done</span></span><br><span class="line"><span class="keyword">done</span>    </span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash </span>
+<span class="token comment">#1. 判断参数个数</span>
+<span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token variable">$#</span> <span class="token parameter variable">-lt</span> <span class="token number">1</span> <span class="token punctuation">]</span>
+<span class="token keyword">then</span> 
+    <span class="token builtin class-name">echo</span> Not Enough Arguement<span class="token operator">!</span>
+    <span class="token builtin class-name">exit</span><span class="token punctuation">;</span>
+<span class="token keyword">fi</span>
+<span class="token comment">#2. 遍历集群所有机器</span>
+<span class="token comment">#注意，如果你的主机名命名和我不一样，下面这三个更换成你的主机名</span>
+<span class="token keyword">for</span> <span class="token for-or-select variable">host</span> <span class="token keyword">in</span> hadoop1 hadoop2 hadoop3
+<span class="token keyword">do</span> 
+    <span class="token builtin class-name">echo</span> <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>  <span class="token variable">$host</span>  <span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">==</span><span class="token operator">=</span>    
+    <span class="token comment">#3. 遍历所有目录，挨个发送</span>
+    <span class="token keyword">for</span> <span class="token for-or-select variable">file</span> <span class="token keyword">in</span> <span class="token variable">$@</span>
+    <span class="token keyword">do</span>
+        <span class="token comment">#4 判断文件是否存在</span>
+        <span class="token keyword">if</span> <span class="token punctuation">[</span> <span class="token parameter variable">-e</span> <span class="token variable">$file</span> <span class="token punctuation">]</span>
+            <span class="token keyword">then</span>
+                <span class="token comment">#5. 获取父目录</span>
+                <span class="token assign-left variable">pdir</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">cd</span> <span class="token parameter variable">-P</span> <span class="token punctuation">$(</span>dirname $file<span class="token punctuation">)</span><span class="token punctuation">;</span> <span class="token builtin class-name">pwd</span><span class="token variable">)</span></span>
+                <span class="token assign-left variable">fname</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token function">basename</span> $file<span class="token variable">)</span></span>
+                <span class="token function">ssh</span> <span class="token variable">$host</span> <span class="token string">"mkdir -p <span class="token variable">$pdir</span>"</span>
+                <span class="token function">rsync</span> <span class="token parameter variable">-av</span> <span class="token variable">$pdir</span>/<span class="token variable">$fname</span> <span class="token variable">$host</span><span class="token builtin class-name">:</span><span class="token variable">$pdir</span>
+            <span class="token keyword">else</span>
+                <span class="token builtin class-name">echo</span> <span class="token variable">$file</span> does not exists<span class="token operator">!</span>                
+        <span class="token keyword">fi</span>
+    <span class="token keyword">done</span>
+<span class="token keyword">done</span>    <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121927761.png" alt="image-20220516121927761"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改权限：</span></span><br><span class="line"><span class="built_in">chmod</span> +x ~/bin/xsync</span><br><span class="line"></span><br><span class="line"><span class="comment">#测试：把xsync命令发送到hadoop2、hadoop3</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#进入目录：</span></span><br><span class="line"><span class="built_in">cd</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#将xsync脚本发送到hadoop2、hadoop3：</span></span><br><span class="line">xsync xsync</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#修改权限：</span>
+<span class="token function">chmod</span> +x ~/bin/xsync
+
+<span class="token comment">#测试：把xsync命令发送到hadoop2、hadoop3</span>
+
+<span class="token comment">#进入目录：</span>
+<span class="token builtin class-name">cd</span> ~/bin
+
+<span class="token comment">#将xsync脚本发送到hadoop2、hadoop3：</span>
+xsync xsync<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121932285.png" alt="image-20220516121932285"></p>
 <h2 id="6-安装JDK"><a href="#6-安装JDK" class="headerlink" title="(6).安装JDK;"></a>(6).安装JDK;</h2><p>进入官网下载匹配的jdk8安装包，上传至linux：cd</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">mkdir</span> soft</span><br><span class="line"></span><br><span class="line"><span class="built_in">mkdir</span> installfile</span><br><span class="line"></span><br><span class="line"><span class="built_in">cd</span> ~/installfile</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> soft
+
+<span class="token function">mkdir</span> installfile
+
+<span class="token builtin class-name">cd</span> ~/installfile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121937403.png" alt="image-20220516121937403"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#解压：</span></span><br><span class="line">tar -zxvf jdk-8u281-linux-x64.tar.gz.crdownload -C ~/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#切换到soft目录下：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s jdk1.8.0_281 jdk</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#解压：</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> jdk-8u281-linux-x64.tar.gz.crdownload <span class="token parameter variable">-C</span> ~/soft
+
+<span class="token comment">#切换到soft目录下：</span>
+<span class="token builtin class-name">cd</span> /root/soft
+
+<span class="token comment">#创建软连接：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> jdk1.8.0_281 jdk<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121942242.png" alt="image-20220516121942242"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置环境变量：</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> JAVA_HOME=~/soft/jdk</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> JRE_HOME=<span class="variable">$&#123;JAVA_HOME&#125;</span>/jre</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> CLASSPATH=.:<span class="variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="variable">$&#123;JRE_HOME&#125;</span>/lib</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#配置环境变量：</span>
+<span class="token function">vi</span> ~/.bashrc
+
+<span class="token comment">#内容如下：</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">JAVA_HOME</span><span class="token operator">=~</span>/soft/jdk
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">JRE_HOME</span><span class="token operator">=</span><span class="token variable">$&#123;JAVA_HOME&#125;</span>/jre
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">CLASSPATH</span><span class="token operator">=</span>.:<span class="token variable">$&#123;JAVA_HOME&#125;</span>/lib:<span class="token variable">$&#123;JRE_HOME&#125;</span>/lib
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">$&#123;JAVA_HOME&#125;</span>/bin:<span class="token environment constant">$PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121946353.png" alt="image-20220516121946353"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">java -version</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#让环境变量生效：</span>
+<span class="token builtin class-name">source</span> ~/.bashrc
+
+<span class="token comment">#验证：</span>
+<span class="token function">java</span> <span class="token parameter variable">-version</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121950307.png" alt="image-20220516121950307"></p>
 <p>进入hadoop2、hadoop3按照上述步骤配置jdk、环境变量并验证</p>
-<h2 id="7-安装hadoop"><a href="#7-安装hadoop" class="headerlink" title="(7).安装hadoop"></a>(7).安装hadoop</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至installfile目录解压hadoop安装包：</span></span><br><span class="line"><span class="built_in">cd</span> /root/installfile</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压至soft目录下</span></span><br><span class="line">tar -zxvf hadoop-3.1.3.tar.gz -C ~/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s hadoop-3.1.3 hadoop</span><br></pre></td></tr></table></figure>
+<h2 id="7-安装hadoop"><a href="#7-安装hadoop" class="headerlink" title="(7).安装hadoop"></a>(7).安装hadoop</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换至installfile目录解压hadoop安装包：</span>
+<span class="token builtin class-name">cd</span> /root/installfile
+
+<span class="token comment">#解压至soft目录下</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> hadoop-3.1.3.tar.gz <span class="token parameter variable">-C</span> ~/soft
+
+<span class="token comment">#切换至soft目录：</span>
+<span class="token builtin class-name">cd</span> /root/soft
+
+<span class="token comment">#创建软连接：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> hadoop-3.1.3 hadoop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121954599.png" alt="image-20220516121954599"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#配置环境变量：</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=~/soft/hadoop</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#配置环境变量：</span>
+<span class="token function">vi</span> ~/.bashrc
+
+<span class="token comment">#内容如下：</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HADOOP_HOME</span><span class="token operator">=~</span>/soft/hadoop
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$HADOOP_HOME</span>/bin:<span class="token variable">$HADOOP_HOME</span>/sbin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516121958454.png" alt="image-20220516121958454"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">hadoop version</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#让环境变量生效：</span>
+<span class="token builtin class-name">source</span> ~/.bashrc
+
+<span class="token comment">#验证：</span>
+hadoop version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122002381.png" alt="image-20220516122002381"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入hadoop配置目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$HADOOP_HOME</span>/etc/hadoop</span><br><span class="line"></span><br><span class="line"><span class="comment">#在hadoop-env.sh中配置JAVA_HOME路径：</span></span><br><span class="line">vi hadoop-env.sh</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#进入hadoop配置目录：</span>
+<span class="token builtin class-name">cd</span> <span class="token variable">$HADOOP_HOME</span>/etc/hadoop
+
+<span class="token comment">#在hadoop-env.sh中配置JAVA_HOME路径：</span>
+<span class="token function">vi</span> hadoop-env.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122006516.png" alt="image-20220516122006516"></p>
 <p>配置core-site.xml：vi core-site.xml</p>
 <p>在和之间添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hadoop.tmp.dir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;/opt/hadoop/hadoop_data/tmp&lt;/value&gt;</span><br><span class="line">​    &lt;description&gt;Abase for other temporary directories.&lt;/description&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;fs.default.name&lt;/name&gt;</span><br><span class="line">​    &lt;!-- hadoop1的内网IP地址 --&gt;</span><br><span class="line">​    &lt;value&gt;hdfs://hadoop1:9000&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 指定NameNode的地址 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;fs.defaultFS&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hdfs://hadoop1:8020&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.tmp.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/opt/hadoop/hadoop_data/tmp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>description</span><span class="token punctuation">></span></span>Abase for other temporary directories.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>description</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.default.name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token comment">&lt;!-- hadoop1的内网IP地址 --></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://hadoop1:9000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token comment">&lt;!-- 指定NameNode的地址 --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.defaultFS<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://hadoop1:8020<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122011920.png" alt="image-20220516122011920"></p>
 <p>配置hdfs-site.xml：vi hdfs-site.xml</p>
 <p>在和之间添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定NameNode的web端访问地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;dfs.namenode.http-address&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hadoop1:9870&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 设置SecondaryNameNode(2NN)的web端访问地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hadoop3:9868&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.name.dir&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/opt/hhadoop_data/dfs/name&lt;/value&gt;</span><br><span class="line">  &lt;description&gt;Path on the local filesystem where theNameNode stores the namespace and transactions logs persistently.&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.data.dir&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;/opt/hadoop/hadoop_data/dfs/data&lt;/value&gt;</span><br><span class="line">  &lt;description&gt;Comma separated list of paths on the localfilesystem of a DataNode where it should store its blocks.&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;dfs.replication&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;3&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">   &lt;name&gt;dfs.permissions&lt;/name&gt;</span><br><span class="line">   &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">   &lt;description&gt;need not permissions&lt;/description&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- 指定NameNode的web端访问地址 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.http-address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hadoop1:9870<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token comment">&lt;!-- 设置SecondaryNameNode(2NN)的web端访问地址 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.secondary.http-address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hadoop3:9868<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.name.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/opt/hhadoop_data/dfs/name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>description</span><span class="token punctuation">></span></span>Path on the local filesystem where theNameNode stores the namespace and transactions logs persistently.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>description</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.data.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/opt/hadoop/hadoop_data/dfs/data<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>description</span><span class="token punctuation">></span></span>Comma separated list of paths on the localfilesystem of a DataNode where it should store its blocks.<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>description</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.replication<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.permissions<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>description</span><span class="token punctuation">></span></span>need not permissions<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>description</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122016807.png" alt="image-20220516122016807"> <img src="/2022/05/16/hadoop/image-20220516122021019.png" alt="image-20220516122021019"></p>
 <p>配置yarn-site.xml：vi yarn-site.xml</p>
 <p>在和之间添加如下内容：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定MapReduce走shuffle --&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.aux-services&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;mapreduce_shuffle&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- 指定ResourceManager的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.hostname&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;hadoop2&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The address of the applications manager interface <span class="keyword">in</span> the RM.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8032&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The address of the scheduler interface.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8030&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The http address of the RM web application.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8088&lt;/value&gt;</span><br><span class="line"></span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The https adddress of the RM web application.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.webapp.https.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8090&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8031&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;description&gt;The address of the RM admin interface.&lt;/description&gt;</span><br><span class="line">  &lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:8033&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;2048&lt;/value&gt;</span><br><span class="line">  &lt;discription&gt;每个节点可用内存,单位MB,默认8182MB&lt;/discription&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.vmem-pmem-ratio&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;2.1&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;2048&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">  &lt;name&gt;yarn.nodemanager.vmem-check-enabled&lt;/name&gt;</span><br><span class="line">  &lt;value&gt;<span class="literal">false</span>&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token operator">&lt;</span><span class="token operator">!</span>-- 指定MapReduce走shuffle --<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.nodemanager.aux-services<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span>mapreduce_shuffle<span class="token operator">&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span><span class="token operator">!</span>-- 指定ResourceManager的地址 --<span class="token operator">></span>
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.resourcemanager.hostname<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span>hadoop<span class="token operator"><span class="token file-descriptor important">2</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>description<span class="token operator">></span>The address of the applications manager interface <span class="token keyword">in</span> the RM.<span class="token operator">&lt;</span>/description<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.resourcemanager.address<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:803<span class="token operator"><span class="token file-descriptor important">2</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>description<span class="token operator">></span>The address of the scheduler interface.<span class="token operator">&lt;</span>/description<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.resourcemanager.scheduler.address<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:803<span class="token operator"><span class="token file-descriptor important">0</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>description<span class="token operator">></span>The http address of the RM web application.<span class="token operator">&lt;</span>/description<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.resourcemanager.webapp.address<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:808<span class="token operator"><span class="token file-descriptor important">8</span>&lt;</span>/value<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>description<span class="token operator">></span>The https adddress of the RM web application.<span class="token operator">&lt;</span>/description<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.resourcemanager.webapp.https.address<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:809<span class="token operator"><span class="token file-descriptor important">0</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.resourcemanager.resource-tracker.address<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:803<span class="token operator"><span class="token file-descriptor important">1</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>description<span class="token operator">></span>The address of the RM admin interface.<span class="token operator">&lt;</span>/description<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.resourcemanager.admin.address<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token variable">$&#123;yarn.resourcemanager.hostname&#125;</span>:803<span class="token operator"><span class="token file-descriptor important">3</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.scheduler.maximum-allocation-mb<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token number">204</span><span class="token operator"><span class="token file-descriptor important">8</span>&lt;</span>/value<span class="token operator">></span>
+  <span class="token operator">&lt;</span>discription<span class="token operator">></span>每个节点可用内存,单位MB,默认8182MB<span class="token operator">&lt;</span>/discription<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.nodemanager.vmem-pmem-ratio<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token number">2</span>.<span class="token operator"><span class="token file-descriptor important">1</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.nodemanager.resource.memory-mb<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span><span class="token number">204</span><span class="token operator"><span class="token file-descriptor important">8</span>&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span>
+
+<span class="token operator">&lt;</span>property<span class="token operator">></span>
+  <span class="token operator">&lt;</span>name<span class="token operator">></span>yarn.nodemanager.vmem-check-enabled<span class="token operator">&lt;</span>/name<span class="token operator">></span>
+  <span class="token operator">&lt;</span>value<span class="token operator">></span>false<span class="token operator">&lt;</span>/value<span class="token operator">></span>
+<span class="token operator">&lt;</span>/property<span class="token operator">></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122026970.png" alt="image-20220516122026970"> <img src="/2022/05/16/hadoop/image-20220516122030561.png" alt="image-20220516122030561"> <img src="/2022/05/16/hadoop/image-20220516122034104.png" alt="image-20220516122034104"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#复制并且配置mapred-site.xml：</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">cp</span> mapred-site.xml mapred-site.xml.template</span><br><span class="line"></span><br><span class="line">vi mapred-site.xml</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#复制并且配置mapred-site.xml：</span>
+
+<span class="token function">cp</span> mapred-site.xml mapred-site.xml.template
+
+<span class="token function">vi</span> mapred-site.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>在和之间添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 指定MapReduce程序运行在Yarn上的地址 --&gt;</span><br><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;mapreduce.framework.name&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;yarn&lt;/value&gt;</span><br><span class="line"> &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">      &lt;name&gt;mapred.job.tracker&lt;/name&gt;</span><br><span class="line">      &lt;value&gt;hadoop1:49001&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">    &lt;name&gt;mapred.local.dir&lt;/name&gt;</span><br><span class="line">​   &lt;value&gt;/opt/hadoop/hadoop_data/var&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;yarn.app.mapreduce.am.env&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;HADOOP_MAPRED_HOME=/root/soft/hadoop&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;mapreduce.map.env&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;HADOOP_MAPRED_HOME=/root/soft/hadoop&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;property&gt;</span><br><span class="line">     &lt;name&gt;mapreduce.reduce.env&lt;/name&gt;</span><br><span class="line">     &lt;value&gt;HADOOP_MAPRED_HOME=/root/soft/hadoop&lt;/value&gt;</span><br><span class="line">&lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token comment">&lt;!-- 指定MapReduce程序运行在Yarn上的地址 --></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.framework.name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>yarn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+ <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapred.job.tracker<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hadoop1:49001<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapred.local.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/opt/hadoop/hadoop_data/var<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.app.mapreduce.am.env<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>HADOOP_MAPRED_HOME=/root/soft/hadoop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.map.env<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>HADOOP_MAPRED_HOME=/root/soft/hadoop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.reduce.env<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>HADOOP_MAPRED_HOME=/root/soft/hadoop<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122039094.png" alt="image-20220516122039094"></p>
 <p>配置workers，将三个主机名添加进去：vi workers</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122042633.png" alt="image-20220516122042633"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入/sbin目录下：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft/hadoop/sbin/</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改start-dfs.sh和stop-dfs.sh在这两个文件开头加如下内容：</span></span><br><span class="line">HDFS_DATANODE_USER=root</span><br><span class="line"></span><br><span class="line">HADOOP_SECURE_SECURE_USER=root</span><br><span class="line"></span><br><span class="line">HDFS_NAMENODE_USER=root</span><br><span class="line"></span><br><span class="line">HDFS_SECONDARYNAMENODE_USER=root</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#进入/sbin目录下：</span>
+<span class="token builtin class-name">cd</span> /root/soft/hadoop/sbin/
+
+<span class="token comment">#修改start-dfs.sh和stop-dfs.sh在这两个文件开头加如下内容：</span>
+<span class="token assign-left variable">HDFS_DATANODE_USER</span><span class="token operator">=</span>root
+
+<span class="token assign-left variable">HADOOP_SECURE_SECURE_USER</span><span class="token operator">=</span>root
+
+<span class="token assign-left variable">HDFS_NAMENODE_USER</span><span class="token operator">=</span>root
+
+<span class="token assign-left variable">HDFS_SECONDARYNAMENODE_USER</span><span class="token operator">=</span>root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122046435.png" alt="image-20220516122046435"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改start-yarn.sh和stop-yarn.sh在这两个文件开头加如下内容：</span></span><br><span class="line">YARN_RESOURCEMANAGER_USER=root</span><br><span class="line"></span><br><span class="line">HADOOP_SECURE_DN_USER=root</span><br><span class="line"></span><br><span class="line">YARN_NODEMANAGER_USER=root</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#修改start-yarn.sh和stop-yarn.sh在这两个文件开头加如下内容：</span>
+<span class="token assign-left variable">YARN_RESOURCEMANAGER_USER</span><span class="token operator">=</span>root
+
+<span class="token assign-left variable">HADOOP_SECURE_DN_USER</span><span class="token operator">=</span>root
+
+<span class="token assign-left variable">YARN_NODEMANAGER_USER</span><span class="token operator">=</span>root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122050361.png" alt="image-20220516122050361"></p>
 <p>切换到soft目录下：cd &#x2F;root&#x2F;soft</p>
 <p>使用xsync脚本将hadoop-3.1.3发送到hadoop2、hadoop3：</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122054081.png" alt="image-20220516122054081"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换hadoop2、hadoop3在soft目录下创建hadoop-3.1.3的软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s hadoop-3.1.3 hadoop</span><br><span class="line"></span><br><span class="line"><span class="comment">#配置hadoop环境变量：</span></span><br><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> HADOOP_HOME=~/soft/hadoop</span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$HADOOP_HOME</span>/bin:<span class="variable">$HADOOP_HOME</span>/sbin</span><br><span class="line"></span><br><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">hadoop version</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换hadoop2、hadoop3在soft目录下创建hadoop-3.1.3的软连接：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> hadoop-3.1.3 hadoop
+
+<span class="token comment">#配置hadoop环境变量：</span>
+<span class="token function">vi</span> ~/.bashrc
+
+<span class="token comment">#内容如下：</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HADOOP_HOME</span><span class="token operator">=~</span>/soft/hadoop
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$HADOOP_HOME</span>/bin:<span class="token variable">$HADOOP_HOME</span>/sbin
+
+<span class="token comment">#让环境变量生效：</span>
+<span class="token builtin class-name">source</span> ~/.bashrc
+
+<span class="token comment">#验证：</span>
+hadoop version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122058346.png" alt="image-20220516122058346"> <img src="/2022/05/16/hadoop/image-20220516122102094.png" alt="image-20220516122102094"></p>
-<h2 id="8-启动hadoop"><a href="#8-启动hadoop" class="headerlink" title="(8).启动hadoop"></a>(8).启动hadoop</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#格式化hadoop：</span></span><br><span class="line">hadoop namenode -format</span><br></pre></td></tr></table></figure>
+<h2 id="8-启动hadoop"><a href="#8-启动hadoop" class="headerlink" title="(8).启动hadoop"></a>(8).启动hadoop</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#格式化hadoop：</span>
+hadoop namenode <span class="token parameter variable">-format</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>注：hadoop只能格式化一次，在下面出现successfully formatted为格式化成功，这里由于我已经格式化了，就不附截图了。</p>
 <p>在hadoop1启动hdfs：start-dfs.sh</p>
@@ -573,58 +871,95 @@
 <p><img src="/2022/05/16/hadoop/image-20220516122132496.png" alt="image-20220516122132496"></p>
 <p>在浏览器端可查看每台服务器状态：</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122138080.png" alt="image-20220516122138080"></p>
-<h2 id="9-简单使用hadoop"><a href="#9-简单使用hadoop" class="headerlink" title="(9).简单使用hadoop"></a>(9).简单使用hadoop</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看hdfs的根目录：</span></span><br><span class="line">hdfs dfs -<span class="built_in">ls</span> /</span><br></pre></td></tr></table></figure>
+<h2 id="9-简单使用hadoop"><a href="#9-简单使用hadoop" class="headerlink" title="(9).简单使用hadoop"></a>(9).简单使用hadoop</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看hdfs的根目录：</span>
+hdfs dfs <span class="token parameter variable">-ls</span> /<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122143737.png" alt="image-20220516122143737"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#在根目录下创建文件夹：</span></span><br><span class="line">hdfs dfs -<span class="built_in">mkdir</span> /data</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#在根目录下创建文件夹：</span>
+hdfs dfs <span class="token parameter variable">-mkdir</span> /data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122147922.png" alt="image-20220516122147922"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将linux本地文件上传到hdfs：</span></span><br><span class="line">hdfs dfs -put emp.csv /</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#将linux本地文件上传到hdfs：</span>
+hdfs dfs <span class="token parameter variable">-put</span> emp.csv /<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122151618.png" alt="image-20220516122151618"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#移动emp.csv的位置到/data目录下：</span></span><br><span class="line">hdfs dfs -<span class="built_in">mv</span> /emp.csv /data</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#移动emp.csv的位置到/data目录下：</span>
+hdfs dfs <span class="token parameter variable">-mv</span> /emp.csv /data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122155106.png" alt="image-20220516122155106"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#将data目录下的emp.csv复制到hdfs的根目录下：</span></span><br><span class="line">hdfs dfs -<span class="built_in">cp</span> /data/emp.csv /emp-copy.csv</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#将data目录下的emp.csv复制到hdfs的根目录下：</span>
+hdfs dfs <span class="token parameter variable">-cp</span> /data/emp.csv /emp-copy.csv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122159630.png" alt="image-20220516122159630"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看emp.csv文件内容：</span></span><br><span class="line">hdfs dfs -<span class="built_in">cat</span> /emp-copy.csv</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看emp.csv文件内容：</span>
+hdfs dfs <span class="token parameter variable">-cat</span> /emp-copy.csv<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122204310.png" alt="image-20220516122204310"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除文件emp-copy.csv：</span></span><br><span class="line">hdfs dfs -<span class="built_in">rm</span> /emp-copy.csv </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除data文件夹:</span></span><br><span class="line">hdfs dfs -<span class="built_in">rm</span> -r /data</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#删除文件emp-copy.csv：</span>
+hdfs dfs <span class="token parameter variable">-rm</span> /emp-copy.csv 
+
+<span class="token comment">#删除data文件夹:</span>
+hdfs dfs <span class="token parameter variable">-rm</span> <span class="token parameter variable">-r</span> /data<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122209350.png" alt="image-20220516122209350"> <img src="/2022/05/16/hadoop/image-20220516122212683.png" alt="image-20220516122209350"></p>
 <p>使用wordcount脚本（自己编写的），对某个文件里面的字符进行统计</p>
 <p>在linux本地创建1.txt文件并上传到hdfs根目录下的input（上面已有步骤，直接附截图）：</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122216665.png" alt="image-20220516122216665"> <img src="/2022/05/16/hadoop/image-20220516122220619.png" alt="image-20220516122220619"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#运行脚本：</span></span><br><span class="line">hadoop jar wordcount-1.0-SNAPSHOT.jar org.example.MyMain /input/1.txt /output/wordcount</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#运行脚本：</span>
+hadoop jar wordcount-1.0-SNAPSHOT.jar org.example.MyMain /input/1.txt /output/wordcount<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122224444.png" alt="image-20220516122224444"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看结果：</span></span><br><span class="line">hdfs dfs -<span class="built_in">cat</span> /output/wordcount/part-r-00000</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看结果：</span>
+hdfs dfs <span class="token parameter variable">-cat</span> /output/wordcount/part-r-00000<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122228709.png" alt="image-20220516122228709"></p>
 <p>在浏览器界面（9870）也可查看hdfs的文件存放情况：</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122232821.png" alt="image-20220516122232821"></p>
-<h1 id="2-ZooKeeper集群搭建及使用"><a href="#2-ZooKeeper集群搭建及使用" class="headerlink" title="2.ZooKeeper集群搭建及使用"></a>2.ZooKeeper集群搭建及使用</h1><h2 id="1-下载zookeeper安装包并解压"><a href="#1-下载zookeeper安装包并解压" class="headerlink" title="(1).下载zookeeper安装包并解压"></a>(1).下载zookeeper安装包并解压</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf zookeeper-3.4.9.tar.gz -C ~/soft</span><br></pre></td></tr></table></figure>
+<h1 id="2-ZooKeeper集群搭建及使用"><a href="#2-ZooKeeper集群搭建及使用" class="headerlink" title="2.ZooKeeper集群搭建及使用"></a>2.ZooKeeper集群搭建及使用</h1><h2 id="1-下载zookeeper安装包并解压"><a href="#1-下载zookeeper安装包并解压" class="headerlink" title="(1).下载zookeeper安装包并解压"></a>(1).下载zookeeper安装包并解压</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> zookeeper-3.4.9.tar.gz <span class="token parameter variable">-C</span> ~/soft<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122236855.png" alt="image-20220516122236855"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s zookeeper-3.4.9 zookeeper</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步zookeeper至其他机器：</span></span><br><span class="line">xsync zookeeper-3.4.9</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换至soft目录：</span>
+<span class="token builtin class-name">cd</span> /root/soft
+
+<span class="token comment">#创建软连接：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> zookeeper-3.4.9 zookeeper
+
+<span class="token comment">#同步zookeeper至其他机器：</span>
+xsync zookeeper-3.4.9<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>切换hadoop2、hadoop3创建软连接</p>
-<h2 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="(2).配置环境变量"></a>(2).配置环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> ZOOKEEPER_HOME=/root/soft/zookeeper</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$ZOOKEEPER_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<h2 id="2-配置环境变量"><a href="#2-配置环境变量" class="headerlink" title="(2).配置环境变量"></a>(2).配置环境变量</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> ~/.bashrc
+<span class="token comment">#内容如下：</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">ZOOKEEPER_HOME</span><span class="token operator">=</span>/root/soft/zookeeper
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">$ZOOKEEPER_HOME</span>/bin:<span class="token environment constant">$PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122242022.png" alt="image-20220516122242022"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#让环境变量生效：</span>
+<span class="token builtin class-name">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>每一台都需要配置环境变量，在hadoop2、hadoop3重复（2）步骤</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122246648.png" alt="image-20220516122246648"></p>
-<h2 id="3-配置zoo-cfg"><a href="#3-配置zoo-cfg" class="headerlink" title="(3).配置zoo.cfg"></a>(3).配置zoo.cfg</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入conf目录：</span></span><br><span class="line"><span class="built_in">cd</span> zookeeper/conf/</span><br><span class="line"></span><br><span class="line"><span class="comment">#复制zoo_sample.cf：</span></span><br><span class="line"><span class="built_in">cp</span> zoo_sample.cfg zoo.cfg</span><br></pre></td></tr></table></figure>
+<h2 id="3-配置zoo-cfg"><a href="#3-配置zoo-cfg" class="headerlink" title="(3).配置zoo.cfg"></a>(3).配置zoo.cfg</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#进入conf目录：</span>
+<span class="token builtin class-name">cd</span> zookeeper/conf/
+
+<span class="token comment">#复制zoo_sample.cf：</span>
+<span class="token function">cp</span> zoo_sample.cfg zoo.cfg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122251044.png" alt="image-20220516122251044"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑zoo.cfg：</span></span><br><span class="line">vi zoo.cfg</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改：</span></span><br><span class="line">dataDir=/root/soft/zookeeper/zkData</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#编辑zoo.cfg：</span>
+<span class="token function">vi</span> zoo.cfg
+
+<span class="token comment">#修改：</span>
+<span class="token assign-left variable">dataDir</span><span class="token operator">=</span>/root/soft/zookeeper/zkData<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20225171803.png" alt="img"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#末尾添加：</span></span><br><span class="line">server.1=hadoop1:2888:3888</span><br><span class="line"></span><br><span class="line">server.2=hadoop2:2888:3888</span><br><span class="line"></span><br><span class="line">server.3=hadoop3:2888:3888</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#末尾添加：</span>
+<span class="token assign-left variable">server.1</span><span class="token operator">=</span>hadoop1:2888:3888
+
+<span class="token assign-left variable">server.2</span><span class="token operator">=</span>hadoop2:2888:3888
+
+<span class="token assign-left variable">server.3</span><span class="token operator">=</span>hadoop3:2888:3888<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122258768.png" alt="image-20220516122258768"></p>
 <p>server.A&#x3D;B: C: D。</p>
@@ -632,188 +967,434 @@
 <p>B:主机名</p>
 <p>C: Leader与Follower的访问端口</p>
 <p>D:选举Leader接口</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#同步zoo.cfg：</span></span><br><span class="line">xsync zoo.cfg</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#同步zoo.cfg：</span>
+xsync zoo.cfg<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>配置服务器编号：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入zookeeper：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$ZOOKEEPER_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建数据存放目录：</span></span><br><span class="line"><span class="built_in">mkdir</span> zkData</span><br><span class="line"></span><br><span class="line"><span class="comment">#编辑myid：.</span></span><br><span class="line">vi zkData/myid</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#进入zookeeper：</span>
+<span class="token builtin class-name">cd</span> <span class="token variable">$ZOOKEEPER_HOME</span>
+
+<span class="token comment">#创建数据存放目录：</span>
+<span class="token function">mkdir</span> zkData
+
+<span class="token comment">#编辑myid：.</span>
+<span class="token function">vi</span> zkData/myid<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>内容为：1</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122303679.png" alt="image-20220516122303679"> <img src="/2022/05/16/hadoop/image-20220516122307298.png" alt="image-20220516122307298"></p>
 <p>在hadoop2中的myid添加内容为：2</p>
 <p>在hadoop3中的myid添加内容为：3</p>
-<h2 id="4-编写zookeeper脚本"><a href="#4-编写zookeeper脚本" class="headerlink" title="(4).编写zookeeper脚本"></a>(4).编写zookeeper脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入bin目录下：</span></span><br><span class="line"><span class="built_in">cd</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建脚本：</span></span><br><span class="line">vi zk.sh</span><br></pre></td></tr></table></figure>
+<h2 id="4-编写zookeeper脚本"><a href="#4-编写zookeeper脚本" class="headerlink" title="(4).编写zookeeper脚本"></a>(4).编写zookeeper脚本</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#进入bin目录下：</span>
+<span class="token builtin class-name">cd</span> ~/bin
+
+<span class="token comment">#创建脚本：</span>
+<span class="token function">vi</span> zk.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&quot;start&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------启动 <span class="variable">$i</span> zookeeper-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;zkServer.sh start &quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">&quot;stop&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------停止 <span class="variable">$i</span> zookeeper-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;zkServer.sh stop&quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">&quot;status&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------状态 <span class="variable">$i</span> zookeeper-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;zkServer.sh status&quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token keyword">case</span> <span class="token variable">$1</span> <span class="token keyword">in</span>
+<span class="token string">"start"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> hadoop1 hadoop2 hadoop3
+  <span class="token keyword">do</span>
+​    <span class="token builtin class-name">echo</span> <span class="token string">" --------启动 <span class="token variable">$i</span> zookeeper-------"</span>
+​    <span class="token function">ssh</span> <span class="token variable">$i</span> <span class="token string">"zkServer.sh start "</span>
+  <span class="token keyword">done</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token string">"stop"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> hadoop1 hadoop2 hadoop3
+  <span class="token keyword">do</span>
+​    <span class="token builtin class-name">echo</span> <span class="token string">" --------停止 <span class="token variable">$i</span> zookeeper-------"</span>
+​    <span class="token function">ssh</span> <span class="token variable">$i</span> <span class="token string">"zkServer.sh stop"</span>
+  <span class="token keyword">done</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token string">"status"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> hadoop1 hadoop2 hadoop3
+  <span class="token keyword">do</span>
+​    <span class="token builtin class-name">echo</span> <span class="token string">" --------状态 <span class="token variable">$i</span> zookeeper-------"</span>
+​    <span class="token function">ssh</span> <span class="token variable">$i</span> <span class="token string">"zkServer.sh status"</span>
+  <span class="token keyword">done</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">esac</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122311485.png" alt="image-20220516122311485"></p>
 <p>添加脚本执行权限：chmod u+x zk.sh</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122316821.png" alt="image-20220516122316821"></p>
-<h2 id="5-启动zookeeper集群"><a href="#5-启动zookeeper集群" class="headerlink" title="(5).启动zookeeper集群"></a>(5).启动zookeeper集群</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动zookeeper集群（启动前先检查防火墙。没关的关一下）：</span></span><br><span class="line">zk.sh start</span><br></pre></td></tr></table></figure>
+<h2 id="5-启动zookeeper集群"><a href="#5-启动zookeeper集群" class="headerlink" title="(5).启动zookeeper集群"></a>(5).启动zookeeper集群</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#启动zookeeper集群（启动前先检查防火墙。没关的关一下）：</span>
+zk.sh start<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122320281.png" alt="image-20220516122320281"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看各机器状态：</span></span><br><span class="line">zk.sh status</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看各机器状态：</span>
+zk.sh status<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122324340.png" alt="image-20220516122324340"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#停止zookeeper集群：</span></span><br><span class="line">zk.sh stop</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#停止zookeeper集群：</span>
+zk.sh stop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122328422.png" alt="image-20220516122328422"></p>
-<h2 id="6-zookeeper集群的简单使用"><a href="#6-zookeeper集群的简单使用" class="headerlink" title="(6).zookeeper集群的简单使用"></a>(6).zookeeper集群的简单使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动zookeeper集群：</span></span><br><span class="line">zk.sh start</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入zookeeper命令行：</span></span><br><span class="line">zkCli.sh</span><br></pre></td></tr></table></figure>
+<h2 id="6-zookeeper集群的简单使用"><a href="#6-zookeeper集群的简单使用" class="headerlink" title="(6).zookeeper集群的简单使用"></a>(6).zookeeper集群的简单使用</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#启动zookeeper集群：</span>
+zk.sh start
+
+<span class="token comment">#进入zookeeper命令行：</span>
+zkCli.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122331781.png" alt="image-20220516122331781"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建节点（节点有四种类型，永久节点、临时节点、永久序列化节点、临时序列化节点）：</span></span><br><span class="line"><span class="comment"># -s 序列化 -e 临时节点 path  创建路径  data 节点数据</span></span><br><span class="line">create [-s] [-e] path data  </span><br><span class="line"></span><br><span class="line"><span class="comment">#创建demo临时节点：</span></span><br><span class="line">create -e /demo 321</span><br><span class="line"></span><br><span class="line"><span class="comment">#查看根下的所有节点：</span></span><br><span class="line"><span class="built_in">ls</span> /</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#创建节点（节点有四种类型，永久节点、临时节点、永久序列化节点、临时序列化节点）：</span>
+<span class="token comment"># -s 序列化 -e 临时节点 path  创建路径  data 节点数据</span>
+create <span class="token punctuation">[</span>-s<span class="token punctuation">]</span> <span class="token punctuation">[</span>-e<span class="token punctuation">]</span> path data  
+
+<span class="token comment">#创建demo临时节点：</span>
+create <span class="token parameter variable">-e</span> /demo <span class="token number">321</span>
+
+<span class="token comment">#查看根下的所有节点：</span>
+<span class="token function">ls</span> /<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122336640.png" alt="image-20220516122336640"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看path下所有znode,以及zonde的属性：</span></span><br><span class="line">ls2 /demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看path下所有znode,以及zonde的属性：</span>
+ls2 /demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122340206.png" alt="image-20220516122340206"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#拿到/demo的数据：</span></span><br><span class="line">get /demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#拿到/demo的数据：</span>
+get /demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122344420.png" alt="image-20220516122344420"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改/demo的数据：</span></span><br><span class="line"><span class="built_in">set</span> /demo 456</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#修改/demo的数据：</span>
+<span class="token builtin class-name">set</span> /demo <span class="token number">456</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122348066.png" alt="image-20220516122348066"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#递归删除节点：</span></span><br><span class="line">rmr /demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#递归删除节点：</span>
+rmr /demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122352849.png" alt="image-20220516122352849"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看历史记录：</span></span><br><span class="line"><span class="built_in">history</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看历史记录：</span>
+<span class="token function">history</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122356338.png" alt="image-20220516122356338"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#退出zookeeper命令行：</span></span><br><span class="line">quit</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#退出zookeeper命令行：</span>
+quit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122400137.png" alt="image-20220516122400137"></p>
 <h1 id="3-HBase集群搭建及使用"><a href="#3-HBase集群搭建及使用" class="headerlink" title="3.HBase集群搭建及使用"></a>3.HBase集群搭建及使用</h1><h2 id="1-查看hbase与jdk、hadoop的版本匹配；"><a href="#1-查看hbase与jdk、hadoop的版本匹配；" class="headerlink" title="(1).查看hbase与jdk、hadoop的版本匹配；"></a>(1).查看hbase与jdk、hadoop的版本匹配；</h2><p><img src="/2022/05/16/hadoop/image-20220516122405362.png" alt="image-20220516122405362"> <img src="/2022/05/16/hadoop/image-20220516122409109.png" alt="image-20220516122409109"></p>
 <h2 id="2-集群规划"><a href="#2-集群规划" class="headerlink" title="(2).集群规划"></a>(2).集群规划</h2><p><img src="/2022/05/16/hadoop/image-20220516122412571.png" alt="image-20220516122412571"></p>
-<h2 id="3-下载、解压hbase安装包"><a href="#3-下载、解压hbase安装包" class="headerlink" title="(3).下载、解压hbase安装包"></a>(3).下载、解压hbase安装包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到installfile：</span></span><br><span class="line"><span class="built_in">cd</span> /root/installfile</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压至soft目录下：</span></span><br><span class="line">tar -zxvf hbase-2.4.11-bin.tar.gz -C ~/soft</span><br></pre></td></tr></table></figure>
+<h2 id="3-下载、解压hbase安装包"><a href="#3-下载、解压hbase安装包" class="headerlink" title="(3).下载、解压hbase安装包"></a>(3).下载、解压hbase安装包</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换到installfile：</span>
+<span class="token builtin class-name">cd</span> /root/installfile
+
+<span class="token comment">#解压至soft目录下：</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> hbase-2.4.11-bin.tar.gz <span class="token parameter variable">-C</span> ~/soft<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122416499.png" alt="image-20220516122416499"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s hbase-2.4.11 hbase</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步zookeeper至其他机器：</span></span><br><span class="line">xsync hbase-2.4.11</span><br><span class="line"></span><br><span class="line"><span class="comment">#切换hadoop2、hadoop3创建软连接</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换至soft目录：</span>
+<span class="token builtin class-name">cd</span> /root/soft
+
+<span class="token comment">#创建软连接：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> hbase-2.4.11 hbase
+
+<span class="token comment">#同步zookeeper至其他机器：</span>
+xsync hbase-2.4.11
+
+<span class="token comment">#切换hadoop2、hadoop3创建软连接</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>(4).配置环境变量；</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> HBASE_HOME=~/soft/hbase-2.4.11</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$HBASE_HOME</span>/bin:<span class="variable">$PATH</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> ~/.bashrc
+
+<span class="token comment">#内容如下：</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HBASE_HOME</span><span class="token operator">=~</span>/soft/hbase-2.4.11
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token variable">$HBASE_HOME</span>/bin:<span class="token environment constant">$PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122421127.png" alt="image-20220516122421127"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#验证：</span></span><br><span class="line">hbase version</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#让环境变量生效：</span>
+<span class="token builtin class-name">source</span> ~/.bashrc
+
+<span class="token comment">#验证：</span>
+hbase version<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122426092.png" alt="image-20220516122426092"></p>
 <p>每一台都需要配置环境变量，在hadoop2、hadoop3重复（4）步骤</p>
-<h2 id="5-配置hbase-site-xml"><a href="#5-配置hbase-site-xml" class="headerlink" title="(5).配置hbase-site.xml"></a>(5).配置hbase-site.xml</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到conf目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$HBASE_HOME</span>/conf</span><br><span class="line"></span><br><span class="line"><span class="comment">#编辑hbase-site.xml：</span></span><br><span class="line">vi hbase-site.xml</span><br></pre></td></tr></table></figure>
+<h2 id="5-配置hbase-site-xml"><a href="#5-配置hbase-site-xml" class="headerlink" title="(5).配置hbase-site.xml"></a>(5).配置hbase-site.xml</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换到conf目录：</span>
+<span class="token builtin class-name">cd</span> <span class="token variable">$HBASE_HOME</span>/conf
+
+<span class="token comment">#编辑hbase-site.xml：</span>
+<span class="token function">vi</span> hbase-site.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122430589.png" alt="image-20220516122430589"></p>
 <p>(先将原有配置全部删除)在和之间添加如下内容：</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">&lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.rootdir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;hdfs://hadoop1:8020/hbase&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.cluster.distributed&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;true&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​     &lt;name&gt;hbase.zookeeper.quorum&lt;/name&gt;</span><br><span class="line">​     &lt;value&gt;hadoop1,hadoop2,hadoop3&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.zookeeper.property.dataDir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;/root/soft/zookeeper/zkData&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.tmp.dir&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;/root/soft/hbase-2.4.11/tmp&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br><span class="line"></span><br><span class="line">  &lt;!-- 在分布式的情况下一定要设置，不然容易出现Hmaster起不来的情况 --&gt;</span><br><span class="line">  &lt;property&gt;</span><br><span class="line">​    &lt;name&gt;hbase.unsafe.stream.capability.enforce&lt;/name&gt;</span><br><span class="line">​    &lt;value&gt;false&lt;/value&gt;</span><br><span class="line">  &lt;/property&gt;</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.rootdir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://hadoop1:8020/hbase<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.cluster.distributed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.zookeeper.quorum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hadoop1,hadoop2,hadoop3<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.zookeeper.property.dataDir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/root/soft/zookeeper/zkData<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.tmp.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/root/soft/hbase-2.4.11/tmp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+  <span class="token comment">&lt;!-- 在分布式的情况下一定要设置，不然容易出现Hmaster起不来的情况 --></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.unsafe.stream.capability.enforce<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+​    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122435139.png" alt="image-20220516122435139"></p>
-<h2 id="6-配置regionservers"><a href="#6-配置regionservers" class="headerlink" title="(6).配置regionservers"></a>(6).配置regionservers</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑regionservers：</span></span><br><span class="line">vi regionservers </span><br><span class="line"></span><br><span class="line"><span class="comment">#删除原有的localhost，添加如下内容： </span></span><br><span class="line">hadoop1</span><br><span class="line">hadoop2</span><br><span class="line">hadoop3</span><br></pre></td></tr></table></figure>
+<h2 id="6-配置regionservers"><a href="#6-配置regionservers" class="headerlink" title="(6).配置regionservers"></a>(6).配置regionservers</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#编辑regionservers：</span>
+<span class="token function">vi</span> regionservers 
+
+<span class="token comment">#删除原有的localhost，添加如下内容： </span>
+hadoop1
+hadoop2
+hadoop3<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122439505.png" alt="image-20220516122439505"></p>
-<h2 id="7-配置备用master"><a href="#7-配置备用master" class="headerlink" title="(7).配置备用master"></a>(7).配置备用master</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#编辑backup-masters：</span></span><br><span class="line">vi backup-masters </span><br><span class="line"></span><br><span class="line"><span class="comment">#添加内容为：</span></span><br><span class="line">hadoop2</span><br></pre></td></tr></table></figure>
+<h2 id="7-配置备用master"><a href="#7-配置备用master" class="headerlink" title="(7).配置备用master"></a>(7).配置备用master</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#编辑backup-masters：</span>
+<span class="token function">vi</span> backup-masters 
+
+<span class="token comment">#添加内容为：</span>
+hadoop2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122443768.png" alt="image-20220516122443768"> <img src="/2022/05/16/hadoop/image-20220516122447722.png" alt="image-20220516122447722"></p>
-<h2 id="8-软连接hadoop配置文件到hbase配置目录并分发hbase；"><a href="#8-软连接hadoop配置文件到hbase配置目录并分发hbase；" class="headerlink" title="(8).软连接hadoop配置文件到hbase配置目录并分发hbase；"></a>(8).软连接hadoop配置文件到hbase配置目录并分发hbase；</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#软连接hadoop的core-site.xml到hbase：</span></span><br><span class="line"><span class="built_in">ln</span> -s /root/soft/hadoop/etc/hadoop/core-site.xml core-site.xml</span><br><span class="line"></span><br><span class="line"><span class="comment">#软连接hadoop的hdfs-site.xml到hbase：</span></span><br><span class="line"><span class="built_in">ln</span> -s /root/soft/hadoop/etc/hadoop/hdfs-site.xml hdfs-site.xml</span><br></pre></td></tr></table></figure>
+<h2 id="8-软连接hadoop配置文件到hbase配置目录并分发hbase；"><a href="#8-软连接hadoop配置文件到hbase配置目录并分发hbase；" class="headerlink" title="(8).软连接hadoop配置文件到hbase配置目录并分发hbase；"></a>(8).软连接hadoop配置文件到hbase配置目录并分发hbase；</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#软连接hadoop的core-site.xml到hbase：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /root/soft/hadoop/etc/hadoop/core-site.xml core-site.xml
+
+<span class="token comment">#软连接hadoop的hdfs-site.xml到hbase：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /root/soft/hadoop/etc/hadoop/hdfs-site.xml hdfs-site.xml<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122452063.png" alt="image-20220516122452063"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#返回上一级目录：</span></span><br><span class="line"><span class="built_in">cd</span> ..</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步conf文件夹：</span></span><br><span class="line">xsync conf</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#返回上一级目录：</span>
+<span class="token builtin class-name">cd</span> <span class="token punctuation">..</span>
+
+<span class="token comment">#同步conf文件夹：</span>
+xsync conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122456356.png" alt="image-20220516122456356"></p>
-<h2 id="9-启动hbase集群"><a href="#9-启动hbase集群" class="headerlink" title="(9).启动hbase集群"></a>(9).启动hbase集群</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动hbase前需要先启动zookeeper、hadoop：</span></span><br><span class="line">zk.sh start</span><br><span class="line">start-all.sh</span><br><span class="line">start-hbase.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#或者分开启动hbase：</span></span><br><span class="line">hbase-daemon.sh start master</span><br><span class="line">hbase-daemon.sh start regionserver</span><br></pre></td></tr></table></figure>
+<h2 id="9-启动hbase集群"><a href="#9-启动hbase集群" class="headerlink" title="(9).启动hbase集群"></a>(9).启动hbase集群</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#启动hbase前需要先启动zookeeper、hadoop：</span>
+zk.sh start
+start-all.sh
+start-hbase.sh
+
+<span class="token comment">#或者分开启动hbase：</span>
+hbase-daemon.sh start master
+hbase-daemon.sh start regionserver<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122500574.png" alt="image-20220516122500574"></p>
 <p>分别在hadoop1、hadoop2、hadoop3输入jps查看节点：jps</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122505347.png" alt="image-20220516122505347"> <img src="/2022/05/16/hadoop/image-20220516122508629.png" alt="image-20220516122508629"> <img src="/2022/05/16/hadoop/image-20220516122512505.png" alt="image-20220516122512505"> <img src="/2022/05/16/hadoop/image-20220516122517185.png" alt="image-20220516122517185"></p>
 <p>进入浏览器查看：192.168.246.132:16010</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122524759.png" alt="image-20220516122524759"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#停止hbase集群：</span></span><br><span class="line">stop-hbase.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#如果无法关闭就分别关闭master、regionserver：</span></span><br><span class="line">hbase-daemons.sh stop regionserver</span><br><span class="line"></span><br><span class="line">hbase-daemons.sh stop master</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#停止hbase集群：</span>
+stop-hbase.sh
 
-<h2 id="10-hbase集群的简单使用；"><a href="#10-hbase集群的简单使用；" class="headerlink" title="(10).hbase集群的简单使用；"></a>(10).hbase集群的简单使用；</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动hbase集群：</span></span><br><span class="line">start-hbase.sh</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入hbase命令行：</span></span><br><span class="line">hbase shell</span><br></pre></td></tr></table></figure>
+<span class="token comment">#如果无法关闭就分别关闭master、regionserver：</span>
+hbase-daemons.sh stop regionserver
+
+hbase-daemons.sh stop master<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-hbase集群的简单使用；"><a href="#10-hbase集群的简单使用；" class="headerlink" title="(10).hbase集群的简单使用；"></a>(10).hbase集群的简单使用；</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#启动hbase集群：</span>
+start-hbase.sh
+
+<span class="token comment">#进入hbase命令行：</span>
+hbase shell<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122531557.png" alt="image-20220516122531557"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看所有表：</span></span><br><span class="line">list</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看所有表：</span>
+list<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122537346.png" alt="image-20220516122537346"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建stu表：</span></span><br><span class="line">create <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;info&#x27;</span>,<span class="string">&#x27;no&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#创建stu表：</span>
+create <span class="token string">'stu'</span>,<span class="token string">'info'</span>,<span class="token string">'no'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122542755.png" alt="image-20220516122542755"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看表结构：</span></span><br><span class="line">describe <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看表结构：</span>
+describe <span class="token string">'stu'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122546736.png" alt="image-20220516122546736"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启用或禁用表：</span></span><br><span class="line">is_enabled <span class="string">&#x27;stu&#x27;</span></span><br><span class="line"></span><br><span class="line">is_disabled <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#启用或禁用表：</span>
+is_enabled <span class="token string">'stu'</span>
+
+is_disabled <span class="token string">'stu'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122551001.png" alt="image-20220516122551001"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#向stu表添加数据：</span></span><br><span class="line">put <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;1001&#x27;</span>,<span class="string">&#x27;info:name&#x27;</span>,<span class="string">&#x27;HYX&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#扫描表数据：</span></span><br><span class="line">scan <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#向stu表添加数据：</span>
+put <span class="token string">'stu'</span>,<span class="token string">'1001'</span>,<span class="token string">'info:name'</span>,<span class="token string">'HYX'</span>
+
+<span class="token comment">#扫描表数据：</span>
+scan <span class="token string">'stu'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122555113.png" alt="image-20220516122555113"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#继续向stu表添加数据：</span></span><br><span class="line"></span><br><span class="line">put <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;1002&#x27;</span>,<span class="string">&#x27;info:name&#x27;</span>,<span class="string">&#x27;Jack&#x27;</span></span><br><span class="line"></span><br><span class="line">put <span class="string">&#x27;stu&#x27;</span>,<span class="string">&#x27;1002&#x27;</span>,<span class="string">&#x27;info:age&#x27;</span>,<span class="string">&#x27;22&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#继续向stu表添加数据：</span>
+
+put <span class="token string">'stu'</span>,<span class="token string">'1002'</span>,<span class="token string">'info:name'</span>,<span class="token string">'Jack'</span>
+
+put <span class="token string">'stu'</span>,<span class="token string">'1002'</span>,<span class="token string">'info:age'</span>,<span class="token string">'22'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122559328.png" alt="image-20220516122559328"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#统计表记录数：</span></span><br><span class="line">count <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#统计表记录数：</span>
+count <span class="token string">'stu'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122604057.png" alt="image-20220516122604057"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除stu表需要禁用表：</span></span><br><span class="line"><span class="built_in">disable</span> <span class="string">&#x27;stu&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#删除表：</span></span><br><span class="line">drop <span class="string">&#x27;stu&#x27;</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#删除stu表需要禁用表：</span>
+disable <span class="token string">'stu'</span>
+
+<span class="token comment">#删除表：</span>
+drop <span class="token string">'stu'</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122607441.png" alt="image-20220516122607441"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#退出hbase命令行：</span></span><br><span class="line"><span class="built_in">exit</span> 或 quit</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#退出hbase命令行：</span>
+<span class="token builtin class-name">exit</span> 或 quit<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <h1 id="4-Kafka集群搭建及使用"><a href="#4-Kafka集群搭建及使用" class="headerlink" title="4.Kafka集群搭建及使用"></a>4.Kafka集群搭建及使用</h1><h2 id="1-集群规划"><a href="#1-集群规划" class="headerlink" title="(1).集群规划"></a>(1).集群规划</h2><p><img src="/2022/05/16/hadoop/image-20220516140250117.png" alt="image-20220516140250117"></p>
-<h2 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="(2).下载并解压安装包"></a>(2).下载并解压安装包</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到installfile目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/installfile</span><br><span class="line"></span><br><span class="line"><span class="comment">#解压至soft目录下：</span></span><br><span class="line">tar -zxvf kafka_2.11-2.4.1.gz -C ~/soft</span><br></pre></td></tr></table></figure>
+<h2 id="2-下载并解压安装包"><a href="#2-下载并解压安装包" class="headerlink" title="(2).下载并解压安装包"></a>(2).下载并解压安装包</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换到installfile目录：</span>
+<span class="token builtin class-name">cd</span> /root/installfile
+
+<span class="token comment">#解压至soft目录下：</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> kafka_2.11-2.4.1.gz <span class="token parameter variable">-C</span> ~/soft<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122622290.png" alt="image-20220516122622290"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至soft目录：</span></span><br><span class="line"><span class="built_in">cd</span> /root/soft</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建软连接：</span></span><br><span class="line"><span class="built_in">ln</span> -s kafka_2.11-2.4.1 kafka</span><br><span class="line"></span><br><span class="line"><span class="comment">#同步kafka至其他机器：</span></span><br><span class="line">xsync kafka_2.11-2.4.1</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换至soft目录：</span>
+<span class="token builtin class-name">cd</span> /root/soft
+
+<span class="token comment">#创建软连接：</span>
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> kafka_2.11-2.4.1 kafka
+
+<span class="token comment">#同步kafka至其他机器：</span>
+xsync kafka_2.11-2.4.1<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>切换hadoop2、hadoop3创建软连接</p>
-<h2 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="(3).配置环境变量"></a>(3).配置环境变量</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vi ~/.bashrc</span><br><span class="line"></span><br><span class="line"><span class="comment">#内容如下：</span></span><br><span class="line"><span class="built_in">export</span> KAFKA_HOME=/root/soft/kafka</span><br><span class="line"></span><br><span class="line"><span class="built_in">export</span> PATH=<span class="variable">$PATH</span>:<span class="variable">$KAFKA_HOME</span>/bin</span><br></pre></td></tr></table></figure>
+<h2 id="3-配置环境变量"><a href="#3-配置环境变量" class="headerlink" title="(3).配置环境变量"></a>(3).配置环境变量</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vi</span> ~/.bashrc
+
+<span class="token comment">#内容如下：</span>
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">KAFKA_HOME</span><span class="token operator">=</span>/root/soft/kafka
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$KAFKA_HOME</span>/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122628614.png" alt="image-20220516122628614"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#让环境变量生效：</span></span><br><span class="line"><span class="built_in">source</span> ~/.bashrc</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#让环境变量生效：</span>
+<span class="token builtin class-name">source</span> ~/.bashrc<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p>每一台都需要配置环境变量，在hadoop2、hadoop3重复（3）步骤</p>
-<h2 id="4-分别在三台机器上创建logs目录"><a href="#4-分别在三台机器上创建logs目录" class="headerlink" title="(4).分别在三台机器上创建logs目录"></a>(4).分别在三台机器上创建logs目录</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换到kafka目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$KAFKA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#创建logs目录：</span></span><br><span class="line"><span class="built_in">mkdir</span> logs</span><br></pre></td></tr></table></figure>
+<h2 id="4-分别在三台机器上创建logs目录"><a href="#4-分别在三台机器上创建logs目录" class="headerlink" title="(4).分别在三台机器上创建logs目录"></a>(4).分别在三台机器上创建logs目录</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换到kafka目录：</span>
+<span class="token builtin class-name">cd</span> <span class="token variable">$KAFKA_HOME</span>
+
+<span class="token comment">#创建logs目录：</span>
+<span class="token function">mkdir</span> logs<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122633371.png" alt="image-20220516122633371"></p>
-<h2 id="5-修改配置文件server-properties"><a href="#5-修改配置文件server-properties" class="headerlink" title="(5).修改配置文件server.properties"></a>(5).修改配置文件server.properties</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#切换至config目录：</span></span><br><span class="line"><span class="built_in">cd</span> config</span><br><span class="line"></span><br><span class="line"><span class="comment">#编辑server.properties：</span></span><br><span class="line">vi server.properties</span><br></pre></td></tr></table></figure>
+<h2 id="5-修改配置文件server-properties"><a href="#5-修改配置文件server-properties" class="headerlink" title="(5).修改配置文件server.properties"></a>(5).修改配置文件server.properties</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#切换至config目录：</span>
+<span class="token builtin class-name">cd</span> config
+
+<span class="token comment">#编辑server.properties：</span>
+<span class="token function">vi</span> server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122637275.png" alt="image-20220516122637275"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改内容如下：</span></span><br><span class="line">broker.id=0</span><br><span class="line"></span><br><span class="line"><span class="comment">#删除topic功能</span></span><br><span class="line">delete.topic.enable=<span class="literal">true</span></span><br><span class="line"></span><br><span class="line">log.dirs=/root/soft/kafka/logs</span><br><span class="line"></span><br><span class="line">zookeeper.connect=hadoop1:2181,hadoop2:2181,hadoop3:2181/kafka</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#修改内容如下：</span>
+<span class="token assign-left variable">broker.id</span><span class="token operator">=</span><span class="token number">0</span>
+
+<span class="token comment">#删除topic功能</span>
+<span class="token assign-left variable">delete.topic.enable</span><span class="token operator">=</span>true
+
+<span class="token assign-left variable">log.dirs</span><span class="token operator">=</span>/root/soft/kafka/logs
+
+<span class="token assign-left variable">zookeeper.connect</span><span class="token operator">=</span>hadoop1:2181,hadoop2:2181,hadoop3:2181/kafka<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122641096.png" alt="image-20220516122641096"> <img src="/2022/05/16/hadoop/image-20220516122644972.png" alt="image-20220516122644972"> <img src="/2022/05/16/hadoop/image-20220516122649136.png" alt="image-20220516122649136"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#分发server.properties到hadoop2、hadoop3：</span></span><br><span class="line">xsync server.properties</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改hadoop2的server.properties中</span></span><br><span class="line">broker.id=1</span><br><span class="line"></span><br><span class="line"><span class="comment">#修改hadoop3的server.properties中</span></span><br><span class="line">broker.id=2</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#分发server.properties到hadoop2、hadoop3：</span>
+xsync server.properties
 
-<h2 id="6-编写kafka脚本"><a href="#6-编写kafka脚本" class="headerlink" title="(6).编写kafka脚本"></a>(6).编写kafka脚本</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#进入bin目录下：</span></span><br><span class="line"><span class="built_in">cd</span> ~/bin</span><br><span class="line"></span><br><span class="line"><span class="comment">#创建脚本：</span></span><br><span class="line">vi kf.sh</span><br></pre></td></tr></table></figure>
+<span class="token comment">#修改hadoop2的server.properties中</span>
+<span class="token assign-left variable">broker.id</span><span class="token operator">=</span><span class="token number">1</span>
+
+<span class="token comment">#修改hadoop3的server.properties中</span>
+<span class="token assign-left variable">broker.id</span><span class="token operator">=</span><span class="token number">2</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-编写kafka脚本"><a href="#6-编写kafka脚本" class="headerlink" title="(6).编写kafka脚本"></a>(6).编写kafka脚本</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#进入bin目录下：</span>
+<span class="token builtin class-name">cd</span> ~/bin
+
+<span class="token comment">#创建脚本：</span>
+<span class="token function">vi</span> kf.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>内容如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line"><span class="keyword">case</span> <span class="variable">$1</span> <span class="keyword">in</span></span><br><span class="line"><span class="string">&quot;start&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------启动 <span class="variable">$i</span> Kafka-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;/root/soft/kafka/bin/kafka-server-start.sh -daemon /root/soft/kafka/config/server.properties &quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="string">&quot;stop&quot;</span>)&#123;</span><br><span class="line">  <span class="keyword">for</span> i <span class="keyword">in</span> hadoop1 hadoop2 hadoop3</span><br><span class="line">  <span class="keyword">do</span></span><br><span class="line">​    <span class="built_in">echo</span> <span class="string">&quot; --------停止 <span class="variable">$i</span> Kafka-------&quot;</span></span><br><span class="line">​    ssh <span class="variable">$i</span> <span class="string">&quot;/root/soft/kafka/bin/kafka-server-stop.sh stop&quot;</span></span><br><span class="line">  <span class="keyword">done</span></span><br><span class="line">&#125;;;</span><br><span class="line"><span class="keyword">esac</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token shebang important">#!/bin/bash</span>
+<span class="token keyword">case</span> <span class="token variable">$1</span> <span class="token keyword">in</span>
+<span class="token string">"start"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> hadoop1 hadoop2 hadoop3
+  <span class="token keyword">do</span>
+​    <span class="token builtin class-name">echo</span> <span class="token string">" --------启动 <span class="token variable">$i</span> Kafka-------"</span>
+​    <span class="token function">ssh</span> <span class="token variable">$i</span> <span class="token string">"/root/soft/kafka/bin/kafka-server-start.sh -daemon /root/soft/kafka/config/server.properties "</span>
+  <span class="token keyword">done</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token string">"stop"</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+  <span class="token keyword">for</span> <span class="token for-or-select variable">i</span> <span class="token keyword">in</span> hadoop1 hadoop2 hadoop3
+  <span class="token keyword">do</span>
+​    <span class="token builtin class-name">echo</span> <span class="token string">" --------停止 <span class="token variable">$i</span> Kafka-------"</span>
+​    <span class="token function">ssh</span> <span class="token variable">$i</span> <span class="token string">"/root/soft/kafka/bin/kafka-server-stop.sh stop"</span>
+  <span class="token keyword">done</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">;</span><span class="token punctuation">;</span>
+<span class="token keyword">esac</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122655855.png" alt="image-20220516122655855"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#添加脚本执行权限：</span></span><br><span class="line"><span class="built_in">chmod</span> u+x kf.sh</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#添加脚本执行权限：</span>
+<span class="token function">chmod</span> u+x kf.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122701672.png" alt="image-20220516122701672"></p>
-<h2 id="7-启动kafka集群"><a href="#7-启动kafka集群" class="headerlink" title="(7).启动kafka集群"></a>(7).启动kafka集群</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">启#动kafka集群需要先启动zookeeper集群：</span><br><span class="line">zk.sh start |  kf.sh start</span><br></pre></td></tr></table></figure>
+<h2 id="7-启动kafka集群"><a href="#7-启动kafka集群" class="headerlink" title="(7).启动kafka集群"></a>(7).启动kafka集群</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">启<span class="token comment">#动kafka集群需要先启动zookeeper集群：</span>
+zk.sh start <span class="token operator">|</span>  kf.sh start<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122705626.png" alt="image-20220516122705626"></p>
 <p>使用jps查看三台机器的节点是否启动：jps</p>
 <p><img src="/2022/05/16/hadoop/image-20220516122709528.png" alt="image-20220516122709528"> <img src="/2022/05/16/hadoop/image-20220516122713433.png" alt="image-20220516122713433"> <img src="/2022/05/16/hadoop/image-20220516122716947.png" alt="image-20220516122716947"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#关闭kafka集群：</span></span><br><span class="line">kf.sh stop</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#关闭kafka集群：</span>
+kf.sh stop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122721107.png" alt="image-20220516122721107"></p>
-<h2 id="8-kafka集群的简单使用"><a href="#8-kafka集群的简单使用" class="headerlink" title="(8).kafka集群的简单使用"></a>(8).kafka集群的简单使用</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#启动kafka集群：</span></span><br><span class="line">kf.sh start</span><br><span class="line"></span><br><span class="line"><span class="comment">#进入kafka目录：</span></span><br><span class="line"><span class="built_in">cd</span> <span class="variable">$KAFKA_HOME</span></span><br><span class="line"></span><br><span class="line"><span class="comment">#查看kafka topic列表：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka --list</span><br></pre></td></tr></table></figure>
+<h2 id="8-kafka集群的简单使用"><a href="#8-kafka集群的简单使用" class="headerlink" title="(8).kafka集群的简单使用"></a>(8).kafka集群的简单使用</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#启动kafka集群：</span>
+kf.sh start
+
+<span class="token comment">#进入kafka目录：</span>
+<span class="token builtin class-name">cd</span> <span class="token variable">$KAFKA_HOME</span>
+
+<span class="token comment">#查看kafka topic列表：</span>
+bin/kafka-topics.sh <span class="token parameter variable">--zookeeper</span> hadoop1:2181/kafka <span class="token parameter variable">--list</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122725063.png" alt="image-20220516122725063"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#创建topic：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka \</span><br><span class="line">--create --replication-factor 3 --partitions 1 --topic demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#创建topic：</span>
+bin/kafka-topics.sh <span class="token parameter variable">--zookeeper</span> hadoop1:2181/kafka <span class="token punctuation">\</span>
+<span class="token parameter variable">--create</span> --replication-factor <span class="token number">3</span> <span class="token parameter variable">--partitions</span> <span class="token number">1</span> <span class="token parameter variable">--topic</span> demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122729379.png" alt="image-20220516122729379"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#删除topic：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka \</span><br><span class="line">--delete --topic demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#删除topic：</span>
+bin/kafka-topics.sh <span class="token parameter variable">--zookeeper</span> hadoop1:2181/kafka <span class="token punctuation">\</span>
+<span class="token parameter variable">--delete</span> <span class="token parameter variable">--topic</span> demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122733878.png" alt="image-20220516122733878"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#发送消息：</span></span><br><span class="line">bin/kafka-console-producer.sh \</span><br><span class="line">--broker-list hadoop1:9092 --topic demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#发送消息：</span>
+bin/kafka-console-producer.sh <span class="token punctuation">\</span>
+--broker-list hadoop1:9092 <span class="token parameter variable">--topic</span> demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122737468.png" alt="image-20220516122737468"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#消费消息：</span></span><br><span class="line">bin/kafka-console-consumer.sh \</span><br><span class="line">--bootstrap-server hadoop1:9092 --from-beginning --topic demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#消费消息：</span>
+bin/kafka-console-consumer.sh <span class="token punctuation">\</span>
+--bootstrap-server hadoop1:9092 --from-beginning <span class="token parameter variable">--topic</span> demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122741682.png" alt="image-20220516122741682"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#查看某个topic的详情：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka \ --describe --topic demo</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#查看某个topic的详情：</span>
+bin/kafka-topics.sh <span class="token parameter variable">--zookeeper</span> hadoop1:2181/kafka <span class="token punctuation">\</span> <span class="token parameter variable">--describe</span> <span class="token parameter variable">--topic</span> demo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122746568.png" alt="image-20220516122746568"> <img src="/2022/05/16/hadoop/image-20220516122750832.png" alt="image-20220516122750832"></p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#修改分区数：</span></span><br><span class="line">bin/kafka-topics.sh --zookeeper hadoop1:2181/kafka --alter --topic demo --partitions 6</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment">#修改分区数：</span>
+bin/kafka-topics.sh <span class="token parameter variable">--zookeeper</span> hadoop1:2181/kafka <span class="token parameter variable">--alter</span> <span class="token parameter variable">--topic</span> demo <span class="token parameter variable">--partitions</span> <span class="token number">6</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/16/hadoop/image-20220516122757161.png" alt="image-20220516122757161"></p>
 

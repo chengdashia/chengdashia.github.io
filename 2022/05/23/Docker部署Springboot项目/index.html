@@ -40,6 +40,10 @@ https://blog.csdn.net/hangao233/article/details/104395693https://www.jianshu.com
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
@@ -435,39 +439,61 @@ https://blog.csdn.net/hangao233/article/details/104395693https://www.jianshu.com
 <h2 id="第一步：先在虚拟机或服务器上安装docker服务"><a href="#第一步：先在虚拟机或服务器上安装docker服务" class="headerlink" title="第一步：先在虚拟机或服务器上安装docker服务"></a>第一步：先在虚拟机或服务器上安装docker服务</h2><blockquote>
 <p>要安装Docker Engine，您需要CentOS 7或8的维护版本。不支持或未测试存档版本。</p>
 </blockquote>
-<h3 id="1，卸载旧版本"><a href="#1，卸载旧版本" class="headerlink" title="1，卸载旧版本"></a>1，卸载旧版本</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo yum remove docker \</span><br><span class="line">                  docker<span class="literal">-client</span> \</span><br><span class="line">                  docker<span class="literal">-client-latest</span> \</span><br><span class="line">                  docker<span class="literal">-common</span> \</span><br><span class="line">                  docker<span class="literal">-latest</span> \</span><br><span class="line">                  docker<span class="literal">-latest-logrotate</span> \</span><br><span class="line">                  docker<span class="literal">-logrotate</span> \</span><br><span class="line">                  docker<span class="literal">-engine</span></span><br></pre></td></tr></table></figure>
+<h3 id="1，卸载旧版本"><a href="#1，卸载旧版本" class="headerlink" title="1，卸载旧版本"></a>1，卸载旧版本</h3><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo yum remove docker \
+                  docker-client \
+                  docker-client-latest \
+                  docker-common \
+                  docker-latest \
+                  docker-latest-logrotate \
+                  docker-logrotate \
+                  docker-engine<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></p>
 <p>yum报告没有安装这些软件包就可以了。</p>
-<h3 id="2，安装docker软件包"><a href="#2，安装docker软件包" class="headerlink" title="2，安装docker软件包"></a>2，安装docker软件包</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum install <span class="literal">-y</span> yum<span class="literal">-utils</span></span><br></pre></td></tr></table></figure>
+<h3 id="2，安装docker软件包"><a href="#2，安装docker软件包" class="headerlink" title="2，安装docker软件包"></a>2，安装docker软件包</h3><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo yum install <span class="token operator">-</span>y yum-utils<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h3 id="3-设置镜像仓库地址"><a href="#3-设置镜像仓库地址" class="headerlink" title="3,设置镜像仓库地址"></a>3,设置镜像仓库地址</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 默认是国外的</span></span><br><span class="line">sudo yum<span class="literal">-config-manager</span> \</span><br><span class="line">    <span class="literal">--add-repo</span> \</span><br><span class="line">    https://download.docker.com/linux/centos/docker<span class="literal">-ce</span>.repo</span><br><span class="line">    </span><br><span class="line"><span class="comment"># 换成阿里云镜像地址</span></span><br><span class="line">sudo yum<span class="literal">-config-manager</span> \</span><br><span class="line">    <span class="literal">--add-repo</span> \</span><br><span class="line">    http://mirrors.aliyun.com/docker<span class="literal">-ce</span>/linux/centos/docker<span class="literal">-ce</span>.repo</span><br></pre></td></tr></table></figure>
+<h3 id="3-设置镜像仓库地址"><a href="#3-设置镜像仓库地址" class="headerlink" title="3,设置镜像仓库地址"></a>3,设置镜像仓库地址</h3><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># 默认是国外的</span>
+sudo yum-config-manager \
+    <span class="token operator">--</span><span class="token function">add-repo</span> \
+    https:<span class="token operator">/</span><span class="token operator">/</span>download<span class="token punctuation">.</span>docker<span class="token punctuation">.</span>com/linux/centos/docker-ce<span class="token punctuation">.</span>repo
+    
+<span class="token comment"># 换成阿里云镜像地址</span>
+sudo yum-config-manager \
+    <span class="token operator">--</span><span class="token function">add-repo</span> \
+    http:<span class="token operator">/</span><span class="token operator">/</span>mirrors<span class="token punctuation">.</span>aliyun<span class="token punctuation">.</span>com/docker-ce/linux/centos/docker-ce<span class="token punctuation">.</span>repo<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-16532862391191.png" alt="在这里插入图片描述"></p>
 <h3 id="4-安装最新版Docker-Engine容器"><a href="#4-安装最新版Docker-Engine容器" class="headerlink" title="4,安装最新版Docker Engine容器"></a>4,安装最新版Docker Engine容器</h3><p>安装前建议先将将服务器上的软件包信息现在本地缓存,以提高安装软件的速度  </p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo yum makecache fast</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo yum makecache fast<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-16532862391202.png" alt="在这里插入图片描述">  </p>
-<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># docker-ce社区版(docker-ee企业版)</span></span><br><span class="line">sudo yum install docker<span class="literal">-ce</span> docker<span class="literal">-ce-cli</span> containerd.io</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell"><span class="token comment"># docker-ce社区版(docker-ee企业版)</span>
+sudo yum install docker-ce docker-ce-<span class="token function">cli</span> containerd<span class="token punctuation">.</span>io<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-16532862391203.png" alt="在这里插入图片描述">安装完成后，Docker只安装但并未启动</p>
-<h3 id="5，启动Docker"><a href="#5，启动Docker" class="headerlink" title="5，启动Docker"></a>5，启动Docker</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo systemctl <span class="built_in">start</span> docker</span><br></pre></td></tr></table></figure>
+<h3 id="5，启动Docker"><a href="#5，启动Docker" class="headerlink" title="5，启动Docker"></a>5，启动Docker</h3><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">sudo systemctl <span class="token function">start</span> docker<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>然后可用docker version命令测试Docker是否安装成功，并查看Docker的版本信息<br><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-16532862391204.png" alt="在这里插入图片描述"></p>
-<h2 id="第二步：使用Docker安装mysql：5-7"><a href="#第二步：使用Docker安装mysql：5-7" class="headerlink" title="第二步：使用Docker安装mysql：5.7"></a>第二步：使用Docker安装mysql：5.7</h2><h3 id="1可以先在docker-hub上查找mysql的镜像"><a href="#1可以先在docker-hub上查找mysql的镜像" class="headerlink" title="1可以先在docker hub上查找mysql的镜像"></a>1可以先在docker hub上查找mysql的镜像</h3><figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker search mysql</span><br></pre></td></tr></table></figure>
+<h2 id="第二步：使用Docker安装mysql：5-7"><a href="#第二步：使用Docker安装mysql：5-7" class="headerlink" title="第二步：使用Docker安装mysql：5.7"></a>第二步：使用Docker安装mysql：5.7</h2><h3 id="1可以先在docker-hub上查找mysql的镜像"><a href="#1可以先在docker-hub上查找mysql的镜像" class="headerlink" title="1可以先在docker hub上查找mysql的镜像"></a>1可以先在docker hub上查找mysql的镜像</h3><pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">docker search mysql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-16532862391205.png" alt="在这里插入图片描述"></p>
 <h3 id="2，我这次安装的mysql-5-7"><a href="#2，我这次安装的mysql-5-7" class="headerlink" title="2，我这次安装的mysql:5.7"></a>2，我这次安装的mysql:5.7</h3><p>所以直接从docker hub上拉取mysql:5.7  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql:5.7</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull mysql:5.7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="3-运行mysql"><a href="#3-运行mysql" class="headerlink" title="3,运行mysql"></a>3,运行mysql</h3><blockquote>
 <p>运行容器，需要做数据挂载！ #安装启动MySQL，需要配置密码，这是要注意点！<br>官方测试：docker run —name some-mysql -e MYSQL_ROOT_PASSWORD&#x3D;my-secret-pw -d mysql:tag<br>启动：<br>-d 后台运行<br>-p 端口映射<br>-v 卷挂载<br>-e 环境配置<br>—name 容器名字  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d -p 3306:3306 -v /home/mysql/conf:/etc/mysql/conf.d -v /home/mysql/data:/var/lib/mysql -e MYSQL_ROOT_PASSWORD=123456 --name mysql0 mysql:5.7</span><br></pre></td></tr></table></figure></blockquote>
-<h3 id="4-查看容器是否创建成功"><a href="#4-查看容器是否创建成功" class="headerlink" title="4,查看容器是否创建成功"></a>4,查看容器是否创建成功</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">docker  ps 命令</span><br><span class="line">      <span class="comment">#列出当前正在运行的容器</span></span><br><span class="line">-a    <span class="comment">#列出当前正在运行的容器+带出历史运行过的容器</span></span><br><span class="line">-n=?  <span class="comment">#显示最近创建的容器</span></span><br><span class="line">-q    <span class="comment">#只显示容器的编号</span></span><br><span class="line"></span><br><span class="line">docker ps</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">3306</span>:3306 <span class="token parameter variable">-v</span> /home/mysql/conf:/etc/mysql/conf.d <span class="token parameter variable">-v</span> /home/mysql/data:/var/lib/mysql <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123456</span> <span class="token parameter variable">--name</span> mysql0 mysql:5.7<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre></blockquote>
+<h3 id="4-查看容器是否创建成功"><a href="#4-查看容器是否创建成功" class="headerlink" title="4,查看容器是否创建成功"></a>4,查看容器是否创建成功</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span>  <span class="token function">ps</span> 命令
+      <span class="token comment">#列出当前正在运行的容器</span>
+<span class="token parameter variable">-a</span>    <span class="token comment">#列出当前正在运行的容器+带出历史运行过的容器</span>
+<span class="token parameter variable">-n</span><span class="token operator">=</span>?  <span class="token comment">#显示最近创建的容器</span>
+<span class="token parameter variable">-q</span>    <span class="token comment">#只显示容器的编号</span>
+
+<span class="token function">docker</span> <span class="token function">ps</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/79fbe2e581464313ac4e2e16a5881de6.png" alt="在这里插入图片描述"></p>
 <p>有个命令，可以进入容器内部,ctrl+p+q可以以后台运行的方式退出这个软件  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker <span class="built_in">exec</span> -it 容器的<span class="built_in">id</span> /bin/bash</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> <span class="token builtin class-name">exec</span> <span class="token parameter variable">-it</span> 容器的id /bin/bash<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="5，使用navicat连接服务器或虚拟机上的mysql"><a href="#5，使用navicat连接服务器或虚拟机上的mysql" class="headerlink" title="5，使用navicat连接服务器或虚拟机上的mysql"></a>5，使用navicat连接服务器或虚拟机上的mysql</h3><p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_16,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"></p>
 <h3 id="6，可以使用navicat提供的工具进行数据的传输"><a href="#6，可以使用navicat提供的工具进行数据的传输" class="headerlink" title="6，可以使用navicat提供的工具进行数据的传输"></a>6，可以使用navicat提供的工具进行数据的传输</h3><p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-16532862391206.png" alt="在这里插入图片描述"></p>
@@ -476,16 +502,63 @@ https://blog.csdn.net/hangao233/article/details/104395693https://www.jianshu.com
 <p>打包成功会看到出现一个target的目录，里面的jar包就是我们刚刚打包好的<br><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_12,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"><br>然后对yml文件进行编辑：</p>
 <h3 id="2-编写DockerFile文件"><a href="#2-编写DockerFile文件" class="headerlink" title="2.编写DockerFile文件"></a>2.编写DockerFile文件</h3><p>在idea的插件市场搜索docker，并安装<br><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-16532862391218.png" alt="在这里插入图片描述"><br>然后在根目录下新建一个Dockerfile的文件：  </p>
 <p>如果显示是这样的说明docker那个插件下载安装成功，然后编写Dockerfile文件：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">FROM            <span class="comment">#基础镜像，一切从这里开始构建。</span></span><br><span class="line">MAINTAINER      <span class="comment">#镜像是谁写的，姓名+邮箱</span></span><br><span class="line">RUN             <span class="comment">#镜像构建的时候需要运行的命令</span></span><br><span class="line">ADD             <span class="comment">#步骤：tomcat镜像，这个tomcat压缩包！添加内容</span></span><br><span class="line">WORKDIR         <span class="comment">#镜像的工作目录</span></span><br><span class="line">VOLUME          <span class="comment">#挂载的目录</span></span><br><span class="line">EXPOST          <span class="comment">#保留端口配置</span></span><br><span class="line">CMD             <span class="comment">#指定这个容器启动的时候要运行的命令，只有一个会生效，可被替代。</span></span><br><span class="line">ENTRYPOINT      <span class="comment">#指定这个容器启动的时候要运行的命令，可以追加命令。</span></span><br><span class="line">ONBUILD         <span class="comment">#当构建一个被集成DockerFile这个时候就会运行ONBUILD的指令。触发指令。</span></span><br><span class="line">COPY            <span class="comment">#类似ADD，将我们文件拷贝到镜像中。</span></span><br><span class="line">ENV             <span class="comment">#构建的时候设置环境变量。</span></span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">FROM            <span class="token comment">#基础镜像，一切从这里开始构建。</span>
+MAINTAINER      <span class="token comment">#镜像是谁写的，姓名+邮箱</span>
+RUN             <span class="token comment">#镜像构建的时候需要运行的命令</span>
+ADD             <span class="token comment">#步骤：tomcat镜像，这个tomcat压缩包！添加内容</span>
+WORKDIR         <span class="token comment">#镜像的工作目录</span>
+VOLUME          <span class="token comment">#挂载的目录</span>
+EXPOST          <span class="token comment">#保留端口配置</span>
+CMD             <span class="token comment">#指定这个容器启动的时候要运行的命令，只有一个会生效，可被替代。</span>
+ENTRYPOINT      <span class="token comment">#指定这个容器启动的时候要运行的命令，可以追加命令。</span>
+ONBUILD         <span class="token comment">#当构建一个被集成DockerFile这个时候就会运行ONBUILD的指令。触发指令。</span>
+COPY            <span class="token comment">#类似ADD，将我们文件拷贝到镜像中。</span>
+ENV             <span class="token comment">#构建的时候设置环境变量。</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/38da9bf783b040aebe4d99acac03e73e.png" alt="在这里插入图片描述"></p>
 <h3 id="3-构建镜像"><a href="#3-构建镜像" class="headerlink" title="3.构建镜像"></a>3.构建镜像</h3><p>使用xftp将刚才打包的jar包还有编写的Dockerfile文件上传到虚拟机或是服务器</p>
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-165328623912110.png" alt="在这里插入图片描述"></p>
 <p>然后使用命令构建镜像：  </p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost project] <span class="built_in">ls</span></span><br><span class="line">Dockerfile  onlineExam-0.0.1-SNAPSHOT.jar</span><br><span class="line"></span><br><span class="line">[root@localhost project] docker build -t onlineexam .</span><br><span class="line">Sending build context to Docker daemon  16.55MB</span><br><span class="line">Step 1/5 : FROM java:8</span><br><span class="line">8: Pulling from library/java</span><br><span class="line">5040bd298390: Pull complete </span><br><span class="line">fce5728aad85: Pull complete </span><br><span class="line">76610ec20bf5: Pull complete </span><br><span class="line">60170fec2151: Pull complete </span><br><span class="line">e98f73de8f0d: Pull complete </span><br><span class="line">11f7af24ed9c: Pull complete </span><br><span class="line">49e2d6393f32: Pull complete </span><br><span class="line">bb9cdec9c7f3: Pull complete </span><br><span class="line">Digest: sha256:c1ff613e8ba25833d2e1940da0940c3824f03f802c449f3d1815a66b7f8c0e9d</span><br><span class="line">Status: Downloaded newer image <span class="keyword">for</span> java:8</span><br><span class="line"> ---&gt; d23bdf5b1b1b</span><br><span class="line">Step 2/5 : COPY *.jar /app.jar</span><br><span class="line"> ---&gt; 63fda5bdcb6d</span><br><span class="line">Step 3/5 : CMD [<span class="string">&quot;--server.port=8888&quot;</span>]</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 5e94d333492d</span><br><span class="line">Removing intermediate container 5e94d333492d</span><br><span class="line"> ---&gt; 59bd2f4e0120</span><br><span class="line">Step 4/5 : EXPOSE 8888</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> 99c4427313de</span><br><span class="line">Removing intermediate container 99c4427313de</span><br><span class="line"> ---&gt; d4792bf4f884</span><br><span class="line">Step 5/5 : ENTRYPOINT [<span class="string">&quot;java&quot;</span>,<span class="string">&quot;-jar&quot;</span>,<span class="string">&quot;/app.jar&quot;</span>]</span><br><span class="line"> ---&gt; Running <span class="keyword">in</span> da3be5f92a55</span><br><span class="line">Removing intermediate container da3be5f92a55</span><br><span class="line"> ---&gt; 2df101d6382c</span><br><span class="line">Successfully built a42985afa2f3</span><br><span class="line">Successfully tagged onlineexam:latest</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost project<span class="token punctuation">]</span> <span class="token function">ls</span>
+Dockerfile  onlineExam-0.0.1-SNAPSHOT.jar
+
+<span class="token punctuation">[</span>root@localhost project<span class="token punctuation">]</span> <span class="token function">docker</span> build <span class="token parameter variable">-t</span> onlineexam <span class="token builtin class-name">.</span>
+Sending build context to Docker daemon  <span class="token number">16</span>.55MB
+Step <span class="token number">1</span>/5 <span class="token builtin class-name">:</span> FROM java:8
+<span class="token number">8</span>: Pulling from library/java
+5040bd298390: Pull complete 
+fce5728aad85: Pull complete 
+76610ec20bf5: Pull complete 
+60170fec2151: Pull complete 
+e98f73de8f0d: Pull complete 
+11f7af24ed9c: Pull complete 
+49e2d6393f32: Pull complete 
+bb9cdec9c7f3: Pull complete 
+Digest: sha256:c1ff613e8ba25833d2e1940da0940c3824f03f802c449f3d1815a66b7f8c0e9d
+Status: Downloaded newer image <span class="token keyword">for</span> java:8
+ ---<span class="token operator">></span> d23bdf5b1b1b
+Step <span class="token number">2</span>/5 <span class="token builtin class-name">:</span> COPY *.jar /app.jar
+ ---<span class="token operator">></span> 63fda5bdcb6d
+Step <span class="token number">3</span>/5 <span class="token builtin class-name">:</span> CMD <span class="token punctuation">[</span><span class="token string">"--server.port=8888"</span><span class="token punctuation">]</span>
+ ---<span class="token operator">></span> Running <span class="token keyword">in</span> 5e94d333492d
+Removing intermediate container 5e94d333492d
+ ---<span class="token operator">></span> 59bd2f4e0120
+Step <span class="token number">4</span>/5 <span class="token builtin class-name">:</span> EXPOSE <span class="token number">8888</span>
+ ---<span class="token operator">></span> Running <span class="token keyword">in</span> 99c4427313de
+Removing intermediate container 99c4427313de
+ ---<span class="token operator">></span> d4792bf4f884
+Step <span class="token number">5</span>/5 <span class="token builtin class-name">:</span> ENTRYPOINT <span class="token punctuation">[</span><span class="token string">"java"</span>,<span class="token string">"-jar"</span>,<span class="token string">"/app.jar"</span><span class="token punctuation">]</span>
+ ---<span class="token operator">></span> Running <span class="token keyword">in</span> da3be5f92a55
+Removing intermediate container da3be5f92a55
+ ---<span class="token operator">></span> 2df101d6382c
+Successfully built a42985afa2f3
+Successfully tagged onlineexam:latest<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_18,color_FFFFFF,t_70,g_se,x_16.png" alt="在这里插入图片描述"><br>然后可以使用docker images 展示刚刚构建好的镜像<br><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/cc0a3049f0aa4b72bd8c0e3d285bb031.png" alt="在这里插入图片描述"></p>
-<h3 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost project] docker run -d -p 8888:8888 onlineexam</span><br><span class="line"></span><br><span class="line">-d参数是让容器后台运行 </span><br><span class="line">-p 是做端口映射，此时将服务器中的8888端口映射到容器中的8888(项目中端口配置的是8888)端口</span><br></pre></td></tr></table></figure>
+<h3 id="4-启动容器"><a href="#4-启动容器" class="headerlink" title="4.启动容器"></a>4.启动容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token punctuation">[</span>root@localhost project<span class="token punctuation">]</span> <span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">-p</span> <span class="token number">8888</span>:8888 onlineexam
+
+-d参数是让容器后台运行 
+<span class="token parameter variable">-p</span> 是做端口映射，此时将服务器中的8888端口映射到容器中的8888<span class="token punctuation">(</span>项目中端口配置的是8888<span class="token punctuation">)</span>端口<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>然后使用docker ps查看一下：<br><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/21d51a487203489280b5bdbd1863d600.png" alt="在这里插入图片描述"><br>ok，到此启动成功了！<br>由于我此此的springboot项目使用了redis。你们可以选择使用docker安装，还可以参考一下我的这个<a href="Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/https://blog.csdn.net/m0_49683806/article/details/123359905?spm=1001.2014.3001.5501">centos 7安装redis</a></p>
 <h2 id="第四步：测试"><a href="#第四步：测试" class="headerlink" title="第四步：测试"></a>第四步：测试</h2><p>因为我springboot使用了swagger（现在是knife4j），所以我在浏览器测试是否可以打开：<br><img src="/2022/05/23/Docker%E9%83%A8%E7%BD%B2Springboot%E9%A1%B9%E7%9B%AE/watermark,type_d3F5LXplbmhlaQ,shadow_50,text_Q1NETiBAQ0gtU2VyZW5kaXBpdHk=,size_20,color_FFFFFF,t_70,g_se,x_16-165328623912211.png" alt="在这里插入图片描述"><br>ok，测试一下功能都ok了。<br>到此就结束了。</p>

@@ -39,6 +39,10 @@
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
@@ -421,7 +425,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    727
+                    722
                 </div>
                 
 
@@ -455,24 +459,63 @@
 <li><strong>临时和永久配置 (Runtime and Permanent Configuration)</strong>: <code>firewalld</code> 允许你进行临时（运行时）或永久更改。临时更改在服务或系统重启后不生效，而永久更改需要重新加载防火墙配置或重启服务。</li>
 </ul>
 <p><img src="/2024/01/20/linux-centos7-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4-%E5%BC%80%E5%90%AF%E5%85%B3%E9%97%AD%E9%98%B2%E7%81%AB%E5%A2%99/8327462f5523f91029ddaf4ae73181c0.png" alt="在这里插入图片描述"></p>
-<h4 id="参数含义"><a href="#参数含义" class="headerlink" title="参数含义"></a><span id="_12"></span>参数含义</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">-zone  #作用域</span><br><span class="line">-add-port=80/tcp  # 添加端口，格式为：端口/通讯协议</span><br><span class="line">-permanent # 永久生效，没有此参数重启后失效</span><br></pre></td></tr></table></figure>
+<h4 id="参数含义"><a href="#参数含义" class="headerlink" title="参数含义"></a><span id="_12"></span>参数含义</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token parameter variable">-zone</span>  <span class="token comment">#作用域</span>
+-add-port<span class="token operator">=</span><span class="token number">80</span>/tcp  <span class="token comment"># 添加端口，格式为：端口/通讯协议</span>
+<span class="token parameter variable">-permanent</span> <span class="token comment"># 永久生效，没有此参数重启后失效</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="开启-关闭防火墙"><a href="#开启-关闭防火墙" class="headerlink" title="开启&#x2F;关闭防火墙"></a><span id="_18"></span>开启&#x2F;关闭防火墙</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开启防火墙</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl start firewalld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭防火墙</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl stop firewalld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置防火墙开机启动</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">enable</span> firewalld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 设置防火墙开机不启动</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl <span class="built_in">disable</span> firewalld</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重启防火墙服务</span></span><br><span class="line"><span class="built_in">sudo</span> systemctl restart firewalld</span><br></pre></td></tr></table></figure>
+<h3 id="开启-关闭防火墙"><a href="#开启-关闭防火墙" class="headerlink" title="开启&#x2F;关闭防火墙"></a><span id="_18"></span>开启&#x2F;关闭防火墙</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 开启防火墙</span>
+<span class="token function">sudo</span> systemctl start firewalld
 
-<h3 id="查看防火墙状态"><a href="#查看防火墙状态" class="headerlink" title="查看防火墙状态"></a><span id="_37"></span>查看防火墙状态</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> systemctl status firewalld</span><br></pre></td></tr></table></figure>
+<span class="token comment"># 关闭防火墙</span>
+<span class="token function">sudo</span> systemctl stop firewalld
 
-<h3 id="端口管理"><a href="#端口管理" class="headerlink" title="端口管理"></a><span id="_43"></span>端口管理</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 添加一个永久的开放端口规则</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --zone=public --permanent --add-port=XXXX/tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 移除一个永久的开放端口规则</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --zone=public --permanent --remove-port=XXXX/tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 立即开放一个端口（直到下一次重新加载）</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --add-port=XXXX/tcp</span><br><span class="line"></span><br><span class="line"><span class="comment"># 立即关闭一个端口（直到下一次重新加载）</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --remove-port=XXXX/tcp</span><br></pre></td></tr></table></figure>
+<span class="token comment"># 设置防火墙开机启动</span>
+<span class="token function">sudo</span> systemctl <span class="token builtin class-name">enable</span> firewalld
+
+<span class="token comment"># 设置防火墙开机不启动</span>
+<span class="token function">sudo</span> systemctl disable firewalld
+
+<span class="token comment"># 重启防火墙服务</span>
+<span class="token function">sudo</span> systemctl restart firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="查看防火墙状态"><a href="#查看防火墙状态" class="headerlink" title="查看防火墙状态"></a><span id="_37"></span>查看防火墙状态</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> systemctl status firewalld<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="端口管理"><a href="#端口管理" class="headerlink" title="端口管理"></a><span id="_43"></span>端口管理</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 添加一个永久的开放端口规则</span>
+<span class="token function">sudo</span> firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public <span class="token parameter variable">--permanent</span> --add-port<span class="token operator">=</span>XXXX/tcp
+
+<span class="token comment"># 移除一个永久的开放端口规则</span>
+<span class="token function">sudo</span> firewall-cmd <span class="token parameter variable">--zone</span><span class="token operator">=</span>public <span class="token parameter variable">--permanent</span> --remove-port<span class="token operator">=</span>XXXX/tcp
+
+<span class="token comment"># 立即开放一个端口（直到下一次重新加载）</span>
+<span class="token function">sudo</span> firewall-cmd --add-port<span class="token operator">=</span>XXXX/tcp
+
+<span class="token comment"># 立即关闭一个端口（直到下一次重新加载）</span>
+<span class="token function">sudo</span> firewall-cmd --remove-port<span class="token operator">=</span>XXXX/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>将 <code>XXXX</code> 替换为您希望开放或关闭的端口号。对于 UDP 端口，将 <code>tcp</code> 替换为 <code>udp</code>。</p>
 <h3 id="重新加载防火墙规则"><a href="#重新加载防火墙规则" class="headerlink" title="重新加载防火墙规则"></a><span id="_61"></span>重新加载防火墙规则</h3><p>在更改了防火墙规则之后，您需要重新加载 <code>firewalld</code> 来应用这些更改：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">sudo</span> firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> firewall-cmd <span class="token parameter variable">--reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>这将应用所有永久规则，并保持当前活动的会话。</p>
 <h3 id="服务管理"><a href="#服务管理" class="headerlink" title="服务管理"></a><span id="_71"></span>服务管理</h3><p>与端口不同，服务是预先定义的端口和协议组合。您可以管理服务而不是单独的端口：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 开放一个服务</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --permanent --add-service=http</span><br><span class="line"></span><br><span class="line"><span class="comment"># 关闭一个服务</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --permanent --remove-service=http</span><br><span class="line"></span><br><span class="line"><span class="comment"># 重新加载防火墙来应用更改</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --reload</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 开放一个服务</span>
+<span class="token function">sudo</span> firewall-cmd <span class="token parameter variable">--permanent</span> --add-service<span class="token operator">=</span>http
+
+<span class="token comment"># 关闭一个服务</span>
+<span class="token function">sudo</span> firewall-cmd <span class="token parameter variable">--permanent</span> --remove-service<span class="token operator">=</span>http
+
+<span class="token comment"># 重新加载防火墙来应用更改</span>
+<span class="token function">sudo</span> firewall-cmd <span class="token parameter variable">--reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="查看开放的端口和服务"><a href="#查看开放的端口和服务" class="headerlink" title="查看开放的端口和服务"></a><span id="_86"></span>查看开放的端口和服务</h3><p>要查看当前开放的端口和服务，可以使用以下命令：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看当前活动区域的开放端口</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --list-ports</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看当前活动区域的开放服务</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --list-services</span><br><span class="line"></span><br><span class="line"><span class="comment"># 查看所有永久规则（需要重新加载后生效）</span></span><br><span class="line"><span class="built_in">sudo</span> firewall-cmd --list-all --permanent</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看当前活动区域的开放端口</span>
+<span class="token function">sudo</span> firewall-cmd --list-ports
+
+<span class="token comment"># 查看当前活动区域的开放服务</span>
+<span class="token function">sudo</span> firewall-cmd --list-services
+
+<span class="token comment"># 查看所有永久规则（需要重新加载后生效）</span>
+<span class="token function">sudo</span> firewall-cmd --list-all <span class="token parameter variable">--permanent</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
@@ -675,6 +718,10 @@
                 
                 <div class="card-action article-tags">
                     
+                    <a href="/tags/centos/">
+                        <span class="chip bg-color">centos</span>
+                    </a>
+                    
                     <a href="/tags/%E8%BE%B9%E7%BC%98%E8%AE%A1%E7%AE%97/">
                         <span class="chip bg-color">边缘计算</span>
                     </a>
@@ -689,10 +736,6 @@
                     
                     <a href="/tags/%E8%81%94%E9%82%A6%E5%AD%A6%E4%B9%A0/">
                         <span class="chip bg-color">联邦学习</span>
-                    </a>
-                    
-                    <a href="/tags/centos/">
-                        <span class="chip bg-color">centos</span>
                     </a>
                     
                     <a href="/tags/%E9%80%9A%E4%BF%A1/">

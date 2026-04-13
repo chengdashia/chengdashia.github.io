@@ -40,6 +40,10 @@
 <link rel="stylesheet" type="text/css" href="/css/dark.css" media="none" onload="if(media!='all')media='all'">
 
 
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css">
+
+
+
 
 
     <link rel="stylesheet" href="/libs/tocbot/tocbot.css">
@@ -402,7 +406,7 @@
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    678
+                    665
                 </div>
                 
 
@@ -435,27 +439,55 @@
 <h2 id="二、环境配置"><a href="#二、环境配置" class="headerlink" title="二、环境配置"></a><span id="_13"></span>二、环境配置</h2><p>1、Gitub官网下载yolov5源码：<a target="_blank" rel="noopener" href="https://github.com/ultralytics/yolov5">官方地址</a></p>
 <p>2、Anaconda 安装配置（省略）</p>
 <p>3、创建新的环境（python&#x3D;3.8就行，因为使用的是7.0的版本，3.6有点低。）</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda create -n pytorch python=3.8.5</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">conda create <span class="token parameter variable">-n</span> pytorch <span class="token assign-left variable">python</span><span class="token operator">=</span><span class="token number">3.8</span>.5<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>4、安装pytorch：<a target="_blank" rel="noopener" href="https://pytorch.org/">pytorch官网</a><br><img src="/2023/10/19/%E5%9F%BA%E4%BA%8EYOLOv5-7-0%E7%9A%84PCB%E6%9D%BF%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B/072a007f59e843d6e769302edfcdc87f.png" alt="在这里插入图片描述"></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">conda install pytorch torchvision torchaudio pytorch-cuda=11.8 -c pytorch -c nvidia</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">conda <span class="token function">install</span> pytorch torchvision torchaudio pytorch-cuda<span class="token operator">=</span><span class="token number">11.8</span> <span class="token parameter variable">-c</span> pytorch <span class="token parameter variable">-c</span> nvidia<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <p>5、yolov5的依赖下载</p>
 <p>根据下载的 yolov5中的requirements.txt进行安装（缺啥补啥）【注意：具体安装以yolov5的readme.md为主！】</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pip install -r requirements.txt</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> <span class="token parameter variable">-r</span> requirements.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h2 id="三、构建训练数据集"><a href="#三、构建训练数据集" class="headerlink" title="三、构建训练数据集"></a><span id="_38"></span>三、构建训练数据集</h2><p>1、先构建数据集文件夹</p>
 <p>下载好的PCB_DATASET解压后。是下面这种格式。<br><img src="/2023/10/19/%E5%9F%BA%E4%BA%8EYOLOv5-7-0%E7%9A%84PCB%E6%9D%BF%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B/56b7602f12416806f04985474410c7ef.png" alt="在这里插入图片描述"><br>官网下载的PCB数据按照缺陷类划分文件夹的</p>
 <p><img src="/2023/10/19/%E5%9F%BA%E4%BA%8EYOLOv5-7-0%E7%9A%84PCB%E6%9D%BF%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B/75edfff77e9aa8505884453a7a492d98.png" alt="在这里插入图片描述"><br>将每个文件夹内的东西都复制出来到这个文件中。<br><img src="/2023/10/19/%E5%9F%BA%E4%BA%8EYOLOv5-7-0%E7%9A%84PCB%E6%9D%BF%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B/e5b1df9471792937d34ab7960bda1fcf.png" alt="在这里插入图片描述"><br>然后删掉分类的文件夹。</p>
 <p><img src="/2023/10/19/%E5%9F%BA%E4%BA%8EYOLOv5-7-0%E7%9A%84PCB%E6%9D%BF%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B/fbe2e14a0bbe1dc4d4911852517efd3a.png" alt="在这里插入图片描述"><br>images文件夹内的内容也是一样的。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">├── PCB_DATASET</span><br><span class="line">│   ├── Annotations  进行 detection 任务时的标签文件，xml 形式，文件名与图片名一一对应</span><br><span class="line">│   ├── images  存放 .jpg 格式的图片文件</span><br><span class="line">│   ├── ImageSets  存放的是分类和检测的数据集分割文件，包含 train.txt,val.txt ,trainval.txt,test.txt</span><br><span class="line">│   ├── labels  存放label标注信息的txt文件，与图片一一对应</span><br><span class="line"></span><br><span class="line">├── ImageSets(train，val，test建议按照<span class="number">8</span>：<span class="number">1</span>：<span class="number">1</span>比例划分)</span><br><span class="line">│   ├── train.txt  写着用于训练的图片名称</span><br><span class="line">│   ├── val.txt  写着用于验证的图片名称</span><br><span class="line">│   ├── trainval.txt  train与val的合集</span><br><span class="line">│   ├── test.txt  写着用于测试的图片名称</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">├── PCB_DATASET
+│   ├── Annotations  进行 detection 任务时的标签文件，xml 形式，文件名与图片名一一对应
+│   ├── images  存放 <span class="token punctuation">.</span>jpg 格式的图片文件
+│   ├── ImageSets  存放的是分类和检测的数据集分割文件，包含 train<span class="token punctuation">.</span>txt<span class="token punctuation">,</span>val<span class="token punctuation">.</span>txt <span class="token punctuation">,</span>trainval<span class="token punctuation">.</span>txt<span class="token punctuation">,</span>test<span class="token punctuation">.</span>txt
+│   ├── labels  存放label标注信息的txt文件，与图片一一对应
+
+├── ImageSets<span class="token punctuation">(</span>train，val，test建议按照<span class="token number">8</span>：<span class="token number">1</span>：<span class="token number">1</span>比例划分<span class="token punctuation">)</span>
+│   ├── train<span class="token punctuation">.</span>txt  写着用于训练的图片名称
+│   ├── val<span class="token punctuation">.</span>txt  写着用于验证的图片名称
+│   ├── trainval<span class="token punctuation">.</span>txt  train与val的合集
+│   ├── test<span class="token punctuation">.</span>txt  写着用于测试的图片名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><img src="/2023/10/19/%E5%9F%BA%E4%BA%8EYOLOv5-7-0%E7%9A%84PCB%E6%9D%BF%E7%BC%BA%E9%99%B7%E6%A3%80%E6%B5%8B/63e6bccdbfd6a8510b28f54401040cf3.png" alt="在这里插入图片描述"></p>
 <p>2、训练数据生成，分为两个代码（训练集划分代码与用于yolo训练的txt格式代码）</p>
 <p>（1）训练集划分代码</p>
 <p>在PCB_DATASET文件夹下新建ImageSets文件夹。</p>
 <p>用途：主要是将数据集分类成训练数据集和测试数据集，默认train，val，test按照比例进行随机分类，运行后ImagesSets文件夹中会出现四个文件，主要是生成的训练数据集和测试数据集的图片名称。</p>
-<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> os</span><br><span class="line"><span class="keyword">import</span> random</span><br><span class="line"></span><br><span class="line">trainval_percent = <span class="number">0.9</span></span><br><span class="line">train_percent = <span class="number">0.9</span></span><br><span class="line">xmlfilepath = <span class="string">&#x27;D:\\pcb\\PCB_DATASET\\Annotations&#x27;</span></span><br><span class="line">txtsavepath = <span class="string">&#x27;D:\\pcb\\PCB_DATASET\\ImageSets&#x27;</span></span><br><span class="line">total_xml = os.listdir(xmlfilepath)</span><br><span class="line"></span><br><span class="line">num = <span class="built_in">len</span>(total_xml)</span><br><span class="line"><span class="built_in">list</span> = <span class="built_in">range</span>(num)</span><br><span class="line">tv = <span class="built_in">int</span>(num * trainval_percent)</span><br><span class="line">tr = <span class="built_in">int</span>(tv * train_percent)</span><br><span class="line">trainval = random.sample(<span class="built_in">list</span>, tv)</span><br><span class="line">train = random.sample(trainval, tr)</span><br><span class="line"></span><br><span class="line">ftrainval = <span class="built_in">open</span>(txtsavepath+<span class="string">&#x27;\\trainval.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">ftest = <span class="built_in">open</span>(txtsavepath+<span class="string">&#x27;\\test.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br><span class="line">ftrain = <span class="built_in">open</span>(txtsavepath+<span class="string">&#x27;\\train.txt&#x27;</span>, <span class="string">&#x27;w&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> os
+<span class="token keyword">import</span> random
+
+trainval_percent <span class="token operator">=</span> <span class="token number">0.9</span>
+train_percent <span class="token operator">=</span> <span class="token number">0.9</span>
+xmlfilepath <span class="token operator">=</span> <span class="token string">'D:\\pcb\\PCB_DATASET\\Annotations'</span>
+txtsavepath <span class="token operator">=</span> <span class="token string">'D:\\pcb\\PCB_DATASET\\ImageSets'</span>
+total_xml <span class="token operator">=</span> os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>xmlfilepath<span class="token punctuation">)</span>
+
+num <span class="token operator">=</span> <span class="token builtin">len</span><span class="token punctuation">(</span>total_xml<span class="token punctuation">)</span>
+<span class="token builtin">list</span> <span class="token operator">=</span> <span class="token builtin">range</span><span class="token punctuation">(</span>num<span class="token punctuation">)</span>
+tv <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>num <span class="token operator">*</span> trainval_percent<span class="token punctuation">)</span>
+tr <span class="token operator">=</span> <span class="token builtin">int</span><span class="token punctuation">(</span>tv <span class="token operator">*</span> train_percent<span class="token punctuation">)</span>
+trainval <span class="token operator">=</span> random<span class="token punctuation">.</span>sample<span class="token punctuation">(</span><span class="token builtin">list</span><span class="token punctuation">,</span> tv<span class="token punctuation">)</span>
+train <span class="token operator">=</span> random<span class="token punctuation">.</span>sample<span class="token punctuation">(</span>trainval<span class="token punctuation">,</span> tr<span class="token punctuation">)</span>
+
+ftrainval <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>txtsavepath<span class="token operator">+</span><span class="token string">'\\trainval.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+ftest <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>txtsavepath<span class="token operator">+</span><span class="token string">'\\test.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span>
+ftrain <span class="token operator">=</span> <span class="token builtin">open</span><span class="token punctuation">(</span>txtsavepath<span class="token operator">+</span><span class="token string">'\\train.txt'</span><span class="token punctuation">,</span> <span class="token string">'w'</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
                 
             </div>
